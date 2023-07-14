@@ -62,20 +62,19 @@ LC0FF	EQU	0C0FFH		;
 LC2CD	EQU	0C2CDH		;
 LC9C2	EQU	0C9C2H		;
 LCD00	EQU	0CD00H		;
-LE2C4	EQU	0E2C4H		;
-LE931	EQU	0E931H		;
+TRACER	EQU	0E931H		;
 LE9C8	EQU	0E9C8H		;
 LEAAE	EQU	0EAAEH		;
 BEGIN	EQU	0F800H		;
-RF812	EQU	0F812H		;
-RF814	EQU	0F814H		;
+USRCMD	EQU	0F812H		;
+USRJMP	EQU	0F814H		;
 VERSTR	EQU	0F81BH		;
 ERROR	EQU	0F847H		;
 RF85A	EQU	0F85AH		;
 ERRSTR	EQU	0F868H		;
 START0	EQU	0F877H		;
-RF886	EQU	0F886H		;
-RF893	EQU	0F893H		;
+STLOP0	EQU	0F886H		;
+STLOP1	EQU	0F893H		;
 STARTM	EQU	0F8B7H		;
 START	EQU	0F8BBH		;
 CRLOOP	EQU	0F8E1H		;
@@ -117,7 +116,7 @@ RFB3A	EQU	0FB3AH		;
 RFB41	EQU	0FB41H		;
 RFB4D	EQU	0FB4DH		;
 RFB4E	EQU	0FB4EH		;
-RFB53	EQU	0FB53H		;
+PRNRET	EQU	0FB53H		;
 HEXN	EQU	0FB59H		;
 MOVE	EQU	0FB71H		;
 MV0	EQU	0FB78H		;
@@ -162,18 +161,18 @@ RFD64	EQU	0FD64H		;
 RFD8A	EQU	0FD8AH		;
 SPACE	EQU	0FD9AH		;
 CI	EQU	0FD9FH		;
-RFDBD	EQU	0FDBDH		;
+USRCI	EQU	0FDBDH		;
 TI	EQU	0FDC2H		;
 COMC	EQU	0FDCDH		;
 CO	EQU	0FDD1H		;
-RFDED	EQU	0FDEDH		;
+USRCO	EQU	0FDEDH		;
 XOFF	EQU	0FDF2H		;
 RFDF7	EQU	0FDF7H		;
 LO	EQU	0FDFAH		;
-RFE21	EQU	0FE21H		;
+USRLO	EQU	0FE21H		;
 POCRLF	EQU	0FE26H		;
 PO	EQU	0FE32H		;
-RFE58	EQU	0FE58H		;
+USRPO	EQU	0FE58H		;
 RI	EQU	0FE5DH		;
 RFE81	EQU	0FE81H		;
 RFE9A	EQU	0FE9AH		;
@@ -220,12 +219,25 @@ TAB	EQU	009H
 LF	EQU	00AH
 CR	EQU	00DH
 
+;TRACER is controlled by byte @05h.
+;Its bits have the following sense:
+;  COMMAND
+;0    T
+;1    J
+;2    L    - opcode-list trace mode (print trace line only if current opcode is in list filled by L monitor command)
+;3    U    - user-defined trace mode (call @07h 4D after trace step)
+;4
+;5
+;6         - loop trace mode (trace a given command given amount of times)
+;7    Y
+
+
 ;*******************************
 ; Start code segment
 	CSEG
-JE931	LXI	H,L0029		;E931-21 29 00
-	DAD	SP		;E934-39
-	MOV	A,M		;E935-7E
+TRACER:	LXI	H,L0029		;E931-21 29 00
+	DAD	SP		;E934-39       ;HL:=SP+29h
+	MOV	A,M		;E935-7E       ;Acc:=@(SP+29h)
 	INR	A		;E936-3C
 	JNZ	JE961		;E937-C2 61 E9
 	INX	H		;E93A-23
@@ -235,19 +247,20 @@ JE931	LXI	H,L0029		;E931-21 29 00
 	ORA	E		;E93E-B3
 	JNZ	JE95C		;E93F-C2 5C E9
 	CALL	COMC		;E942-CD CD FD
-	DB	'*'
+	DB	'*'                            ;print '*'
 	LXI	H,L002C		;E946-21 2C 00
-	DAD	SP		;E949-39
+	DAD	SP		;E949-39       ;HL:=SP+2Ch
 	MOV	A,M		;E94A-7E
-	INR	A		;E94B-3C
-	LXI	B,L00CE		;E94C-01 CE 00
-	CNZ	CF5FE		;E94F-C4 FE F5
+	INR	A		;E94B-3C       ;Acc:=@(SP+2Ch)+1
+	LXI	B,L00CE		;E94C-01 CE 00 ;1100.1110 - clear bits 5,4,0
+	CNZ	SET05H		;E94F-C4 FE F5
 	LXI	H,L0012		;E952-21 12 00
-	DAD	SP		;E955-39
+	DAD	SP		;E955-39       ;HL:=SP+12h
 	MOV	D,M		;E956-56
 	DCX	H		;E957-2B
-	MOV	E,M		;E958-5E
-	JMP	JF59A		;E959-C3 9A F5
+	MOV	E,M		;E958-5E       ;DE:=@(SP+12h, SP+13h)
+	JMP	JF59A		;E959-C3 9A F5 ;print addr, return to monitor
+
 JE95C	MOV	D,M		;E95C-56
 	DCX	D		;E95D-1B
 	MOV	M,D		;E95E-72
@@ -257,24 +270,24 @@ JE961	LXI	H,L0012		;E961-21 12 00
 	DAD	SP		;E964-39
 	MOV	D,M		;E965-56
 	DCX	H		;E966-2B
-	MOV	E,M		;E967-5E
+	MOV	E,M		;E967-5E       ;DE:=@(SP+12h, SP+13h) (current command opcode addr)
 	LXI	B,L0005		;E968-01 05 00
-	LDAX	D		;E96B-1A
-	PUSH	D		;E96C-D5
-	CPI	031H		;E96D-FE 31
-	JZ	JEAA3		;E96F-CA A3 EA
-	CPI	0F9H		;E972-FE F9
-	JZ	JEAA8		;E974-CA A8 EA
+	LDAX	D		;E96B-1A       ;Acc:=opcode
+	PUSH	D		;E96C-D5       ;save current command opcode addr in stack
+	CPI	031H		;E96D-FE 31    ;is opcode LXI SP?
+	JZ	JEAA3		;E96F-CA A3 EA ;<...> return to E97B
+	CPI	0F9H		;E972-FE F9    ;is opcode SPHL?
+	JZ	JEAA8		;E974-CA A8 EA ;<...> return to E97A
 	LXI	H,L0008		;E977-21 08 00
 JE97A	DAD	SP		;E97A-39
 JE97B	MOV	E,M		;E97B-5E
 	INX	H		;E97C-23
-	MOV	D,M		;E97D-56
-	LHLD	L0006		;E97E-2A 06 00
-	MVI	L,011H		;E981-2E 11
+	MOV	D,M		;E97D-56       ;DE:=@(SP+08h,SP+09h)
+	LHLD	L0006		;E97E-2A 06 00 
+	MVI	L,011H		;E981-2E 11    ;HL:=@07h 11h
 	INX	D		;E983-13
-	CPI	0E3H		;E984-FE E3
-	JNZ	JE98B		;E986-C2 8B E9
+	CPI	0E3H		;E984-FE E3    ;is opcode XTHL?
+	JNZ	JE98B		;E986-C2 8B E9 ;jump if no
 	DCX	D		;E989-1B
 	DCX	D		;E98A-1B
 JE98B	MOV	M,D		;E98B-72
@@ -285,43 +298,47 @@ JE98E	DCR	L		;E98E-2D
 	MOV	M,A		;E990-77
 	DCX	D		;E991-1B
 	JNZ	JE98E		;E992-C2 8E E9
-	POP	D		;E995-D1
-	LDAX	D		;E996-1A
-	XRI	0C7H		;E997-EE C7
-	JZ	JEA68		;E999-CA 68 EA
+	POP	D		;E995-D1       ;restore current command opcode addr from stack
+	LDAX	D		;E996-1A       ;Acc:=opcode
+	XRI	0C7H		;E997-EE C7    ;Is it RST0 opcode?
+	JZ	JEA68		;E999-CA 68 EA ;Jump if yes
 JE99C	LXI	H,RFF8A		;E99C-21 8A FF
-	DAD	SP		;E99F-39
+	DAD	SP		;E99F-39       ;HL:=SP-76h
 	MOV	M,E		;E9A0-73
 	INX	H		;E9A1-23
-	MOV	M,D		;E9A2-72
-	LDAX	B		;E9A3-0A
-	ANI	004H		;E9A4-E6 04
-	JZ	JE9C7		;E9A6-CA C7 E9
+	MOV	M,D		;E9A2-72       ;DE:=@(SP-76h,SP-75h)
+	LDAX	B		;E9A3-0A       ;read value @05h
+	ANI	004H		;E9A4-E6 04    ;0000.0010 - check if bit2 set
+	JZ	JE9C7		;E9A6-CA C7 E9 ;jump if no
+;---L (opcode list)-trace mode. Check if current opcode is present in list
+;0c7h is a closer for the list (last element)
 	LXI	H,RFF85		;E9A9-21 85 FF
-	DAD	SP		;E9AC-39
-	MVI	B,029H		;E9AD-06 29
-JE9AF	MOV	A,M		;E9AF-7E
-	XRI	0C7H		;E9B0-EE C7
-	JZ	JE9C2		;E9B2-CA C2 E9
-	LDAX	D		;E9B5-1A
-	CMP	M		;E9B6-BE
-	JZ	JE9C7		;E9B7-CA C7 E9
-	DCX	H		;E9BA-2B
+	DAD	SP		;E9AC-39       ;HL:=SP-7Bh
+	MVI	B,029H		;E9AD-06 29    ;41d, max list length
+JE9AF	MOV	A,M		;E9AF-7E       ;Acc:=@(SP-.variable.)=next value from opcode array
+	XRI	0C7H		;E9B0-EE C7    ;Is list finished?
+	JZ	JE9C2		;E9B2-CA C2 E9 ;jump if yes
+	LDAX	D		;E9B5-1A       ;Acc:=@DE (current opcode)
+	CMP	M		;E9B6-BE       ;cmp @DE with @(SP-.variable.)
+	JZ	JE9C7		;E9B7-CA C7 E9 ;jump if equal (opcode found)
+	DCX	H		;E9BA-2B       ;next array value
 	DCR	B		;E9BB-05
-	JNZ	JE9AF		;E9BC-C2 AF E9
-	JMP	ERROR		;E9BF-C3 47 F8
+	JNZ	JE9AF		;E9BC-C2 AF E9 ;scan 29h times
+	JMP	ERROR		;E9BF-C3 47 F8 ;return to monitor if no match and no closer (there wasn't L command before)
+;whole list viewed, opcode isn't found, Acc=0
 JE9C2	MOV	B,A		;E9C2-47
-	LDAX	B		;E9C3-0A
-	ORI	010H		;E9C4-F6 10
+	LDAX	B		;E9C3-0A       ;read value @000h (it should be C7h=1100.0111?)
+	ORI	010H		;E9C4-F6 10    ;0001.0000, make value @0007:=D7=RST2 opcode?(start from 10h?)
 	STAX	B		;E9C6-02
-JE9C7	XCHG			;E9C7-EB
-JE9C8	PUSH	H		;E9C8-E5       ;here we jump after 'U' monitor command
+JE9C7	XCHG			;E9C7-EB       ;now current opcode addr is in HL
+
+LE9C8	PUSH	H		;E9C8-E5       ;here we jump after RESTART
 ;look for jump/call (conditional or not) opcodes @HL
 	LXI	B,L0812		;E9C9-01 12 08 ;set table length, C:=12H=18d
 	LXI	D,OPTBL		;E9CC-11 A0 EF ;point to table of all Jump/Call opcodes
 JE9CF	LDAX	D		;E9CF-1A       ;read next table byte
 	CMP	M		;E9D0-BE       ;is it equal with @HL?
-	JZ	JEA21		;E9D1-CA 21 EA ;jump if yes
+	JZ	JMCALF		;E9D1-CA 21 EA ;jump if yes
 	INX	D		;E9D4-13       ;next table value
 	DCR	C		;E9D5-0D       ;is all table scanned?
 	JNZ	JE9CF		;E9D6-C2 CF E9 ;loop if no
@@ -329,25 +346,28 @@ JE9CF	LDAX	D		;E9CF-1A       ;read next table byte
 ;i.e. look for various conditional return opcodes
 	MVI	A,0C0H		;E9D9-3E C0    ;initial value
 JE9DB	CMP	M		;E9DB-BE       ;look for next value @HL
-	JZ	JEA4B		;E9DC-CA 4B EA ;jump if found
+	JZ	RETFND		;E9DC-CA 4B EA ;jump if found
 	ADI	008H		;E9DF-C6 08    ;set the next value to look for
 	DCR	B		;E9E1-05       ;all values has been looked for?
 	JNZ	JE9DB		;E9E2-C2 DB E9 ;loop if no
+;look for RET
 	MVI	A,0C9H		;E9E5-3E C9
 	CMP	M		;E9E7-BE
-	JZ	JEA4B		;E9E8-CA 4B EA ;jump if RET opcode
+	JZ	RETFND		;E9E8-CA 4B EA ;jump if RET opcode
+;look for PCHL
 	MVI	A,0E9H		;E9EB-3E E9
 	CMP	M		;E9ED-BE
-	JZ	JEA59		;E9EE-CA 59 EA ;jump if PCHL opcode
+	JZ	PCHLFN		;E9EE-CA 59 EA ;jump if PCHL opcode
 ;look for CF-D7-DF-E7-EF-F7-FF @HL
 ;i.e. look for RST1...RST7 opcodes
 	MVI	B,007H		;E9F1-06 07    ;amount of opcodes searched
 	MVI	A,0CFH		;E9F3-3E CF    ;initial value
 JE9F5	CMP	M		;E9F5-BE       ;look for next value @HL        
-	JZ	JEA60		;E9F6-CA 60 EA ;jump if found                  
+	JZ	RSTFND		;E9F6-CA 60 EA ;jump if found                  
 	ADI	008H		;E9F9-C6 08    ;set the next value to look for 
 	DCR	B		;E9FB-05       ;all values has been looked for?
-	JNZ	JE9F5		;E9FC-C2 F5 E9 ;loop if no                     
+	JNZ	JE9F5		;E9FC-C2 F5 E9 ;loop if no
+
 	MVI	C,005H		;E9FF-0E 05
 	LDAX	B		;EA01-0A       ;A:=@05h
 	RRC			;EA02-0F
@@ -357,6 +377,7 @@ JE9F5	CMP	M		;E9F5-BE       ;look for next value @HL
 	LDAX	B		;EA0A-0A       ;A:=@05h
 	ORI	010H		;EA0B-F6 10    ;0001.0000, set bit 4
 	STAX	B		;EA0D-02       ;store updated @05h
+
 JEA0E	POP	H		;EA0E-E1       ;restore pointer to opcode in HL
 	CALL	CMDLEN		;EA0F-CD 8B EF ;determine command length (length=C+1)
 	INR	C		;EA12-0C       ;C:=command length
@@ -365,64 +386,66 @@ JEA0E	POP	H		;EA0E-E1       ;restore pointer to opcode in HL
 	XCHG			;EA16-EB       ;keep that pointer in DE
 	LXI	H,L001C		;EA17-21 1C 00
 	DAD	SP		;EA1A-39       ;HL:=SP+1Ch
-	CALL	CF4CF		;EA1B-CD CF F4 ;keep next opcode @SP+1Eh, replace it to RST 0
+	CALL	BRKSET		;EA1B-CD CF F4 ;keep next opcode @SP+1Eh, replace it to RST 0
 	JMP	RFABB		;EA1E-C3 BB FA
 
 ;part of TRACE
 ;here we are if jump/call found in OPTBL opcode table
 ;on call, HL points to opcode byte
 ;acc=opcode byte 
-JEA21	INX	H		;EA21-23
+JMCALF: INX	H		;EA21-23
 	MOV	E,M		;EA22-5E
 	INX	H		;EA23-23
 	MOV	D,M		;EA24-56       ;read jump addr into DE
 	ANI	002H		;EA25-E6 02    ;0000.0010, was opcode JMP or was CALL?
 	JNZ	JEA32		;EA27-C2 32 EA ;jump if JMP
-	PUSH	D		;EA2A-D5       ;place H-byte of jump addr
-	CALL	CEF71		;EA2B-CD 71 EF
-	POP	D		;EA2E-D1
-	JNC	JEA40		;EA2F-D2 40 EA
-JEA32	LXI	H,RFFF8		;EA32-21 F8 FF
-	DAD	D		;EA35-19
-	JNC	RFB2A		;EA36-D2 2A FB
+	PUSH	D		;EA2A-D5       ;save jump addr
+	CALL	INRANG		;EA2B-CD 71 EF ;CY=1 if addr in range
+	POP	D		;EA2E-D1       ;restore jump addr
+	JNC	NOTRNG		;EA2F-D2 40 EA ;jump if jmp-addr is not in range
+JEA32	LXI	H,RFFF8		;EA32-21 F8 FF 
+	DAD	D		;EA35-19       ;HL:=JMPaddr-8, carry will be if JMPaddr<08 (system area)
+	JNC	ERR13		;EA36-D2 2A FB ;in this case print 'error 13,pc='stack value' and return to monitor
 	LXI	H,L0021		;EA39-21 21 00
-	DAD	SP		;EA3C-39
-	CALL	CF4CF		;EA3D-CD CF F4
-JEA40	LXI	H,RFF8C		;EA40-21 8C FF
-	DAD	SP		;EA43-39
+	DAD	SP		;EA3C-39       ;HL:=SP+21h
+	CALL	BRKSET		;EA3D-CD CF F4 ;keep opcode at jump addr @SP+21h, replace it to RST 0
+;case if jump addr is not in range
+NOTRNG:	LXI	H,RFF8C		;EA40-21 8C FF
+	DAD	SP		;EA43-39       ;HL:=SP-74h
 	MOV	E,M		;EA44-5E
 	INX	H		;EA45-23
-	MOV	D,M		;EA46-56
-	XCHG			;EA47-EB
-	JMP	JEA0E		;EA48-C3 0E EA
+	MOV	D,M		;EA46-56       ;DE:=@(SP-74h)
+	XCHG			;EA47-EB       ;HL:=@(SP-74h)
+	JMP	JEA0E		;EA48-C3 0E EA ;set breakpoint right after branch command
 
 ;part of TRACE
 ;case if return (conditional or not) opcode found
-JEA4B	LXI	H,L0008		;EA4B-21 08 00
-	DAD	SP		;EA4E-39
+RETFND:	LXI	H,L0008		;EA4B-21 08 00
+	DAD	SP		;EA4E-39       ;@(SP+08h,SP+09h) is saved SP
 	MOV	E,M		;EA4F-5E
 	INX	H		;EA50-23
 	MOV	D,M		;EA51-56
-	XCHG			;EA52-EB
-JEA53	MOV	E,M		;EA53-5E
+	XCHG			;EA52-EB       ;HL:=@(SP+08h,SP+09h)=saved SP
+BRK@HL	MOV	E,M		;EA53-5E
 	INX	H		;EA54-23
-	MOV	D,M		;EA55-56
-	JMP	JEA32		;EA56-C3 32 EA
+	MOV	D,M		;EA55-56       ;DE=@(saved SP)=return addr
+	JMP	JEA32		;EA56-C3 32 EA ;set breakpoint at ret addr
 
 ;part of TRACE
 ;PCHL opcode found
-JEA59	LXI	H,L0010		;EA59-21 10 00
-	DAD	SP		;EA5C-39
-	JMP	JEA53		;EA5D-C3 53 EA
+PCHLFN:	LXI	H,L0010		;EA59-21 10 00
+	DAD	SP		;EA5C-39       ;HL:=SP+10h  (saved HL?)
+	JMP	BRK@HL		;EA5D-C3 53 EA ;set breakpoint @HL
 
 ;part of TRACE
 ;RST1..7 opcode found
-JEA60	MVI	D,000H		;EA60-16 00
-	ANI	038H		;EA62-E6 38
-	MOV	E,A		;EA64-5F
-	JMP	JEA32		;EA65-C3 32 EA
+;acc=opcode byte
+RSTFND:	MVI	D,000H		;EA60-16 00
+	ANI	038H		;EA62-E6 38    ;0011.1000 - these bits of RST opcode fully determines jump addr
+	MOV	E,A		;EA64-5F       ;DE:=jump addr
+	JMP	JEA32		;EA65-C3 32 EA ;set breakpoint
 
-
+;here we are: interrupted command was RST0
 JEA68	LXI	H,L0016		;EA68-21 16 00
 	DAD	SP		;EA6B-39
 	MVI	B,002H		;EA6C-06 02
@@ -454,19 +477,22 @@ JEA7B	INX	H		;EA7B-23
 	INX	H		;EA95-23
 	MOV	A,M		;EA96-7E
 	STAX	D		;EA97-12
-	LDAX	B		;EA98-0A
-	ORI	040H		;EA99-F6 40
-	STAX	B		;EA9B-02
-	JMP	JE99C		;EA9C-C3 9C E9
+	LDAX	B		;EA98-0A       ;read @05h mode byte
+	ORI	040H		;EA99-F6 40    ;set bit2
+	STAX	B		;EA9B-02       ;write @05h back
+	JMP	JE99C		;EA9C-C3 9C E9 ;go to L-trace mode handler
 JEA9F	PUSH	D		;EA9F-D5
-	JMP	RFB2A		;EAA0-C3 2A FB
+	JMP	ERR13		;EAA0-C3 2A FB
+;interrupted command was LXI SP
 JEAA3	INX	D		;EAA3-13
 	XCHG			;EAA4-EB
 	JMP	JE97B		;EAA5-C3 7B E9
+;interrupted command was SPHL
 JEAA8	LXI	H,L0010		;EAA8-21 10 00
 	JMP	JE97A		;EAAB-C3 7A E9
-;here we are after trace step (?)
-JEAAE	POP	B		;EAAE-C1
+
+;jump here from RESTART if bit 7 @05h=1
+LEAAE	POP	B		;EAAE-C1
 	LHLD	L0006		;EAAF-2A 06 00
 	MVI	L,011H		;EAB2-2E 11
 	MOV	D,M		;EAB4-56
@@ -477,7 +503,7 @@ JEAB8	DCR	L		;EAB8-2D
 	MOV	A,M		;EAB9-7E
 	STAX	D		;EABA-12
 	DCX	D		;EABB-1B
-	JNZ	JEAB8		;EABC-C2 B8 EA
+	JNZ	JEAB8		;EABC-C2 B8 EA ;loop
 	MVI	L,04BH		;EABF-2E 4B
 	MOV	E,M		;EAC1-5E
 	INR	L		;EAC2-2C
@@ -485,57 +511,57 @@ JEAB8	DCR	L		;EAB8-2D
 	LDAX	D		;EAC4-1A
 	MOV	B,A		;EAC5-47
 	POP	D		;EAC6-D1
-	ANI	0C7H		;EAC7-E6 C7    ;0b1100.0777
-	CPI	0C4H		;EAC9-FE C4
+	ANI	0C7H		;EAC7-E6 C7    ;1100.0111
+	CPI	0C4H		;EAC9-FE C4    ;1100.0100
 	JZ	JEE77		;EACB-CA 77 EE
-	CPI	0C7H		;EACE-FE C7
+	CPI	0C7H		;EACE-FE C7    ;1100.0111
 	JZ	JEE91		;EAD0-CA 91 EE
-	CPI	0C5H		;EAD3-FE C5
+	CPI	0C5H		;EAD3-FE C5    ;1100.0101
 	MOV	A,B		;EAD5-78
 	JZ	JEE99		;EAD6-CA 99 EE
-	CPI	022H		;EAD9-FE 22
+	CPI	022H		;EAD9-FE 22    ;0010.0010
 	JZ	JEEC5		;EADB-CA C5 EE
-	CPI	032H		;EADE-FE 32
+	CPI	032H		;EADE-FE 32    ;0011.0010
 	JZ	JEED6		;EAE0-CA D6 EE
-	CPI	012H		;EAE3-FE 12
+	CPI	012H		;EAE3-FE 12    ;0001.0010
 	JZ	JEEE6		;EAE5-CA E6 EE
-	CPI	002H		;EAE8-FE 02
+	CPI	002H		;EAE8-FE 02    ;0000.0010
 	JZ	JEEEE		;EAEA-CA EE EE
-	CPI	036H		;EAED-FE 36
+	CPI	036H		;EAED-FE 36    ;0011.0110
 	JZ	JEEF6		;EAEF-CA F6 EE
-	CPI	078H		;EAF2-FE 78
+	CPI	078H		;EAF2-FE 78    ;0111.1000
 	JNC	JEAFD		;EAF4-D2 FD EA
-	SUI	070H		;EAF7-D6 70
+	SUI	070H		;EAF7-D6 70    ;0111.0000
 	JNC	JEF02		;EAF9-D2 02 EF
-	MOV	A,B		;EAFC-78
-JEAFD	ANI	0FEH		;EAFD-E6 FE
-	CPI	034H		;EAFF-FE 34
+	MOV	A,B		;EAFC-78       
+JEAFD	ANI	0FEH		;EAFD-E6 FE    ;1111.1110
+	CPI	034H		;EAFF-FE 34    ;0011.0100
 	JZ	JEF23		;EB01-CA 23 EF
 ;??? begin of trace routine???
-JEB04	LXI	B,L0005		;EB04-01 05 00
+TRCBEG	LXI	B,L0005		;EB04-01 05 00
 	LDAX	B		;EB07-0A       ;analyse byte @05H
 	ANI	008H		;EB08-E6 08    ;0000.1000 - analyse bit 3 
 	MVI	A,04DH		;EB0A-3E 4D
-	JNZ	RF814		;EB0C-C2 14 F8 ;jump to @07H 4D if bit 3=1
+	JNZ	USRJMP		;EB0C-C2 14 F8 ;jump to @07H 4D if bit 3=1
 	LXI	H,L002C		;EB0F-21 2C 00
-	DAD	SP		;EB12-39
-	MOV	A,M		;EB13-7E
+	DAD	SP		;EB12-39       
+	MOV	A,M		;EB13-7E       ;Acc:=@(SP+2Ch)
 	INR	A		;EB14-3C
-	JNZ	BIT45		;EB15-C2 65 EE
+	JNZ	BIT45		;EB15-C2 65 EE ;??skip this command if @(SP+2Ch)<>FFh
 	LDAX	B		;EB18-0A       ;analyse byte @05H
 	ANI	010H		;EB19-E6 10    ;0001.0000 - analyse bit 4
 	JNZ	BIT45		;EB1B-C2 65 EE ;jump if bit 4=1
 	LXI	H,RFF8B		;EB1E-21 8B FF
-	DAD	SP		;EB21-39
+	DAD	SP		;EB21-39       ;HL:=SP-75
 	MOV	D,M		;EB22-56
 	DCX	H		;EB23-2B
-	MOV	E,M		;EB24-5E
+	MOV	E,M		;EB24-5E       ;DE:=@(SP-74)
 	PUSH	B		;EB25-C5
-	PUSH	B		;EB26-C5
-	CALL	CEF71		;EB27-CD 71 EF
+	PUSH	B		;EB26-C5       ;shift stack pointer for INRANG?
+	CALL	INRANG		;EB27-CD 71 EF ;CY:=1 if value in DE is in range
 	POP	B		;EB2A-C1
-	POP	B		;EB2B-C1
-	JNC	BIT45		;EB2C-D2 65 EE
+	POP	B		;EB2B-C1       ;restore stack pointer
+	JNC	BIT45		;EB2C-D2 65 EE ;jump if DE value was NOT in range
 	LDAX	B		;EB2F-0A       ;analyse byte @05H
 	ANI	020H		;EB30-E6 20    ;0010.0000 - analyse bit 5
 	JNZ	JEB5E		;EB32-C2 5E EB ;skip header and address range printing if bit 5=1
@@ -969,17 +995,18 @@ BIT45:	CALL	CF3F3		;EE65-CD F3 F3
 	ANI	0EFH		;EE6C-E6 EF    ;0b1110.1111 - clear bit 4
 	MOV	M,A		;EE6E-77       ;store value @05H back
 	RLC			;EE6F-07
-	RLC			;EE70-07       ;analyse bit 5
-	CC	CF572		;EE71-DC 72 F5 ;call if bit 5 set
-	JMP	JE931		;EE74-C3 31 E9 ;?start addr of trace subroutine?
+	RLC			;EE70-07       ;analyse bit 6
+	CC	LOPTRA		;EE71-DC 72 F5 ;call loop trace handler if bit 6 set
+	JMP	TRACER		;EE74-C3 31 E9 ;start addr of trace subroutine
 
 ;*******************************
 ;
+;cpi C4h in EAAE
 JEE77	DCX	D		;EE77-1B
 	MVI	L,0C7H		;EE78-2E C7
 	MOV	A,M		;EE7A-7E
 	CMP	E		;EE7B-BB
-	JZ	JEB04		;EE7C-CA 04 EB
+	JZ	TRCBEG		;EE7C-CA 04 EB
 	INX	D		;EE7F-13
 JEE80	MVI	L,04BH		;EE80-2E 4B
 	MOV	C,M		;EE82-4E
@@ -995,11 +1022,15 @@ JEE87	INX	B		;EE87-03
 	DCX	D		;EE8C-1B
 	MOV	A,C		;EE8D-79
 	JMP	JEEC1		;EE8E-C3 C1 EE
+
+;cpi C7h in EAAE
 JEE91	MVI	L,04BH		;EE91-2E 4B
 	MOV	C,M		;EE93-4E
 	INR	L		;EE94-2C
 	MOV	B,M		;EE95-46
 	JMP	JEE87		;EE96-C3 87 EE
+
+;cpi C5h in EAAE
 JEE99	CPI	0CDH		;EE99-FE CD
 	JZ	JEE80		;EE9B-CA 80 EE
 	MVI	L,0D0H		;EE9E-2E D0
@@ -1013,7 +1044,7 @@ JEE99	CPI	0CDH		;EE99-FE CD
 	JZ	JEEBA		;EEB0-CA BA EE
 	MVI	L,0C4H		;EEB3-2E C4
 	CPI	0C5H		;EEB5-FE C5
-	JNZ	JEB04		;EEB7-C2 04 EB
+	JNZ	TRCBEG		;EEB7-C2 04 EB
 JEEBA	DCX	D		;EEBA-1B
 	DCX	D		;EEBB-1B
 JEEBC	MOV	A,M		;EEBC-7E
@@ -1022,7 +1053,8 @@ JEEBC	MOV	A,M		;EEBC-7E
 	DCX	D		;EEBF-1B
 JEEC0	MOV	A,M		;EEC0-7E
 JEEC1	STAX	D		;EEC1-12
-	JMP	JEB04		;EEC2-C3 04 EB
+	JMP	TRCBEG		;EEC2-C3 04 EB
+
 JEEC5	MVI	L,0D3H		;EEC5-2E D3
 	MOV	B,M		;EEC7-46
 	DCR	L		;EEC8-2D
@@ -1036,6 +1068,7 @@ JEEC5	MVI	L,0D3H		;EEC5-2E D3
 	INX	D		;EED0-13
 	MVI	L,0D0H		;EED1-2E D0
 	JMP	JEEBC		;EED3-C3 BC EE
+
 JEED6	MVI	L,0D3H		;EED6-2E D3
 	MOV	D,M		;EED8-56
 	DCR	L		;EED9-2D
@@ -1048,14 +1081,17 @@ JEEE0	MOV	D,M		;EEE0-56
 	DCX	H		;EEE1-2B
 	MOV	E,M		;EEE2-5E
 	JMP	JEEC1		;EEE3-C3 C1 EE
+
 JEEE6	MVI	L,0C6H		;EEE6-2E C6
 	MOV	A,M		;EEE8-7E
 	MVI	L,0C2H		;EEE9-2E C2
 	JMP	JEEE0		;EEEB-C3 E0 EE
+
 JEEEE	MVI	L,0C6H		;EEEE-2E C6
 	MOV	A,M		;EEF0-7E
 	MVI	L,0C4H		;EEF1-2E C4
 	JMP	JEEE0		;EEF3-C3 E0 EE
+
 JEEF6	MVI	L,0D3H		;EEF6-2E D3
 	MOV	B,M		;EEF8-46
 	DCR	L		;EEF9-2D
@@ -1064,34 +1100,33 @@ JEEF6	MVI	L,0D3H		;EEF6-2E D3
 	LDAX	B		;EEFC-0A
 	MVI	L,0D0H		;EEFD-2E D0
 	JMP	JEEE0		;EEFF-C3 E0 EE
+
+;in EAAE, after SUI 70h
 JEF02	CPI	006H		;EF02-FE 06
-	JZ	JEB04		;EF04-CA 04 EB
-	LXI	H,AEF1B		;EF07-21 1B EF ;HL points to table
+	JZ	TRCBEG		;EF04-CA 04 EB
+	LXI	H,AEF1B		;EF07-21 1B EF ;HL points to table, Acc conitains offset in it
 	MVI	B,000H		;EF0A-06 00
-	MOV	C,A		;EF0C-4F
-	DAD	B		;EF0D-09
+	MOV	C,A		;EF0C-4F       ;BC contains offset
+	DAD	B		;EF0D-09       ;HL contains exact addr in tabl
 	MOV	B,M		;EF0E-46       ;save table byte in B
-	LHLD	L0006		;EF0F-2A 06 00 ;@06H,07H:=HL - table entry addr.
-	MVI	L,0CFH		;EF12-2E CF    ;point to EFCF table (?!)
+	LHLD	L0006		;EF0F-2A 06 00 ;@06H,07H:=HL
+	MVI	L,0CFH		;EF12-2E CF    ;HL:=@07h CF (user area)
 	MOV	E,M		;EF14-5E
 	INR	L		;EF15-2C
-	MOV	D,M		;EF16-56       ;DE:=@EFCF table
-	MOV	L,B		;EF17-68       ;HL:=EF1B table again
-	JMP	JEEC0		;EF18-C3 C0 EE
-AEF1B	CNZ	LC2C3		;EF1B-C4 C3 C2
-	POP	B		;EF1E-C1
-	RNC			;EF1F-D0
-	RST	1		;EF20-CF
-	NOP			;EF21-00
-	ADI	02EH		;EF22-C6 2E
-	RST	1		;EF24-CF
+	MOV	D,M		;EF16-56       ;DE:=@(@07 CF, @07 D0) 
+	MOV	L,B		;EF17-68       ;HL:=@07 table-byte
+	JMP	JEEC0		;EF18-C3 C0 EE ;write ??some?? and start tracing
+
+AEF1B:	DB	0C4H, 0C3H, 0C2H, 0C1H, 0D0H, 0CFH, 0, 0C6H
+
+JEF23	MVI	L,0CFH		;EF23-2E CF
 	MOV	C,M		;EF25-4E
 	INR	L		;EF26-2C
 	MOV	H,M		;EF27-66
 	MOV	L,C		;EF28-69
 	DCX	H		;EF29-2B
 	CALL	HILO		;EF2A-CD 8E F4
-	JC	JEB04		;EF2D-DA 04 EB
+	JC	TRCBEG		;EF2D-DA 04 EB
 	PUSH	H		;EF30-E5
 	PUSH	B		;EF31-C5
 	LXI	B,L000F		;EF32-01 0F 00
@@ -1099,14 +1134,14 @@ AEF1B	CNZ	LC2C3		;EF1B-C4 C3 C2
 	POP	B		;EF36-C1
 	CALL	HILO		;EF37-CD 8E F4
 	POP	H		;EF3A-E1
-	JNC	JEB04		;EF3B-D2 04 EB
+	JNC	TRCBEG		;EF3B-D2 04 EB
 	MOV	A,B		;EF3E-78
 	INR	M		;EF3F-34
 	RRC			;EF40-0F
-	JNC	JEB04		;EF41-D2 04 EB
+	JNC	TRCBEG		;EF41-D2 04 EB
 	DCR	M		;EF44-35
 	DCR	M		;EF45-35
-	JMP	JEB04		;EF46-C3 04 EB
+	JMP	TRCBEG		;EF46-C3 04 EB
 
 ;*******************************
 ; Part of disassembly
@@ -1148,26 +1183,32 @@ INC_2E:	PUSH	H		;EF69-E5
 	RET			;EF70-C9
 
 ;*******************************
-; Start Subroutine
-;??? place some to trace stack?
-CEF71	LXI	H,RFF8D		;EF71-21 8D FF
-	DAD	SP		;EF74-39
+; part of trace
+;compare address in DE with two addreses in stack
+;on call, DE contains JMP address
+;if addr in DE bigger or equal than @SP-74, return with CY=0
+;if addr in DE less or equal than @SP-72, return with CY=0
+;if addr in DE is IN RANGE of those 2 addreses, return with CY=1
+
+INRANG:	LXI	H,RFF8D		;EF71-21 8D FF
+	DAD	SP		;EF74-39       ;HL:=SP-73h
 	MOV	B,M		;EF75-46
 	DCX	H		;EF76-2B
-	MOV	C,M		;EF77-4E
+	MOV	C,M		;EF77-4E       ;BC:=@HL=@(SP-74h)
 	MOV	H,B		;EF78-60
-	MOV	L,C		;EF79-69
-	CALL	HILO		;EF7A-CD 8E F4
-	RNC			;EF7D-D0
-	LXI	H,RFF8E		;EF7E-21 8E FF
+	MOV	L,C		;EF79-69       ;HL:=BC
+	CALL	HILO		;EF7A-CD 8E F4 ;IF HL<=DE THEN CY=0;
+	RNC			;EF7D-D0       ;return if jump addr beq than @(SP-74h)
+	LXI	H,RFF8E		;EF7E-21 8E FF ;HL:=SP-72h
 	DAD	SP		;EF81-39
 	MOV	C,M		;EF82-4E
 	INX	H		;EF83-23
-	MOV	B,M		;EF84-46
-	XCHG			;EF85-EB
+	MOV	B,M		;EF84-46       ;BC:=@HL=@(SP-72h)
+	XCHG			;EF85-EB       ;HL:=jump addr
 	MOV	D,B		;EF86-50
-	MOV	E,C		;EF87-59
-	JMP	HILO		;EF88-C3 8E F4
+	MOV	E,C		;EF87-59       ;DE:=@(SP-72h)
+	JMP	HILO		;EF88-C3 8E F4 ;IF HL<=DE THEN CY=0 and return to caller,
+                                               ;if jump addr leq than @(SP-72) CY=0
 
 ;*******************************
 ; part of TRACE
@@ -1222,22 +1263,22 @@ OPTBL:	DB	0C3H		;JMP adr16
 ;all 2-byte commands
 	DB	006H		;MVI B,imm8
 	DB	00EH            ;MVI C,imm8
-	DB	016H 
-	DB	01EH 
-	DB	026H 
-	DB	02EH 
-	DB	036H 
-	DB	03EH
-	DB	0C6H
-	DB	0CEH 
-	DB	0D6H 
-	DB	0DEH 
-	DB	0E6H 
-	DB	0EEH 
-	DB	0F6H 
-	DB	0FEH
-	DB	0DBH
-	DB	0D3H
+	DB	016H            ;MVI D,imm8
+	DB	01EH            ;MVI E,imm8
+	DB	026H            ;MVI H,imm8
+	DB	02EH            ;MVI L,imm8
+	DB	036H            ;MVI M,imm8
+	DB	03EH            ;MVI A,imm8
+	DB	0C6H            ;ADI imm8
+	DB	0CEH            ;ACI imm8
+	DB	0D6H            ;SUI imm8
+	DB	0DEH            ;SBI imm8
+	DB	0E6H            ;ANI imm8
+	DB	0EEH            ;XRI imm8
+	DB	0F6H            ;ORI imm8
+	DB	0FEH            ;CPI imm8
+	DB	0DBH            ;IN port#
+	DB	0D3H            ;OUT port#
 
 ;*******************************
 ; Print address stored somewhere in memory
@@ -1690,7 +1731,8 @@ JF265	MVI	L,0EEH		;F265-2E EE
 	POP	D		;F272-D1
 	POP	H		;F273-E1
 	RET			;F274-C9
-REWI	PUSH	H		;F275-E5
+
+JREWI:	PUSH	H		;F275-E5
 	PUSH	D		;F276-D5
 	LHLD	L0006		;F277-2A 06 00
 	LDA	L0003		;F27A-3A 03 00
@@ -1702,7 +1744,8 @@ REWI	PUSH	H		;F275-E5
 	POP	D		;F289-D1
 	POP	H		;F28A-E1
 	RET			;F28B-C9
-CLOS	MOV	A,C		;F28C-79
+
+JCLOS:	MOV	A,C		;F28C-79
 	CPI	050H		;F28D-FE 50
 	JZ	JF2F3		;F28F-CA F3 F2
 	CPI	04CH		;F292-FE 4C
@@ -1942,24 +1985,25 @@ JF3E6	IN	02AH		;F3E6-DB 2A
 
 ;*******************************
 ; Start Subroutine
+;some trace-debug related
 CF3F3	LXI	H,L001E		;F3F3-21 1E 00
 CF3F6	DAD	SP		;F3F6-39
 	MVI	B,002H		;F3F7-06 02
-JF3F9	XRA	A		;F3F9-AF
-	MOV	E,M		;F3FA-5E
-	MOV	M,A		;F3FB-77
-	INX	H		;F3FC-23
-	MOV	D,M		;F3FD-56
-	MOV	M,A		;F3FE-77
+JF3F9	XRA	A		;F3F9-AF       ;clear Acc
+	MOV	E,M		;F3FA-5E       ;E:=@HL
+	MOV	M,A		;F3FB-77       ;@HL:=0
+	INX	H		;F3FC-23       
+	MOV	D,M		;F3FD-56       ;D:=@(HL+1), i.e. DE:=@(HL,HL+1) - DE contains value read @HL, and it is address (see below)
+	MOV	M,A		;F3FE-77       ;@(HL+1):=0
 	INX	H		;F3FF-23
-	MOV	A,D		;F400-7A
-	ORA	E		;F401-B3
-	JZ	JF407		;F402-CA 07 F4
-	MOV	A,M		;F405-7E
-	STAX	D		;F406-12
+	MOV	A,D		;F400-7A       
+	ORA	E		;F401-B3       ;Acc:= { @(HL+1) or @HL }
+	JZ	JF407		;F402-CA 07 F4 ;jump if they both was 0
+	MOV	A,M		;F405-7E       ;Acc:=@(HL+2)
+	STAX	D		;F406-12       ;@DE:=@(HL+2,HL+3)
 JF407	INX	H		;F407-23
 	DCR	B		;F408-05
-	JNZ	JF3F9		;F409-C2 F9 F3
+	JNZ	JF3F9		;F409-C2 F9 F3 ;loop
 	RET			;F40C-C9
 
 ;*******************************
@@ -2045,35 +2089,42 @@ EXPRDH:	CALL	EXPR		;F457-CD 5D F4
 ; PROCESS: EVALUATE EXPRESSION "<EXPR>,<EXPR>,<EXPR>"
 ; INPUT: C-REG CONTAINS THE NUMBER OF PARAMETERS REQUIRED (1,2, OR 3)
 ; OUTPUT: STACK CONTAINS THE PARAMETERS IN REVERSE ORDER
+;         if no error, C:=0; B:=last char read
 ; MODIFIED: F,C,H,L,SP
 ; STACK USAGE:
-EXPR:	LXI	H,L0000		;F45D-21 00 00
-EXPR0	CALL	TI		;F460-CD C2 FD
-EXPR1	MOV	B,A		;F463-47
-	CALL	NIBBLE		;F464-CD 31 F5
-	JC	JF473		;F467-DA 73 F4
-	DAD	H		;F46A-29
-	DAD	H		;F46B-29
-	DAD	H		;F46C-29
-	DAD	H		;F46D-29
-	ORA	L		;F46E-B5
-	MOV	L,A		;F46F-6F
-	JMP	EXPR0		;F470-C3 60 F4
-JF473	XTHL			;F473-E3
-	PUSH	H		;F474-E5
-	MOV	A,B		;F475-78
-	CALL	P2C		;F476-CD 65 F5
-	JNC	JF481		;F479-D2 81 F4
-	DCR	C		;F47C-0D
-	JNZ	ERROR		;F47D-C2 47 F8
+;it is combo of Intel's EXPR and PARAM
+EXPR:	LXI	H,L0000		;F45D-21 00 00 ; INTIALIZE HL := 0000
+EXPR0	CALL	TI		;F460-CD C2 FD ;read from console, return in Acc
+EXPR1	MOV	B,A		;F463-47       ; SAVE CHAR IN CASE IT'S A DELIMITER
+	CALL	NIBBLE		;F464-CD 31 F5 ; CONVERT THE ASCII CHARACTER TO HEX; MUST BE
+                                               ;    0-9,A-F; IF NOT THE CARRY BIT IS SET
+	JC	NOTDIG		;F467-DA 73 F4 ; NOT LEGAL CHAR, TREAT AS DELIMITER
+	DAD	H		;F46A-29       ; *2
+	DAD	H		;F46B-29       ; *4
+	DAD	H		;F46C-29       ; *8
+	DAD	H		;F46D-29       ; *16 --- SHIFT THE OLD HEX VALUES 4 PLACES TO LEFT
+	ORA	L		;F46E-B5       
+	MOV	L,A		;F46F-6F       ; PUT NEW HEX VALUE IN 4 LSB OF L-REG
+	JMP	EXPR0		;F470-C3 60 F4 ; DECODE NEXT CHARACTER
+NOTDIG	XTHL			;F473-E3       ; PUT THE PARAMETER IN THE STACK; HL NOW
+                                               ;    CONTAINS RETURN ADDRESS OF CALL TO 'EXPR'
+	PUSH	H		;F474-E5       ; PUT RETURN ADDRESS ON TOP OF STACK
+	MOV	A,B		;F475-78       ; A := B := DELIMITER CHARACTER
+	CALL	P2C		;F476-CD 65 F5 ; IS IT A VALID DELIMITER? (test for <CR> or <,>)
+	JNC	EXPR2		;F479-D2 81 F4 ;jump if not <CR>              
+	DCR	C		;F47C-0D       ;dec parms amount
+	JNZ	ERROR		;F47D-C2 47 F8 ; INCORRECT PARAM COUNT
 	RET			;F480-C9
-JF481	JNZ	ERROR		;F481-C2 47 F8
-	DCR	C		;F484-0D
-	JNZ	EXPR		;F485-C2 5D F4
+EXPR2	JNZ	ERROR		;F481-C2 47 F8 ;error if it's not a valid delimiter (not a space or comma)
+	DCR	C		;F484-0D       ; DECREMENT PARAMETER COUNT; CARRY BIT UNAFFECTED
+	JNZ	EXPR		;F485-C2 5D F4 ; GET ANOTHER PARAMETER
+;in intel, here's an error 'not terminated with CR'. state: no CR, params are ended
+;attention to the last commands in START: before CTBL, D:=0
+;and in CMD_L, D<>0
 	MOV	A,D		;F488-7A
 	ORA	A		;F489-B7
-	RNZ			;F48A-C0
-	JMP	ERROR		;F48B-C3 47 F8
+	RNZ			;F48A-C0       ;return if D<>0 and 'non-CR delimiter' (space,comma) - for CMD_L
+	JMP	ERROR		;F48B-C3 47 F8 ;if D=0 - NOT TERMINATED WITH CR
 
 
 ;///////////////////////////////////////////////////////////////////////////////
@@ -2097,7 +2148,8 @@ HILO:	INX	H		;F48E-23 ; INCREMENT HL ADDRESS
 	RET			;F497-C9 ; RETURN                                
 
 ;*******************************
-; Start Subroutine
+; Some hardware init at startup
+;also called if user-defined drivers, but 'error 6'
 CF498	MVI	A,012H		;F498-3E 12
 	OUT	0C0H		;F49A-D3 C0
 	XRA	A		;F49C-AF
@@ -2130,18 +2182,18 @@ JF4CB	SHLD	L0003		;F4CB-22 03 00
 
 ;*******************************
 ; part of trace
-; set breakpoint after current command
+; set breakpoint RST 0 (opcode 0C7H)
 ; on call, DE points to place where breakpoint should be
-; HL points to SP+1Ch
-; breakpoint is RST 0 (opcode 0C7H)
-CF4CF	MOV	M,E		;F4CF-73
+; HL points to place, where old opcode should be saved (SP+1Ch?)
+; 
+BRKSET:	MOV	M,E		;F4CF-73
 	INX	H		;F4D0-23
 	MOV	M,D		;F4D1-72
-	INX	H		;F4D2-23    ;save pointer to the next command in SP+1Ch, SP+1Dh
-	LDAX	D		;F4D3-1A    ;read the next command's opcode
+	INX	H		;F4D2-23    ;save pointer to the command in SP+1Ch, SP+1Dh
+	LDAX	D		;F4D3-1A    ;read the command's opcode
 	MOV	M,A		;F4D4-77    ;save it to SP+1Eh
-JF4D5	MVI	A,0C7H		;F4D5-3E C7 
-	STAX	D		;F4D7-12    ;replace next command's opcode to RST 0
+BRKSE0:	MVI	A,0C7H		;F4D5-3E C7 
+	STAX	D		;F4D7-12    ;replace command's opcode @DE to RST 0
 	RET			;F4D8-C9
 
 ;////////////////////////////////////////////////////////////////////////////
@@ -2186,7 +2238,8 @@ DBIT:	RLC			;F4EE-07       ;move 7th bit to 0 position
 
 ;*******************************
 ; Start Subroutine
-MEMC	LXI	H,L0003		;F4FA-21 03 00
+;subroutine name is taken from Assembler code
+JMEMC:	LXI	H,L0003		;F4FA-21 03 00
 	MOV	A,M		;F4FD-7E
 	ANI	0F0H		;F4FE-E6 F0
 	CPI	030H		;F500-FE 30
@@ -2211,17 +2264,19 @@ JF516	LHLD	L0006		;F516-2A 06 00
 	RET			;F520-C9
 
 ;*******************************
-; Start Subroutine
-;somewhat initialisation
-CF521	LXI	H,LC0FF		;F521-21 FF C0
-JF524	DCR	H		;F524-25
-	MOV	A,M		;F525-7E
-	CMA			;F526-2F
-	MOV	M,A		;F527-77
-	CMP	M		;F528-BE
-	CMA			;F529-2F
-	MOV	M,A		;F52A-77
-	JNZ	JF524		;F52B-C2 24 F5
+; Scan RAM downwards
+; Determine the top of RAM
+; Returns: H - Hbyte of highest RAM bank present, L - C9h
+; If no RAM, will be infinite loop
+MESCAN:	LXI	H,LC0FF		;F521-21 FF C0 ;for HL:=BFFF at the first pass (top addr of RAM)
+MESCA0	DCR	H		;F524-25       
+	MOV	A,M		;F525-7E       ;Acc:= @FF in the next 256-byte memory unit
+	CMA			;F526-2F       ;invert
+	MOV	M,A		;F527-77       ;write inverted to memory
+	CMP	M		;F528-BE       ;compare written with to be written, will be Z if OK
+	CMA			;F529-2F       ;invert back
+	MOV	M,A		;F52A-77       ;write original value back
+	JNZ	MESCA0		;F52B-C2 24 F5 ;loop until the end of memory or test fail
 	MVI	L,0C9H		;F52E-2E C9
 	RET			;F530-C9
 
@@ -2295,7 +2350,7 @@ PBYTE:	PUSH	PSW		;F54A-F5
 ; STACK USAGE: 4 BYTES
 
 PCHK:	CALL	TI		;F562-CD C2 FD ; GET A CHARACTER
-P2C	CPI	' '		;F565-FE 20
+P2C:	CPI	' '		;F565-FE 20
 	RZ			;F567-C8       ; IF SPACE, THEN  ZERO = 1   
 	CPI	','		;F568-FE 2C                                             
 	RZ			;F56A-C8       ; IF COMMA, THEN ZERO = 1    
@@ -2307,37 +2362,40 @@ P2C	CPI	' '		;F565-FE 20
 	RET			;F571-C9
 
 ;*******************************
-; Start Subroutine
-CF572	LXI	H,L0005		;F572-21 05 00
+; Loop trace hahdling
+;Count variable down, set breakpoint if non-0, exit to monitor if 0
+LOPTRA:	LXI	H,L0005		;F572-21 05 00
 	MOV	A,M		;F575-7E
-	ANI	0BFH		;F576-E6 BF
+	ANI	0BFH		;F576-E6 BF    ;1011.1111 - clear bit 6 @05h
 	MOV	M,A		;F578-77
 	LXI	H,L0027		;F579-21 27 00
 	DAD	SP		;F57C-39
 	MOV	E,M		;F57D-5E
 	INX	H		;F57E-23
-	MOV	D,M		;F57F-56
-	DCX	D		;F580-1B
+	MOV	D,M		;F57F-56       
+	DCX	D		;F580-1B       ;DE:=@(SP+27h,SP+28h)-1
 	MOV	M,D		;F581-72
 	DCX	H		;F582-2B
-	MOV	M,E		;F583-73
+	MOV	M,E		;F583-73       ;write back to @(SP+27h,SP+28h). I.e. DCX this RAM counter-variable
 	MOV	A,D		;F584-7A
-	ORA	E		;F585-B3
+	ORA	E		;F585-B3       ;is that counter ZERO now? set flag
 	DCX	H		;F586-2B
-	DCX	H		;F587-2B
+	DCX	H		;F587-2B       ;HL:=SP+25h
 	MOV	D,M		;F588-56
 	DCX	H		;F589-2B
-	MOV	E,M		;F58A-5E
-	JNZ	JF4D5		;F58B-C2 D5 F4
-	POP	H		;F58E-E1
+	MOV	E,M		;F58A-5E       ;DE:=@(SP+24h,SP+25h)
+	JNZ	BRKSE0		;F58B-C2 D5 F4 ;set breakpoint at @(SP+24h,SP+25h) if counter <> 0 without saving old opcode
+                                               ;BRKSE0 ends with RET so we'll reuturn to caller.
+;if loop counter has reached zero
+	POP	H		;F58E-E1       ;eliminate caller's return addr
 	LXI	H,L0005		;F58F-21 05 00
 	MOV	A,M		;F592-7E
-	ANI	03FH		;F593-E6 3F
+	ANI	03FH		;F593-E6 3F    ;0011.1111 - clear bits 7,6 @05h
 	MOV	M,A		;F595-77
 	CALL	COMC		;F596-CD CD FD
-	DB	'$'		;F599-24
-JF59A	XCHG			;F59A-EB
-	JMP	RFB53		;F59B-C3 53 FB
+	DB	'$'		;F599-24       ;print '$', it means that loop trace condition isn't met anymore
+JF59A	XCHG			;F59A-EB       ;now HL contains breakpoint addr
+	JMP	PRNRET		;F59B-C3 53 FB ;print 'breakpoint-addr' and return to monitor
 
 ;*******************************
 ; Process hign nibble in A (shift to low and mask)
@@ -2356,7 +2414,7 @@ CR_CHK:	CALL	PCHK		;F5A5-CD 62 F5
 	JNC	ERROR		;F5A8-D2 47 F8
 	RET			;F5AB-C9
 
-CMD_I	CALL	EXPRDH		;F5AC-CD 57 F4
+CMD_I:	CALL	EXPRDH		;F5AC-CD 57 F4
 JF5AF	CALL	RI		;F5AF-CD 5D FE
 	MOV	B,A		;F5B2-47
 	ORA	C		;F5B3-B1
@@ -2366,46 +2424,56 @@ JF5AF	CALL	RI		;F5AF-CD 5D FE
 	CALL	HILO		;F5B9-CD 8E F4
 	JNC	JF5AF		;F5BC-D2 AF F5
 	RET			;F5BF-C9
-CMD_J	MVI	A,002H		;F5C0-3E 02
-	JMP	JF5F3		;F5C2-C3 F3 F5
 
-CMD_K	CALL	PCHK		;F5C5-CD 62 F5
+;J monitor command
+;in tracer modes byte (05h),
+;clear bits 5,4,2
+;set bit 1
+CMD_J:	MVI	A,002H		;F5C0-3E 02    ;0000.0010
+	JMP	CLR542		;F5C2-C3 F3 F5
+
+CMD_K:	CALL	PCHK		;F5C5-CD 62 F5
 	JC	JF60E		;F5C8-DA 0E F6
 	CPI	'Y'		;F5CB-FE 59
 	JZ	JF606		;F5CD-CA 06 F6
 	SUI	'J'		;F5D0-D6 4A
-	JZ	JF5F8		;F5D2-CA F8 F5
+	JZ	CLR541		;F5D2-CA F8 F5
 	SUI	002H		;F5D5-D6 02    ;was it 'L' symbol?
-	JZ	JF5F3		;F5D7-CA F3 F5
+	JZ	CLR542		;F5D7-CA F3 F5
 	SUI	008H		;F5DA-D6 08    ;was it 'T' symbol?
 	JZ	JF5E8		;F5DC-CA E8 F5
 	DCR	A		;F5DF-3D       ;was it 'U' symbol?
 	JNZ	ERROR		;F5E0-C2 47 F8 ;error if no
-CMD_U1	MVI	C,0C7H		;F5E3-0E C7
+CMD_U1:	MVI	C,0C7H		;F5E3-0E C7    ;1100.0111 - clear bits 5,4,3 @05H
 	JMP	CMD_U2		;F5E5-C3 FA F5
 
 JF5E8	LXI	H,L002E		;F5E8-21 2E 00
 	DAD	SP		;F5EB-39
-	MVI	M,000H		;F5EC-36 00
-	MVI	C,0C8H		;F5EE-0E C8
+	MVI	M,000H		;F5EC-36 00    ;@(SP+2Eh):=0
+	MVI	C,0C8H		;F5EE-0E C8    ;1100.1000 - clear bits 5,4,2,1,0 @05h
 	JMP	CMD_U2		;F5F0-C3 FA F5
-JF5F3	MVI	C,0CBH		;F5F3-0E CB
+
+CLR542:	MVI	C,0CBH		;F5F3-0E CB    ;1100.1011 - clear bits 5,4,2 @05h
 	JMP	CMD_U2		;F5F5-C3 FA F5
-JF5F8	MVI	C,0CDH		;F5F8-0E CD
+CLR541:	MVI	C,0CDH		;F5F8-0E CD    ;1100.1101 - clear bits 5,4,1 @05h
 
 CMD_U2:	MOV	B,A		;F5FA-47
 	CALL	CR_CHK		;F5FB-CD A5 F5
-;here we are after T command too
-JF5FE	LXI	H,L0005		;F5FE-21 05 00
-	MOV	A,M		;F601-7E
-	ANA	C		;F602-A1
-	ORA	B		;F603-B0
-	MOV	M,A		;F604-77
+;*******************************
+;change bits @05h: 
+;CLEAR - by C register
+;SET - by B register
+SET05H:	LXI	H,L0005		;F5FE-21 05 00 
+	MOV	A,M		;F601-7E       ;Acc:=@05h
+	ANA	C		;F602-A1       ;clear bits @05h by C
+	ORA	B		;F603-B0       ;set bits @05h by B
+	MOV	M,A		;F604-77       ;write @05h
 	RET			;F605-C9
 
 JF606	CALL	CR_CHK		;F606-CD A5 F5
 	MVI	C,03FH		;F609-0E 3F
 	JMP	JF610		;F60B-C3 10 F6
+;here we are if K command with no parameters
 JF60E	MVI	C,000H		;F60E-0E 00
 JF610	LXI	H,L002E		;F610-21 2E 00
 	DAD	SP		;F613-39
@@ -2414,32 +2482,38 @@ JF610	LXI	H,L002E		;F610-21 2E 00
 	DAD	SP		;F618-39
 	MVI	B,001H		;F619-06 01
 	CALL	JF3F9		;F61B-CD F9 F3
-	JMP	JF5FE		;F61E-C3 FE F5
+	JMP	SET05H		;F61E-C3 FE F5
 
+;trace-related
+;???fill opcodes list to trace???
+;reads hex values from console,
+;put them from @SP-79h byte-wise
 CMD_L:	LXI	H,RFF87		;F621-21 87 FF
-	DAD	SP		;F624-39
-	MVI	D,028H		;F625-16 28
-JF627	PUSH	H		;F627-E5
+	DAD	SP		;F624-39       ;HL:=SP-79h
+	MVI	D,028H		;F625-16 28    ;40d
+CMDLLP	PUSH	H		;F627-E5       ;save because EXPR corrupts HL
 	MVI	C,001H		;F628-0E 01    ;one parameter
-	CALL	EXPR		;F62A-CD 5D F4 
+	CALL	EXPR		;F62A-CD 5D F4 ;read parameter (addr) from console, place it into stack
 	DCR	D		;F62D-15
-	MOV	A,B		;F62E-78
-	CPI	00DH		;F62F-FE 0D
-	POP	B		;F631-C1
-	POP	H		;F632-E1
-	MOV	M,C		;F633-71
-	DCX	H		;F634-2B
-	JNZ	JF627		;F635-C2 27 F6
-	MVI	M,0C7H		;F638-36 C7
-	LXI	B,L04CD		;F63A-01 CD 04
-	JMP	JF5FE		;F63D-C3 FE F5
-CMD_O	CALL	EXPRDH		;F640-CD 57 F4
+	MOV	A,B		;F62E-78       ;examine last symbol read by EXPR
+	CPI	CR		;F62F-FE 0D    ;was it <CR>? Z if yes
+	POP	B		;F631-C1       ;restore parameter, entered from console, into BC
+	POP	H		;F632-E1       ;restore HL that was before EXPR
+	MOV	M,C		;F633-71       ;write parameter L-byte @HL
+	DCX	H		;F634-2B       ;next HL
+	JNZ	CMDLLP		;F635-C2 27 F6 ;loop until all 40d addreses are put into stack, or <CR> will be encountered
+	MVI	M,0C7H		;F638-36 C7    ;the last value will be C7 (RST0 opcode)
+	LXI	B,L04CD		;F63A-01 CD 04 ;B=0000.0100, C:=1100.1101
+	JMP	SET05H		;F63D-C3 FE F5 ;set bit2, clear bits 5,4,1
+
+CMD_O:	CALL	EXPRDH		;F640-CD 57 F4
 JF643	MOV	C,M		;F643-4E
 	CALL	PO		;F644-CD 32 FE
 	CALL	HILO		;F647-CD 8E F4
 	JNC	JF643		;F64A-D2 43 F6
 	JMP	PTRAIL		;F64D-C3 37 FA ; PUNCH TRAILER AND RETURN
-CMD_P	CALL	TI		;F650-CD C2 FD
+
+CMD_P:	CALL	TI		;F650-CD C2 FD
 	CPI	042H		;F653-FE 42
 	JZ	JF65D		;F655-CA 5D F6
 	SUI	043H		;F658-D6 43
@@ -2534,56 +2608,57 @@ CMD_T:	CALL	EXPR		;F6EB-CD 5D F4
 	MOV	M,E		;F6FA-73
 	INX	H		;F6FB-23
 	MOV	M,D		;F6FC-72
-
-;*******************************
-; Start Subroutine
+; here we are also from GO_*
 CF6FD	INX	H		;F6FD-23
 	MOV	M,C		;F6FE-71
 	INX	H		;F6FF-23
 	MOV	M,B		;F700-70
-	LXI	B,L01CF		;F701-01 CF 01
-	JMP	JF5FE		;F704-C3 FE F5
+	LXI	B,L01CF		;F701-01 CF 01  ;set bit0, clear bits 5,4
+	JMP	SET05H		;F704-C3 FE F5
 
 ;command 'U' (absent in intel)
+;invoke user-defined trace mode
 CMD_U:	MVI	A,008H		;F707-3E 08
-	JMP	CMD_U1		;F709-C3 E3 F5  ;C:=c7h, B:=A=08h; exit to mon if <CR> after U
-	CALL	EXPR		;F70C-CD 5D F4  ;return two (default val) parameters of command in stack
-	POP	D		;F70F-D1	;?place first addr in D
-	LXI	H,L002A		;F710-21 2A 00  ;?temporary buff in RAM
-	DAD	SP		;F713-39        ;??decimal adjust of 2nd addr?
-	MOV	M,D		;F714-72        ;?read first byte to buff
-	DCX	H		;F715-2B
-	MOV	M,E		;F716-73
-	DCX	H		;F717-2B
-	DCX	H		;F718-2B
-	DCX	H		;F719-2B
+	JMP	CMD_U1		;F709-C3 E3 F5  ;@05h: clear bits 5,4, set bit 3; exit to mon if <CR> after U
+
+;command 'Y' (absent in intel)
+CMD_Y:	CALL	EXPR		;F70C-CD 5D F4  ;return two (default val) parameters of command in stack
+	POP	D		;F70F-D1	;place first parameter in DE
+	LXI	H,L002A		;F710-21 2A 00
+	DAD	SP		;F713-39        ;HL:=SP+2Ah
+	MOV	M,D		;F714-72
+	DCX	H		;F715-2B        ;HL:=SP+29h
+	MOV	M,E		;F716-73        ;store first parameter @(SP+2Ah)
+	DCX	H		;F717-2B        ;HL:=SP+28h
+	DCX	H		;F718-2B        ;HL:=SP+27h
+	DCX	H		;F719-2B        ;HL:=SP+26h
 	PUSH	H		;F71A-E5
 	MVI	B,001H		;F71B-06 01
 	CALL	JF3F9		;F71D-CD F9 F3
-	POP	H		;F720-E1
-	POP	D		;F721-D1
-	CALL	CF4CF		;F722-CD CF F4
-	LXI	B,L80BF		;F725-01 BF 80
-	JMP	JF5FE		;F728-C3 FE F5
+	POP	H		;F720-E1        ;HL:=SP+26h
+	POP	D		;F721-D1        ;DE=second parameter of Y command?
+	CALL	BRKSET		;F722-CD CF F4  ;set breakpoint at 2nd parameter, backup opcode at SP+26h
+	LXI	B,L80BF		;F725-01 BF 80  ;set bit7, clear bit6 
+	JMP	SET05H		;F728-C3 FE F5
 
 ;here we are after 3,4,5 breakpoints (in RESTART)
-JF72B	LDAX	B		;F72B-0A
+JF72B	LDAX	B		;F72B-0A        ;Acc:=@05h
 	RLC			;F72C-07
-	RLC			;F72D-07
-	POP	B		;F72E-C1
-	JC	JF744		;F72F-DA 44 F7
+	RLC			;F72D-07        ;CY=bit6 @05h
+	POP	B		;F72E-C1        
+	JC	JF744		;F72F-DA 44 F7  ;jump if bit 6 set (loop trace mode)
 	LXI	H,L0024		;F732-21 24 00
 	DAD	SP		;F735-39
-	MOV	A,M		;F736-7E
-	STAX	B		;F737-02
+	MOV	A,M		;F736-7E        ;Acc:=@(SP+24h)
+	STAX	B		;F737-02        
 	PUSH	B		;F738-C5
 	LXI	H,L0005		;F739-21 05 00
-	MOV	A,M		;F73C-7E
-	ORI	040H		;F73D-F6 40
-	MOV	M,A		;F73F-77
+	MOV	A,M		;F73C-7E        ;Acc:=@05h
+	ORI	040H		;F73D-F6 40     ;0100.0000 - set bit 6
+	MOV	M,A		;F73F-77        ;set bit 6 @05h
 	POP	H		;F740-E1
 	JMP	LE9C8		;F741-C3 C8 E9
-JF744	CALL	CF572		;F744-CD 72 F5
+JF744	CALL	LOPTRA		;F744-CD 72 F5  ;loop trace handler
 	CALL	CF3F3		;F747-CD F3 F3
 	JMP	RFABB		;F74A-C3 BB FA
 
@@ -2681,13 +2756,26 @@ BEGIN	JMP	START0		;F800-C3 77 F8 ; RESET ENTRY POINT
 	JMP	PO		;F80C-C3 32 FE ; PUNCH OUTPUT        
 	JMP	LO		;F80F-C3 FA FD ; LIST OUTPUT         
 
-;here we jumped from monitor if command is in digits range
-RF812	MVI	A,0D4H		;F812-3E D4    ;jump to @07H D4 
-RF814	PUSH	H		;F814-E5       ;@SP:=HL
-	LHLD	L0006		;F815-2A 06 00 ;HL:=@06-07h
+;Go to user command dispatcher (USRCMD)
+;or other user-defined driver or handler (USRJMP)
+USRCMD:	MVI	A,0D4H		;F812-3E D4    ;jump to @07H D4 
+USRJMP:	PUSH	H		;F814-E5       ;@SP:=HL
+	LHLD	L0006		;F815-2A 06 00 ;HL:=@(07h,06h)
 	MOV	L,A		;F818-6F       ;H:=@07h, L:=Acc
 	XTHL			;F819-E3       ;now HL restored and @SP:= @07H acc-value 
 	RET			;F81A-C9       ;jump to this new value
+
+;here's list of user routines' addreses:
+;@07h 4D - user defined trace handler (call if bit 3 @05h=1)
+;@07h 50 - part of CI, RFDBD
+;@07h 53 - part of CO, RFDED
+;@07h 59 - part of ..,        USER-2 console
+;@07h 5C - part of RI, RFE9A
+;@07h 5F - part of .., RFE81, with error check
+;@07h 62 - part of PO, RFE58
+;@07h 68 - part of LO, RFE21
+;@07h D4 - USRCMD, user's monitor command handler
+
 
 ;*******************************
 VERSTR	DB	 CR, '|lEKTPOHiKA K1-10', 
@@ -2697,21 +2785,25 @@ VERSTR	DB	 CR, '|lEKTPOHiKA K1-10',
 ;*******************************
 ; Start code segment
 	CSEG
-ERROR	CALL	COMC		;F847-CD CD FD
+ERROR:	CALL	COMC		;F847-CD CD FD
 	DB	'?'		;F84A-3F
 MONI:	JMP	STARTM		;F84B-C3 B7 F8
 
-	JMP	MEMC		;F84E-C3 FA F4
-	JMP	CLOS		;F851-C3 8C F2
+MEMC:	JMP	JMEMC		;F84E-C3 FA F4
+CLOS:	JMP	JCLOS		;F851-C3 8C F2
 CIO:	JMP	TI		;F854-C3 C2 FD
-	JMP	REWI		;F857-C3 75 F2
+REWI:	JMP	JREWI		;F857-C3 75 F2
+
+;this code is copied into RAM during initialsation
+;restore regs, except HL, set HL:=0, jump to 00h
+;???probably it is code to be modified, instead of zeros in HL and JMP will be written something???
 RF85A	POP	D		;F85A-D1
 	POP	B		;F85B-C1
 	POP	PSW		;F85C-F1
 	POP	H		;F85D-E1
-	SPHL			;F85E-F9
+	SPHL			;F85E-F9       ;restore old SP
 	LXI	H,L0000		;F85F-21 00 00
-	JMP	L0000		;F862-C3 00 00
+	JMP	L0000		;F862-C3 00 00 ;normally 00h contains JMP RESTART, see begin of START
 	JMP	ERROR		;F865-C3 47 F8
 
 ;*******************************
@@ -2719,40 +2811,40 @@ ERRSTR:	DB	013H, 'o{ibKA 13, PC='
 ;*******************************
 
 	CSEG
-START0	XRA	A		;F877-AF
+START0:	XRA	A		;F877-AF
 	OUT	0C0H		;F878-D3 C0
 	LXI	SP,L0008	;F87A-31 08 00
-	CALL	CF498		;F87D-CD 98 F4
-	CALL	CF521		;F880-CD 21 F5
+	CALL	CF498		;F87D-CD 98 F4 ;some hardware initialisation
+	CALL	MESCAN		;F880-CD 21 F5 ;determine the top of RAM, returns: H=Hbyte of highest RAM bank present, L=C9h
 	LXI	D,RF85A		;F883-11 5A F8
-RF886	LDAX	D		;F886-1A
-	MOV	M,A		;F887-77
+STLOP0	LDAX	D		;F886-1A       
+	MOV	M,A		;F887-77       ;copy next byte of RF85A code @RAM at addr returned by MESCAN
 	INX	D		;F888-13
-	INR	L		;F889-2C
+	INR	L		;F889-2C       ;next addr in both RAM & ROM
 	MOV	A,L		;F88A-7D
-	SUI	0D7H		;F88B-D6 D7
-	JNZ	RF886		;F88D-C2 86 F8
-	STA	L0005		;F890-32 05 00
-RF893	MOV	M,A		;F893-77
+	SUI	0D7H		;F88B-D6 D7    ;copy D7h-C9h=0Eh bytes (whole FR85A)
+	JNZ	STLOP0		;F88D-C2 86 F8 ;loop. when it ends, HL=topRAM D7h,Acc=00h
+	STA	L0005		;F890-32 05 00 ;@05h:=00h
+STLOP1	MOV	M,A		;F893-77
 	INR	L		;F894-2C
-	JNZ	RF893		;F895-C2 93 F8
+	JNZ	STLOP1		;F895-C2 93 F8 ;clean RAM from 'topRAM D7' until 'topRAM FF' 
 	MVI	L,0EEH		;F898-2E EE
 	MVI	A,040H		;F89A-3E 40
-	MOV	M,A		;F89C-77
+	MOV	M,A		;F89C-77       ;@topRAM EE:=40h
 	INX	H		;F89D-23
 	INX	H		;F89E-23
-	MOV	M,A		;F89F-77
+	MOV	M,A		;F89F-77       ;@topRAM F0:=40h
 	INX	H		;F8A0-23
 	INX	H		;F8A1-23
-	MOV	M,A		;F8A2-77
+	MOV	M,A		;F8A2-77       ;@topRAM F2:=40h
 	MVI	L,0C9H		;F8A3-2E C9
-	SPHL			;F8A5-F9
+	SPHL			;F8A5-F9       ;setup stack, SP:=topRAM C9 (it's location of RF85A copied into RAM), will be grow down
 	LXI	H,L0100		;F8A6-21 00 01
-	PUSH	H		;F8A9-E5
-	MOV	H,L		;F8AA-65
-	PUSH	H		;F8AB-E5
-	PUSH	H		;F8AC-E5
-	PUSH	H		;F8AD-E5
+	PUSH	H		;F8A9-E5       ;@ram addr C8h=01, C7h=00
+	MOV	H,L		;F8AA-65       ;HL:=0000h
+	PUSH	H		;F8AB-E5       ;@C6h C5h=0000
+	PUSH	H		;F8AC-E5       ;@C4h C3h=0000
+	PUSH	H		;F8AD-E5       ;@C2h C1h=0000, SP=topRAM C1h
 	LXI	H,VERSTR	;F8AE-21 1B F8 ;point to info and version string
 	LXI	D,L2C00		;F8B1-11 00 2C ;2ch length, no spaces
 	CALL	CO_STR		;F8B4-CD 2A F4 ;output string to console
@@ -2769,29 +2861,29 @@ RF893	MOV	M,A		;F893-77
 ; AND LINE FEED ARE TYPED ALONG WITH THE PROMPT CHARACTER, '.'.
 ; WHEN A CHARACTER IS ENTERED FROM THE LOCAL CONSOLE KEYBOARD, IT
 ; IS CHECKED FOR VALIDITY, THEN A BRANCH TO THE PROPER
-STARTM	EI			;F8B7-FB
+STARTM:	EI			;F8B7-FB
 	CALL	XOFF		;F8B8-CD F2 FD
 ;RET from monitor commands returns here
-START	MVI	A,0C3H		;F8BB-3E C3    ;JMP opcode
+START:	MVI	A,0C3H		;F8BB-3E C3    ;JMP opcode
 	STA	L0000		;F8BD-32 00 00 ;place it @00H for trace & breakpoints (via RST 0)
 	LXI	H,RFAC0		;F8C0-21 C0 FA
-	SHLD	L0001		;F8C3-22 01 00 ;place 'JMP FAC0h' @00H
-	CALL	CF521		;F8C6-CD 21 F5
-	SHLD	L0006		;F8C9-22 06 00
+	SHLD	L0001		;F8C3-22 01 00 ;place 'JMP FAC0h' = 'JMP RESTART' @00H
+	CALL	MESCAN		;F8C6-CD 21 F5 ;determine the top of RAM, returns: H=Hbyte of highest RAM bank present, L=C9h
+	SHLD	L0006		;F8C9-22 06 00 ;@07h:=topRAM, @06h:=C9
 	MVI	L,0C1H		;F8CC-2E C1
-	SPHL			;F8CE-F9
+	SPHL			;F8CE-F9       ;setup stack at topRAM C1
 	CALL	CF3F3		;F8CF-CD F3 F3
 	LXI	H,L0018		;F8D2-21 18 00
 	CALL	CF3F6		;F8D5-CD F6 F3
 	LXI	H,L0027		;F8D8-21 27 00
-	DAD	SP		;F8DB-39
+	DAD	SP		;F8DB-39       ;HL:=SP+27h
 	MOV	M,B		;F8DC-70
 	INX	H		;F8DD-23
 	MOV	M,B		;F8DE-70
 	INX	H		;F8DF-23
 	MOV	M,B		;F8E0-70
 CRLOOP	CALL	COMC		;F8E1-CD CD FD
-	DB	'.'		;F8E4-2E
+	DB	'.'		;F8E4-2E       ;print system prompt
 INLOOP	CALL	PCHK		;F8E5-CD 62 F5 ;<CR> pressed?
 	JC	CRLOOP		;F8E8-DA E1 F8 ;yes - loop
 	CPI	'$'		;F8EB-FE 24
@@ -2799,23 +2891,23 @@ INLOOP	CALL	PCHK		;F8E5-CD 62 F5 ;<CR> pressed?
 	ORA	A		;F8F0-B7       ;0h read?
 	JZ	INLOOP		;F8F1-CA E5 F8 ;yes - loop
 	MOV	B,A		;F8F4-47
-	SUI	'?'		;F8F5-D6 3F    ;ASCII '?' is 3Fh (ASCII 'A' is 41h)
-	JM	RF812		;F8F7-FA 12 F8
-	CPI	01CH		;F8FA-FE 1C
-	JP	RF812		;F8FC-F2 12 F8
-	ADD	A		;F8FF-87
-	LXI	H,CTBL		;F900-21 12 F9
-	ADD	L		;F903-85
-	MOV	L,A		;F904-6F
+	SUI	'?'		;F8F5-D6 3F    ;is it letter or @? (ASCII '?'=3Fh, '@'=40h,'A'=41h)
+	JM	USRCMD		;F8F7-FA 12 F8 ;user command if code in range below '@' (digits etc)
+	CPI	01CH		;F8FA-FE 1C    ; '?' (3Fh)+1Ch=5Bh, 'Z'=5Ah
+	JP	USRCMD		;F8FC-F2 12 F8 ;user command of code in range higher 'Z'
+	ADD	A		;F8FF-87       ;form an offset in CTBL (Acc twice because of 16bit entries)
+	LXI	H,CTBL		;F900-21 12 F9 
+	ADD	L		;F903-85       
+	MOV	L,A		;F904-6F       ;HL:= address of an item in CTBL
 	MOV	E,M		;F905-5E
 	INX	H		;F906-23
-	MOV	D,M		;F907-56
-	XCHG			;F908-EB
+	MOV	D,M		;F907-56       ;DE:= address of a command handler
+	XCHG			;F908-EB       ;HL:= that addr
 	LXI	D,START		;F909-11 BB F8
 	PUSH	D		;F90C-D5       ;for return from monitor commands
 	MVI	C,002H		;F90D-0E 02    ;default parameters count for EXPR
 	MVI	D,000H		;F90F-16 00
-	PCHL			;F911-E9
+	PCHL			;F911-E9       ;jump to command handler
 
 
 ;*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -2838,9 +2930,9 @@ CTBL:	DW	CMD_?		;F912-98 F1 *; ? -
 	DW	GOTO		;F922-4C FA *; G - GO TO MEMORY ADDRESS                  
 	DW	HEXN		;F924-59 FB *; H - HEXADECIMAL SUM AND DIFFERENCE        
 	DW	CMD_I		;F926-AC F5 *; I -                                       
-	DW	CMD_J		;F928-C0 F5 *; J -                                       
-	DW	CMD_K		;F92A-C5 F5 *; K -                                       
-	DW	CMD_L		;F92C-21 F6 *; L -                                       
+	DW	CMD_J		;F928-C0 F5 *; J - tracer, set bit 1                                      
+	DW	CMD_K		;F92A-C5 F5 *; K - cancel trace modes (m.b. KJ,KL,KT,KU,KY, or simply K<CR>)                                      
+	DW	CMD_L		;F92C-21 F6 *; L - fill the list of opcodes to trace, turn list trace mode on                                      
 	DW	MOVE		;F92E-71 FB *; M - MOVE MEMORY                           
 	DW	NULL		;F930-82 FB *; N - PUNCH NULLS FOR LEADER ON PAPER TAPE  
 	DW	CMD_O		;F932-40 F6 *; O -                                       
@@ -2848,12 +2940,12 @@ CTBL:	DW	CMD_?		;F912-98 F1 *; ? -
 	DW	QUERY		;F936-A4 FB *; Q - QUERY I/O SYSTEM STATUS               
 	DW	READ		;F938-DE FB *; R - READ HEXADECIMAL PAPER TAPE FILE      
 	DW	SUBS		;F93A-31 FC *; S - SUBSTITUTE MEMORY                     
-	DW	CMD_T		;F93C-EB F6 *; T -                                       
-	DW	CMD_U		;F93E-07 F7 *; U -                                       
+	DW	CMD_T		;F93C-EB F6 *; T - tracer, bit 0, two parms                                      
+	DW	CMD_U		;F93E-07 F7 *; U - turn user-defined trace mode on                                      
 	DW	CMD_V		;F940-5A FC *; V -                                       
 	DW	WRITE		;F942-85 FC *; W - WRITE FILE TO PAPER TAPE IN HEX FORMAT
 	DW	X		;F944-CD FC *; X - EXAMINE AND MODIFY REGISTERS          
-	DW	CMD_Y		;F946-0C F7 *; Y -                                       
+	DW	CMD_Y		;F946-0C F7 *; Y - tracer, bit 7, repeat command given amount of times                                      
 	DW	Z		;F948-9A F2 *; Z - INVOKE THE DIAGNOSTIC PROGRAM         
 
 ;*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -3168,10 +3260,10 @@ GO_*:	MVI	C,001H		;FAA4-0E 01
 	CALL	CF6FD		;FAB0-CD FD F6
 GO_CR:	LDA	L0005		;FAB3-3A 05 00
 	ANI	009H		;FAB6-E6 09    ;0000.1001,is bits 3 or 0 set @05H?
-	JNZ	LE931		;FAB8-C2 31 E9 ;jump to tracer if yes
-RFABB	LXI	H,L0008		;FABB-21 08 00 ;here we are after trace preparations too
-	DAD	SP		;FABE-39       ;HL:=SP+8
-	PCHL			;FABF-E9       ;jump to @(SP+8)
+	JNZ	TRACER		;FAB8-C2 31 E9 ;jump to tracer if yes
+RFABB	LXI	H,L0008		;FABB-21 08 00 ;here we are after trace preparations too, after breakpoint is set
+	DAD	SP		;FABE-39       ;HL:=SP+08
+	PCHL			;FABF-E9       ;jump to @(SP+08)
 
 ;here we are after command being traced had executed
 ;///////////////////////////////////////////////////////////////////////////////
@@ -3224,7 +3316,7 @@ RFAC0	PUSH	H		;FAC0-E5
 	POP	B		;FACC-C1       ;load return addr to B
 	DCX	B		;FACD-0B       ;transform it to opcode addr
 	LDAX	B		;FACE-0A       ;load opcode
-	XRI	0C7H		;FACF-EE C7    ;was it RST 0?
+	XRI	0C7H		;FACF-EE C7    ;was it RST 0? 1100.0111
 	STA	L0006		;FAD1-32 06 00 ;  @06H=opcode XOR 0C7H
 	JNZ	RFB41		;FAD4-C2 41 FB ;jump if not
 RFAD7	LXI	H,0FFF4H	;FAD7-21 F4 FF
@@ -3276,11 +3368,12 @@ RFB08	MOV	A,M		;FB08-7E       ;read value (???from breakpoint array???)
 	SUI	004H		;FB1C-D6 04    ;was it 1st (D=5) or 2nd (D=4) breakpoint?
 	JP	RFB4E		;FB1E-F2 4E FB ;jump if yes
 	JMP	JF72B		;FB21-C3 2B F7 ;jump if no
+;??breakpoint is not found
 RFB24	INX	H		;FB24-23
 	INX	H		;FB25-23       ;next array element
-	DCR	D		;FB26-15       ;all 5 alaments compared?
+	DCR	D		;FB26-15       ;all 5 elements compared?
 	JNZ	RFB08		;FB27-C2 08 FB ;loop if no
-	LXI	H,ERRSTR	;FB2A-21 68 F8
+ERR13:	LXI	H,ERRSTR	;FB2A-21 68 F8
 	LXI	D,L0F00		;FB2D-11 00 0F
 	CALL	CO_STR		;FB30-CD 2A F4 ;print 'error 13, pc='
 	POP	H		;FB33-E1
@@ -3305,7 +3398,7 @@ RFB4D	PUSH	B		;FB4D-C5
 RFB4E	POP	H		;FB4E-E1       ;here we are if the 1st or 2nd breakpoint (???)
 	CALL	COMC		;FB4F-CD CD FD
 	DB	'#'		;FB52-23       
-RFB53	CALL	DADR		;FB53-CD D9 F4 ;print #address
+PRNRET:	CALL	DADR		;FB53-CD D9 F4 ;print #address
 	JMP	STARTM		;FB56-C3 B7 F8 ;return to monitor
 
 ;*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -3441,6 +3534,7 @@ RFBCA	INX	H		;FBCA-23
 ; GIVEN WHEN THE EOF RECORD WAS CREATED (VIA THE 'E' COMMAND) REPLACES
 ; THE USER'S STORED PC VALUE ONLY IF THE ADDRESS WAS NONZERO.
 ; A TRANSFER TO THE PROGRAM MAY THEN BE ACCOMPLISHED BY A 'G<CR>'.
+;unlike Intel, can run programs read
 READ:	DCR	C		;FBDE-0D
 	CALL	EXPR		;FBDF-CD 5D F4
 RFBE2	CALL	RI		;FBE2-CD 5D FE
@@ -3751,7 +3845,7 @@ SPACE:	MVI	C,' '		;FD9A-0E 20
 ;    LOOP UNTIL READ, INPUT THE CHARACTER, THEN RETURN.  IF IT IS BATCH,       ;
 ;    JUMP TO 'RI' ROUTINE. IF IT IS USER-DEFINED DEVICE, JUMP TO @USER.        ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-CI	LDA	L0003		;FD9F-3A 03 00
+CI:	LDA	L0003		;FD9F-3A 03 00
 	ANI	00FH		;FDA2-E6 0F
 	JZ	RFEB1		;FDA4-CA B1 FE
 	DCR	A		;FDA7-3D
@@ -3761,12 +3855,12 @@ CI	LDA	L0003		;FD9F-3A 03 00
 	DCR	A		;FDAF-3D
 	JZ	RI		;FDB0-CA 5D FE
 	DCR	A		;FDB3-3D
-	JZ	RFDBD		;FDB4-CA BD FD
+	JZ	USRCI		;FDB4-CA BD FD
 	DCR	A		;FDB7-3D
 	MVI	A,056H		;FDB8-3E 56
 	JMP	RFE81		;FDBA-C3 81 FE
-RFDBD	MVI	A,050H		;FDBD-3E 50
-	JMP	RF814		;FDBF-C3 14 F8
+USRCI	MVI	A,050H		;FDBD-3E 50
+	JMP	USRJMP		;FDBF-C3 14 F8
 
 ;///////////////////////////////////////////////////////////////////////////////
 ; 'TI' - ENTERED VIA CALLS FROM 'A','N','Q' COMMANDS AND 'START','PARAM'
@@ -3823,12 +3917,12 @@ CO:	LDA	L0003		;FDD1-3A 03 00 ; GET STATUS BYTE
 	DCR	A		;FDDF-3D
 	JZ	LO		;FDE0-CA FA FD ;jump for batch console (READ,LIST)
 	DCR	A		;FDE3-3D
-	JZ	RFDED		;FDE4-CA ED FD ;jump for USER-1 console
-	DCR	A		;FDE7-3D       ; no sense
+	JZ	USRCO		;FDE4-CA ED FD ;jump for USER-1 console
+	DCR	A		;FDE7-3D       
 	MVI	A,059H		;FDE8-3E 59    ;USER-2 console
 	JMP	RFE81		;FDEA-C3 81 FE
-RFDED	MVI	A,053H		;FDED-3E 53
-	JMP	RF814		;FDEF-C3 14 F8
+USRCO	MVI	A,053H		;FDED-3E 53
+	JMP	USRJMP		;FDEF-C3 14 F8
 
 ;*******************************
 ; Send XOFF to console (stop reading and echoing from keyboard)
@@ -3861,12 +3955,12 @@ LO	LDA	L0004		;FDFA-3A 04 00
 	DCR	A		;FE13-3D
 	JZ	CF11C		;FE14-CA 1C F1
 	DCR	A		;FE17-3D
-	JZ	RFE21		;FE18-CA 21 FE
+	JZ	USRLO		;FE18-CA 21 FE
 	DCR	A		;FE1B-3D
 	MVI	A,06BH		;FE1C-3E 6B
 	JMP	RFE81		;FE1E-C3 81 FE
-RFE21	MVI	A,068H		;FE21-3E 68
-	JMP	RF814		;FE23-C3 14 F8
+USRLO	MVI	A,068H		;FE21-3E 68
+	JMP	USRJMP		;FE23-C3 14 F8
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; 'PO' - EXTERNALLY REFERENCED ROUTINE                                          ;
@@ -3898,14 +3992,24 @@ PO:	LDA	L0004		;FE32-3A 04 00
 	DCR	A		;FE4A-3D
 	JZ	CF11C		;FE4B-CA 1C F1
 	DCR	A		;FE4E-3D
-	JZ	RFE58		;FE4F-CA 58 FE
+	JZ	USRPO		;FE4F-CA 58 FE
 	DCR	A		;FE52-3D
 	MVI	A,065H		;FE53-3E 65
 	JMP	RFE81		;FE55-C3 81 FE
-RFE58	MVI	A,062H		;FE58-3E 62
-	JMP	RF814		;FE5A-C3 14 F8
+USRPO	MVI	A,062H		;FE58-3E 62
+	JMP	USRJMP		;FE5A-C3 14 F8
 
-RI	LDA	L0003		;FE5D-3A 03 00
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; 'RI' - EXTERNALLY REFERENCED ROUTINE                                          ;
+;        ENTERED VIA CALLS FROM 'CI','RIX' ROUTINES                             ;
+; PROCESS: READER INPUT CODE                                                    ;
+; INPUT:                                                                        ;
+; OUTPUT: CARRY = 0 AND VALID CHARACTER IN A-REG, OTHERWISE                     ;
+;         CARRY = 1 AND INVALID DATA (ZEROES) IN A-REG                          ;
+; MODIFIED: A, FLAGS                                                            ;
+; STACK USAGE: 8 BYTES                                                          ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+RI:	LDA	L0003		;FE5D-3A 03 00
 	CALL	H_NIBB		;FE60-CD 9E F5
 	JZ	RFFEC		;FE63-CA EC FF
 	DCR	A		;FE66-3D
@@ -3922,7 +4026,7 @@ RI	LDA	L0003		;FE5D-3A 03 00
 	JZ	RFE9A		;FE7B-CA 9A FE
 	DCR	A		;FE7E-3D
 	MVI	A,05FH		;FE7F-3E 5F
-RFE81	JZ	RF814		;FE81-CA 14 F8
+RFE81	JZ	USRJMP		;FE81-CA 14 F8
 	CALL	CF498		;FE84-CD 98 F4
 	LXI	H,ERRSTR	;FE87-21 68 F8
 	LXI	D,L0800		;FE8A-11 00 08
@@ -3932,7 +4036,7 @@ RFE81	JZ	RF814		;FE81-CA 14 F8
 	CALL	XOFF		;FE94-CD F2 FD ;print 'error 6'
 	JMP	START0		;FE97-C3 77 F8 ;return to main command loop
 RFE9A	MVI	A,05CH		;FE9A-3E 5C
-	JMP	RF814		;FE9C-C3 14 F8
+	JMP	USRJMP		;FE9C-C3 14 F8
 RFE9F	CALL	RFEB1		;FE9F-CD B1 FE
 	PUSH	PSW		;FEA2-F5
 	CALL	RFEF3		;FEA3-CD F3 FE
@@ -4111,6 +4215,7 @@ RFFF7	IN	002H		;FFF7-DB 02
 	RRC			;FFF9-0F
 	JNC	RFFF7		;FFFA-D2 F7 FF
 	IN	001H		;FFFD-DB 01
+	RET			;FFFF-C9
 
 ;*******************************
 ; Start initialized data segment
