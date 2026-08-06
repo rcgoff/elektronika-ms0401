@@ -6,6 +6,32 @@
 
 ; sof=E931 eof=FFFF mem=10000 rom=F800 mflag=0
 
+;ports found:
+;input	output
+;01h	01h
+;02h	02h
+;03h	03h	punch?
+;04h	04h	punch?
+;05h	05h
+;	06h
+;	07h
+;0Ah
+;0Ch	0Ch
+;	24h
+;25h
+;26h	26h
+;	27h
+;	28h
+;2Ah	2Ah
+;	2Bh
+;	C0h	interrupt controller command
+;	C1h
+;
+;Perephirals of the K1-30
+;CPU board: 8253, 8259, 8212
+;VU board: 2x8255
+;UVV board: 3x8255, 8251
+
 L0000	EQU	00000H		;
 L0001	EQU	00001H		;
 L0003	EQU	00003H		;
@@ -1347,6 +1373,8 @@ CMD@CR	OUT	006H		;F003-D3 06
 	DCX	B		;F006-0B
 	OUT	007H		;F007-D3 07
 	RET			;F009-C9
+	
+;*******************************
 	CALL	CF0A0		;F00A-CD A0 F0
 	MVI	A,00AH		;F00D-3E 0A
 	ORA	B		;F00F-B0
@@ -1908,7 +1936,7 @@ CF37A	ANI	07FH		;F37A-E6 7F
 	RZ			;F37E-C8
 	PUSH	D		;F37F-D5
 	PUSH	H		;F380-E5
-	CALL	CF3BA		;F381-CD BA F3
+	CALL	REP_CR		;F381-CD BA F3
 	OUT	024H		;F384-D3 24
 	MVI	A,010H		;F386-3E 10
 	OUT	026H		;F388-D3 26
@@ -1930,7 +1958,8 @@ JF399	INR	E		;F399-1C
 	RET			;F3A6-C9
 
 ;*******************************
-; Start Subroutine
+;Replace (substitute) symbol in Acc to corresponding symbol in array
+;Inverted direction (in comparison to the next one)
 CF3A7	LXI	H,RFFC9		;F3A7-21 C9 FF
 JF3AA	CMP	M		;F3AA-BE
 	DCX	H		;F3AB-2B
@@ -1946,20 +1975,34 @@ JF3B5	MOV	A,M		;F3B5-7E
 	RET			;F3B9-C9
 
 ;*******************************
-; Start Subroutine
-CF3BA	LXI	H,RFFCA		;F3BA-21 CA FF
+;Replace (substitute) symbol in Acc to corresponding symbol in array
+;HL - array addr
+;Acc - symbol to replace
+;D - number of pairs in array
+;return:
+;found in array:
+;   CY=1, Acc=replaced symbol (i.e. @(HL+1) )
+;not found:
+;   CY=0 
+REP_CR	LXI	H,RFFCA		;F3BA-21 CA FF
 	MVI	D,002H		;F3BD-16 02
-JF3BF	CMP	M		;F3BF-BE
+REPLAC	CMP	M		;F3BF-BE
 	STC			;F3C0-37
 	INX	H		;F3C1-23
-	JZ	JF3CC		;F3C2-CA CC F3
+JZ	RPFOUN		;F3C2-CA CC F3
 	INX	H		;F3C5-23
 	DCR	D		;F3C6-15
-	JNZ	JF3BF		;F3C7-C2 BF F3
+	JNZ	REPLAC		;F3C7-C2 BF F3
 	CMC			;F3CA-3F
 	RET			;F3CB-C9
-JF3CC	MOV	A,M		;F3CC-7E
+RPFOUN	MOV	A,M		;F3CC-7E
 	RET			;F3CD-C9
+	
+	
+	
+	
+;*******************************
+; Start Subroutine	
 JF3CE	IN	02AH		;F3CE-DB 2A
 	RRC			;F3D0-0F
 	JC	JF3CE		;F3D1-DA CE F3
@@ -1969,7 +2012,7 @@ JF3CE	IN	02AH		;F3CE-DB 2A
 	RZ			;F3D9-C8
 	PUSH	D		;F3DA-D5
 	PUSH	H		;F3DB-E5
-	CALL	CF3BA		;F3DC-CD BA F3
+	CALL	REP_CR		;F3DC-CD BA F3
 	CMA			;F3DF-2F
 	OUT	028H		;F3E0-D3 28
 	MVI	A,090H		;F3E2-3E 90
@@ -4084,15 +4127,18 @@ RFEEB	MOV	A,E		;FEEB-7B
 	CALL	RFF69		;FEEC-CD 69 FF
 	JMP	RFEBD		;FEEF-C3 BD FE
 
+
+;*******************************
+; Start Subroutine	
+;output to console of type "CRT" //not sure about the type
 RFEF2	MOV	A,C		;FEF2-79
 RFEF3	ANI	07FH		;FEF3-E6 7F
 	RZ			;FEF5-C8
-
 	PUSH	D		;FEF6-D5
 	PUSH	H		;FEF7-E5
 	LXI	H,RFF92		;FEF8-21 92 FF
 	MVI	D,005H		;FEFB-16 05
-	CALL	JF3BF		;FEFD-CD BF F3
+	CALL	REPLAC		;FEFD-CD BF F3
 	MOV	E,A		;FF00-5F
 	ANI	0E0H		;FF01-E6 E0
 	MOV	A,E		;FF03-7B
@@ -4106,7 +4152,7 @@ RFEF3	ANI	07FH		;FEF3-E6 7F
 	LXI	H,RFF9E		;FF14-21 9E FF
 	MVI	D,003H		;FF17-16 03
 	ORI	010H		;FF19-F6 10
-	CALL	JF3BF		;FF1B-CD BF F3
+	CALL	REPLAC		;FF1B-CD BF F3
 	JC	RFF4B		;FF1E-DA 4B FF
 	IN	00AH		;FF21-DB 0A
 	RRC			;FF23-0F
@@ -4114,7 +4160,7 @@ RFEF3	ANI	07FH		;FEF3-E6 7F
 	JC	RFF63		;FF25-DA 63 FF
 	LXI	H,RFFB2		;FF28-21 B2 FF
 	MVI	D,00CH		;FF2B-16 0C
-	CALL	JF3BF		;FF2D-CD BF F3
+	CALL	REPLAC		;FF2D-CD BF F3
 	JC	RFF52		;FF30-DA 52 FF
 RFF33	MVI	D,001H		;FF33-16 01
 	JMP	RFF54		;FF35-C3 54 FF
@@ -4125,7 +4171,7 @@ RFF38	MOV	A,E		;FF38-7B
 	INR	A		;FF3F-3C
 	LXI	H,RFF9C		;FF40-21 9C FF
 	MVI	D,004H		;FF43-16 04
-	CALL	JF3BF		;FF45-CD BF F3
+	CALL	REPLAC		;FF45-CD BF F3
 	JC	RFF33		;FF48-DA 33 FF
 RFF4B	XRI	010H		;FF4B-EE 10
 	JMP	RFF52		;FF4D-C3 52 FF
@@ -4144,15 +4190,21 @@ RFF63	CALL	RFF69		;FF63-CD 69 FF
 	POP	H		;FF66-E1
 	POP	D		;FF67-D1
 	RET			;FF68-C9
-RFF69	MOV	D,A		;FF69-57
-RFF6A	IN	00AH		;FF6A-DB 0A
+
+;*******************************
+; Start Subroutine
+;??console output backend??
+;inputs from 0ah
+;outputs to 0ch
+RFF69	MOV	D,A		;FF69-57       ;save Acc for later
+RFF6A	IN	00AH		;FF6A-DB 0A    
 	RLC			;FF6C-07
-	JNC	RFF7B		;FF6D-D2 7B FF
+	JNC	RFF7B		;FF6D-D2 7B FF ;jump if bit7=1 at 0ah port
 	IN	00CH		;FF70-DB 0C
-	XRI	07FH		;FF72-EE 7F
+	XRI	07FH		;FF72-EE 7F    ;0111.1111
 	ADD	A		;FF74-87
 	JZ	STARTM		;FF75-CA B7 F8
-	JMP	RFF6A		;FF78-C3 6A FF
+	JMP	RFF6A		;FF78-C3 6A FF ;
 RFF7B	ANI	004H		;FF7B-E6 04
 	JZ	RFF6A		;FF7D-CA 6A FF
 	IN	00AH		;FF80-DB 0A
@@ -4166,20 +4218,19 @@ RFF8E	MOV	A,D		;FF8E-7A
 	RET			;FF91-C9
 
 ;*******************************
-; Start initialized data segment
-	DSEG
+; Tables for REPLAC routine
+; Even bytes - what to search
+; Odd bytes - what replace to
+;??Seems to me it's for different i/o devices
 
 RFF92	DB	013H,  CR, '|', 07FH, 07FH, 008H, '\', '/'
 	DB	'"', 027H
+
 RFF9C	DB	'?', '"'
+
 RFF9E	DB	'<', ',', '=', '-', '>', '.', '0', '/'
 	DB	'2', '?', '|', '_', '\', '\', '.', '>'
 	DB	'-', '=', ',', '<'
-; End initialized data segment
-
-;*******************************
-; Start initialized data segment
-	DSEG
 
 RFFB2	DB	' ', ' ', 'A', 'A', 'E', 'E', 'K', 'K'
 	DB	'M', 'M', 'O', 'O', 'T', 'T', 'X', 'H'
@@ -4206,6 +4257,8 @@ RFFE2	IN	003H		;FFE2-DB 03
 	MOV	A,C		;FFE8-79
 	OUT	001H		;FFE9-D3 01
 	RET			;FFEB-C9
+	
+;*******************************	
 RFFEC	IN	002H		;FFEC-DB 02
 	ANI	010H		;FFEE-E6 10
 	JZ	RFFEC		;FFF0-CA EC FF
@@ -4216,12 +4269,5 @@ RFFF7	IN	002H		;FFF7-DB 02
 	JNC	RFFF7		;FFFA-D2 F7 FF
 	IN	001H		;FFFD-DB 01
 	RET			;FFFF-C9
-
-;*******************************
-; Start initialized data segment
-	DSEG
-
-; End initialized data segment
-
 
 	END
