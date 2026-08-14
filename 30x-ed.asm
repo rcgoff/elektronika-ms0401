@@ -2,80 +2,80 @@
 ; File is 3326[0CFE] bytes
 ;
 ; Origin set to C000H
-	ORG	0C000H
+        ORG     0C000H
 
 ; sof=C000 eof=CCFF mem=CD00 rom=F800 mflag=0
 
-L0000	EQU	00000H		;
-L0001	EQU	00001H		;
-L0002	EQU	00002H		;
-L0005	EQU	00005H		;
-L0007	EQU	00007H		;
-L0008	EQU	00008H		;
-L0009	EQU	00009H		;
-L000A	EQU	0000AH		;
-L000B	EQU	0000BH		;
-L000D	EQU	0000DH		;
-L000F	EQU	0000FH		;
-L001C	EQU	0001CH		;
-L0064	EQU	00064H		;
-L0068	EQU	00068H		;
-_PNTR	EQU	00069H		;
-_EOF	EQU	0006BH		;
-L006D	EQU	0006DH		;
-L006F	EQU	0006FH		;
-L0071	EQU	00071H		;
-L0073	EQU	00073H		;
-L0075	EQU	00075H		;
-L0077	EQU	00077H		;
-L0079	EQU	00079H		;
-L007A	EQU	0007AH		;
-L007C	EQU	0007CH		;
-L007E	EQU	0007EH		;
-L007F	EQU	0007FH		;
-L0081	EQU	00081H		;
-L0083	EQU	00083H		;
-L0085	EQU	00085H		;
-L0088	EQU	00088H		;
-L0089	EQU	00089H		;
-L008B	EQU	0008BH		;
-L008C	EQU	0008CH		;
-L008D	EQU	0008DH		;
-L008E	EQU	0008EH		;
-L008F	EQU	0008FH		;
-L0091	EQU	00091H		;
-L0092	EQU	00092H		;
-L0093	EQU	00093H		;
-L0094	EQU	00094H		;
-L00A5	EQU	000A5H		;
-L00B6	EQU	000B6H		;
-L00B7	EQU	000B7H		;
-L00C7	EQU	000C7H		;
-L00C8	EQU	000C8H		;
-L00C9	EQU	000C9H		;
-L00CB	EQU	000CBH		;
-L00CD	EQU	000CDH		;
-L00CF	EQU	000CFH		;
-L00D3	EQU	000D3H		;
-L00D5	EQU	000D5H		;
-L00D6	EQU	000D6H		;
-L00D7	EQU	000D7H		;
-L03E8	EQU	003E8H		;
-L2710	EQU	02710H		;
-CI	EQU	0F803H		;
-RI	EQU	0F806H		;
-CO	EQU	0F809H		;
-PO	EQU	0F80CH		;
-LO	EQU	0F80FH		;
-MONI	EQU	0F84BH		;
-MEMC	EQU	0F84EH		;
-CLOS	EQU	0F851H		;
+L0000   EQU     00000H          ;
+L0001   EQU     00001H          ;
+L0002   EQU     00002H          ;
+L0005   EQU     00005H          ;
+L0007   EQU     00007H          ;
+L0008   EQU     00008H          ;
+L0009   EQU     00009H          ;
+L000A   EQU     0000AH          ;
+L000B   EQU     0000BH          ;
+L000D   EQU     0000DH          ;
+L000F   EQU     0000FH          ;
+L001C   EQU     0001CH          ;
+L0064   EQU     00064H          ;
+L0068   EQU     00068H          ;
+_PNTR   EQU     00069H          ;
+_EOF    EQU     0006BH          ;
+L006D   EQU     0006DH          ;
+L006F   EQU     0006FH          ;
+L0071   EQU     00071H          ;
+L0073   EQU     00073H          ;
+L0075   EQU     00075H          ;
+L0077   EQU     00077H          ;
+L0079   EQU     00079H          ;
+L007A   EQU     0007AH          ;
+L007C   EQU     0007CH          ;
+L007E   EQU     0007EH          ;
+L007F   EQU     0007FH          ;
+L0081   EQU     00081H          ;
+L0083   EQU     00083H          ;
+L0085   EQU     00085H          ;
+L0088   EQU     00088H          ;
+L0089   EQU     00089H          ;
+L008B   EQU     0008BH          ;
+L008C   EQU     0008CH          ;
+L008D   EQU     0008DH          ;
+L008E   EQU     0008EH          ;
+L008F   EQU     0008FH          ;
+L0091   EQU     00091H          ;
+L0092   EQU     00092H          ;
+L0093   EQU     00093H          ;
+L0094   EQU     00094H          ;
+L00A5   EQU     000A5H          ;
+L00B6   EQU     000B6H          ;
+L00B7   EQU     000B7H          ;
+L00C7   EQU     000C7H          ;
+L00C8   EQU     000C8H          ;
+L00C9   EQU     000C9H          ;
+L00CB   EQU     000CBH          ;
+L00CD   EQU     000CDH          ;
+L00CF   EQU     000CFH          ;
+L00D3   EQU     000D3H          ;
+L00D5   EQU     000D5H          ;
+L00D6   EQU     000D6H          ;
+L00D7   EQU     000D7H          ;
+L03E8   EQU     003E8H          ;
+L2710   EQU     02710H          ;
+CI      EQU     0F803H          ;
+RI      EQU     0F806H          ;
+CO      EQU     0F809H          ;
+PO      EQU     0F80CH          ;
+LO      EQU     0F80FH          ;
+MONI    EQU     0F84BH          ;
+MEMC    EQU     0F84EH          ;
+CLOS    EQU     0F851H          ;
 
 ; ASCII character equates
 
-TAB	EQU	009H
-LF	EQU	00AH
-CR	EQU	00DH
+TAB     EQU     009H
+LF      EQU     00AH
+CR      EQU     00DH
 
 ; Memory map
 ; 0069h  _PNTR  pointer in file being edited
@@ -84,127 +84,127 @@ CR	EQU	00DH
 
 ;*******************************
 ; Start code segment
-	CSEG
-	XRA	A		;C000-AF
-	OUT	0C0H		;C001-D3 C0
-	DI			;C003-F3
-	LXI	H,L0008		;C004-21 08 00
-	MVI	M,0C3H		;C007-36 C3
-	INX	H		;C009-23
-	MVI	M,0CFH		;C00A-36 CF
-	INX	H		;C00C-23
-	MVI	M,0CCH		;C00D-36 CC
-	LXI	SP,L0068	;C00F-31 68 00
-	JMP	EDINIT		;C012-C3 27 C7
+        CSEG
+        XRA     A               ;C000-AF
+        OUT     0C0H            ;C001-D3 C0
+        DI                      ;C003-F3
+        LXI     H,L0008         ;C004-21 08 00
+        MVI     M,0C3H          ;C007-36 C3
+        INX     H               ;C009-23
+        MVI     M,0CFH          ;C00A-36 CF
+        INX     H               ;C00C-23
+        MVI     M,0CCH          ;C00D-36 CC
+        LXI     SP,L0068        ;C00F-31 68 00
+        JMP     EDINIT          ;C012-C3 27 C7
 
 ;*******************************
 ; Start initialized data segment
-	DSEG
+        DSEG
 
-VERSTR	DB	 CR,  LF, 'PEdAKTOP TEKCTOB BEPC.1.1',  CR,  LF
-BRASTR	DB	'MHOgO CKObOK',  CR,  LF
-ERRSTR	DB	'O{ibKA: '
-OVFST1	DB	' -'
-OVFST2	DB	'pEPEpOlHEHiE- '
-RSTSTR	DB	 CR,  LF, 'CbPOC',  CR, LF
-FRESTR	DB	'CBObOdHO '
-BYTSTR	DB	'bAjT',  CR,  LF
-NOTFND	DB	'CTPOKA HE HAjdEHA:'
-AC082	DB	'#'
-CRLF	DB	 CR,  LF
+VERSTR  DB       CR,  LF, 'PEdAKTOP TEKCTOB BEPC.1.1',  CR,  LF
+BRASTR  DB      'MHOgO CKObOK',  CR,  LF
+ERRSTR  DB      'O{ibKA: '
+OVFST1  DB      ' -'
+OVFST2  DB      'pEPEpOlHEHiE- '
+RSTSTR  DB       CR,  LF, 'CbPOC',  CR, LF
+FRESTR  DB      'CBObOdHO '
+BYTSTR  DB      'bAjT',  CR,  LF
+NOTFND  DB      'CTPOKA HE HAjdEHA:'
+AC082   DB      '#'
+CRLF    DB       CR,  LF
 ; End initialized data segment
 
 ;*******************************
 ; Start code segment
-	CSEG
+        CSEG
 
 ;*******************************
 ; Start Subroutine
-CC085	MVI	C,050H		;C085-0E 50
-	CALL	CLOS		;C087-CD 51 F8
-	RET			;C08A-C9
+CC085   MVI     C,050H          ;C085-0E 50
+        CALL    CLOS            ;C087-CD 51 F8
+        RET                     ;C08A-C9
 
 ;*******************************
 ; Start Subroutine
-CC08B	LXI	B,CRLF		;C08B-01 83 C0
-	LXI	D,L0001		;C08E-11 01 00
-	CALL	PRINT		;C091-CD B0 C1
-	RET			;C094-C9
+CC08B   LXI     B,CRLF          ;C08B-01 83 C0
+        LXI     D,L0001         ;C08E-11 01 00
+        CALL    PRINT           ;C091-CD B0 C1
+        RET                     ;C094-C9
 
 ;*******************************
 ; Start Subroutine
-CC095	CALL	MEMC		;C095-CD 4E F8
-	MOV	B,H		;C098-44
-	MOV	A,L		;C099-7D
-	RET			;C09A-C9
+CC095   CALL    MEMC            ;C095-CD 4E F8
+        MOV     B,H             ;C098-44
+        MOV     A,L             ;C099-7D
+        RET                     ;C09A-C9
 
 ;*******************************
 ; Start Subroutine
-CC09B	EI			;C09B-FB
-	MVI	A,000H		;C09C-3E 00
-	DI			;C09E-F3
-	RET			;C09F-C9
+CC09B   EI                      ;C09B-FB
+        MVI     A,000H          ;C09C-3E 00
+        DI                      ;C09E-F3
+        RET                     ;C09F-C9
 
 ;*******************************
 ; Start Subroutine
-CC0A0	LXI	H,L008B		;C0A0-21 8B 00
-	MOV	M,C		;C0A3-71
-	MOV	A,C		;C0A4-79
-	CPI	00AH		;C0A5-FE 0A
-	JZ	JC0DF		;C0A7-CA DF C0
-	LXI	H,L0088		;C0AA-21 88 00
-	LDA	L00C8		;C0AD-3A C8 00
-	RRC			;C0B0-0F
-	JNC	JC0C9		;C0B1-D2 C9 C0
-	MOV	A,M		;C0B4-7E
-	ORA	A		;C0B5-B7
-	JNZ	JC0C9		;C0B6-C2 C9 C0
-	PUSH	B		;C0B9-C5
-	PUSH	D		;C0BA-D5
-	PUSH	H		;C0BB-E5
-	LHLD	L00C9		;C0BC-2A C9 00
-	INX	H		;C0BF-23
-	SHLD	L00C9		;C0C0-22 C9 00
-	CALL	CC421		;C0C3-CD 21 C4
-	POP	H		;C0C6-E1
-	POP	D		;C0C7-D1
-	POP	B		;C0C8-C1
-JC0C9	MOV	A,C		;C0C9-79
-	CPI	009H		;C0CA-FE 09
-	JNZ	JC0DE		;C0CC-C2 DE C0
-	MOV	A,M		;C0CF-7E
-	ANI	007H		;C0D0-E6 07
-	MOV	B,A		;C0D2-47
-	MVI	A,008H		;C0D3-3E 08
-	SUB	B		;C0D5-90
-	MOV	B,A		;C0D6-47
-	MVI	M,008H		;C0D7-36 08
-	MVI	C,020H		;C0D9-0E 20
-	JMP	JC0E9		;C0DB-C3 E9 C0
-JC0DE	INR	M		;C0DE-34
-JC0DF	MVI	B,001H		;C0DF-06 01
-	MVI	A,00DH		;C0E1-3E 0D
-	CMP	C		;C0E3-B9
-	JNZ	JC0E9		;C0E4-C2 E9 C0
-	MVI	M,000H		;C0E7-36 00
-JC0E9	LDA	L00C8		;C0E9-3A C8 00
-	RRC			;C0EC-0F
-	JC	JC0F7		;C0ED-DA F7 C0
-	LDA	L00D6		;C0F0-3A D6 00
-	RRC			;C0F3-0F
-	JC	JC0FD		;C0F4-DA FD C0
-JC0F7	CALL	CO		;C0F7-CD 09 F8
-	JMP	JC100		;C0FA-C3 00 C1
+CC0A0   LXI     H,L008B         ;C0A0-21 8B 00
+        MOV     M,C             ;C0A3-71
+        MOV     A,C             ;C0A4-79
+        CPI     00AH            ;C0A5-FE 0A
+        JZ      JC0DF           ;C0A7-CA DF C0
+        LXI     H,L0088         ;C0AA-21 88 00
+        LDA     L00C8           ;C0AD-3A C8 00
+        RRC                     ;C0B0-0F
+        JNC     JC0C9           ;C0B1-D2 C9 C0
+        MOV     A,M             ;C0B4-7E
+        ORA     A               ;C0B5-B7
+        JNZ     JC0C9           ;C0B6-C2 C9 C0
+        PUSH    B               ;C0B9-C5
+        PUSH    D               ;C0BA-D5
+        PUSH    H               ;C0BB-E5
+        LHLD    L00C9           ;C0BC-2A C9 00
+        INX     H               ;C0BF-23
+        SHLD    L00C9           ;C0C0-22 C9 00
+        CALL    CC421           ;C0C3-CD 21 C4
+        POP     H               ;C0C6-E1
+        POP     D               ;C0C7-D1
+        POP     B               ;C0C8-C1
+JC0C9   MOV     A,C             ;C0C9-79
+        CPI     009H            ;C0CA-FE 09
+        JNZ     JC0DE           ;C0CC-C2 DE C0
+        MOV     A,M             ;C0CF-7E
+        ANI     007H            ;C0D0-E6 07
+        MOV     B,A             ;C0D2-47
+        MVI     A,008H          ;C0D3-3E 08
+        SUB     B               ;C0D5-90
+        MOV     B,A             ;C0D6-47
+        MVI     M,008H          ;C0D7-36 08
+        MVI     C,020H          ;C0D9-0E 20
+        JMP     JC0E9           ;C0DB-C3 E9 C0
+JC0DE   INR     M               ;C0DE-34
+JC0DF   MVI     B,001H          ;C0DF-06 01
+        MVI     A,00DH          ;C0E1-3E 0D
+        CMP     C               ;C0E3-B9
+        JNZ     JC0E9           ;C0E4-C2 E9 C0
+        MVI     M,000H          ;C0E7-36 00
+JC0E9   LDA     L00C8           ;C0E9-3A C8 00
+        RRC                     ;C0EC-0F
+        JC      JC0F7           ;C0ED-DA F7 C0
+        LDA     L00D6           ;C0F0-3A D6 00
+        RRC                     ;C0F3-0F
+        JC      JC0FD           ;C0F4-DA FD C0
+JC0F7   CALL    CO              ;C0F7-CD 09 F8
+        JMP     JC100           ;C0FA-C3 00 C1
 
-JC0FD	CALL	LO		;C0FD-CD 0F F8
-JC100	DCR	B		;C100-05
-	JNZ	JC0E9		;C101-C2 E9 C0
-	RET			;C104-C9
+JC0FD   CALL    LO              ;C0FD-CD 0F F8
+JC100   DCR     B               ;C100-05
+        JNZ     JC0E9           ;C101-C2 E9 C0
+        RET                     ;C104-C9
 
-JC105	CALL	RIMOD		;C105-CD E8 C1
-	ORA	A		;C108-B7
-	JZ	JC105		;C109-CA 05 C1
-	RET			;C10C-C9
+JC105   CALL    RIMOD           ;C105-CD E8 C1
+        ORA     A               ;C108-B7
+        JZ      JC105           ;C109-CA 05 C1
+        RET                     ;C10C-C9
 
 ;*******************************
 ;Table conversion
@@ -214,70 +214,70 @@ JC105	CALL	RIMOD		;C105-CD E8 C1
 ;                         in bit 0 - 7th bit of converted value
 ;           CY contains 6th bit of converted value
 ;           for ASCII digits CY=1
-XLAT:	MVI	B,000H		;C10D-06 00
-	LXI	H,CNVTBL	;C10F-21 1A C1
-	DAD	B		;C112-09       ;HL points to converted byte
-	MOV	A,M		;C113-7E
-	MOV	C,M		;C114-4E
-	RLC			;C115-07
-	RLC			;C116-07
-	ANI	003H		;C117-E6 03    ;0000.0011
-	RET			;C119-C9
+XLAT:   MVI     B,000H          ;C10D-06 00
+        LXI     H,CNVTBL        ;C10F-21 1A C1
+        DAD     B               ;C112-09       ;HL points to converted byte
+        MOV     A,M             ;C113-7E
+        MOV     C,M             ;C114-4E
+        RLC                     ;C115-07
+        RLC                     ;C116-07
+        ANI     003H            ;C117-E6 03    ;0000.0011
+        RET                     ;C119-C9
 
 ;*******************************
-;	         0     1     2     3     4     5     6     7
-CNVTBL:	DB	080H, 080H, 080H, 080H, 080H, 080H, 080H, 080H
+;                0     1     2     3     4     5     6     7
+CNVTBL: DB      080H, 080H, 080H, 080H, 080H, 080H, 080H, 080H
 ;                8     9     A     B     C     F     E     F
-	DB	0A0H, 0A0H, 0E0H, 080H, 080H, 0E0H, 0A0H, 0A0H
+        DB      0A0H, 0A0H, 0E0H, 080H, 080H, 0E0H, 0A0H, 0A0H
 ;               10    11    12    13    14    15    16    17
-	DB	080H, 0A0H, 0A0H, 080H, 080H, 080H, 080H, 080H
+        DB      080H, 0A0H, 0A0H, 080H, 080H, 080H, 080H, 080H
 ;               18    19    1A    1B    1C    1D    1E    1F
-	DB	080H, 080H, 080H, 080H, 080H, 080H, 080H, 080H
+        DB      080H, 080H, 080H, 080H, 080H, 080H, 080H, 080H
 ;               20    21    22    23    24    25    26    27
-	DB	080H, 080H, 080H, 080H, 080H, 080H, 080H, 080H
+        DB      080H, 080H, 080H, 080H, 080H, 080H, 080H, 080H
 ;               28    29    2A    2B    2C    2D    2E    2F
-	DB	080H, 080H, 080H, 040H, 080H, 040H, 080H, 080H
+        DB      080H, 080H, 080H, 040H, 080H, 040H, 080H, 080H
 ;               30 0  31 1  32 2  33 3  34 4  35 5  36 6  37 7
-	DB	040H, 040H, 040H, 040H, 040H, 040H, 040H, 040H
+        DB      040H, 040H, 040H, 040H, 040H, 040H, 040H, 040H
 ;               38 8  39 9  3A    3B    3C    3D    3E    3F
-	DB	040H, 040H, 080H, 080H, 080H, 080H, 080H, 080H
+        DB      040H, 040H, 080H, 080H, 080H, 080H, 080H, 080H
 ;               40    41 A  42 B  43 C  44 D  45 E  46 F  47 G
-	DB	080H, 00AH, 003H, 00EH, 010H, 007H, 00DH, 013H
+        DB      080H, 00AH, 003H, 00EH, 010H, 007H, 00DH, 013H
 ;               48 H  49 I  4A J  4B K  4C L  4D M  4E N  4F O
-	DB	000H, 001H, 000H, 002H, 008H, 009H, 006H, 00CH
+        DB      000H, 001H, 000H, 002H, 008H, 009H, 006H, 00CH
 ;               50 P  51 Q  52 R  53 S  54 T  55 U  56 V  57 W
-	DB	012H, 005H, 000H, 011H, 00FH, 015H, 014H, 00BH
+        DB      012H, 005H, 000H, 011H, 00FH, 015H, 014H, 00BH
 ;               58 X  59 Y  5A Z  5B    5C \  5D    5E    5F
-	DB	000H, 000H, 004H, 080H, 0A0H, 080H, 080H, 080H
+        DB      000H, 000H, 004H, 080H, 0A0H, 080H, 080H, 080H
 ;               60 Ю  61 А  62 Б  63 Ц  64 Д  65 Е  66 Ф  67 Г
-	DB	000H, 00AH, 000H, 000H, 010H, 007H, 00DH, 013H
+        DB      000H, 00AH, 000H, 000H, 010H, 007H, 00DH, 013H
 ;               68 Х  69 И  6A Й  6B К  6C Л  6D М  6E Н  6F О
-	DB	000H, 001H, 000H, 002H, 008H, 009H, 000H, 00CH
+        DB      000H, 001H, 000H, 002H, 008H, 009H, 000H, 00CH
 ;               70 П  71 Я  72 Р  73 С  74 Т  75 У  76 Ж  77 В
-	DB	000H, 000H, 012H, 00EH, 00FH, 000H, 014H, 003H
+        DB      000H, 000H, 012H, 00EH, 00FH, 000H, 014H, 003H
 ;               78 Ь  79 Ы  7A З  7B Ш  7C Э  7D Щ  7E Ч  7F
-	DB	000H, 000H, 004H, 000H, 000H, 000H, 000H, 0A0H
+        DB      000H, 000H, 004H, 000H, 000H, 000H, 000H, 0A0H
 
 ;*******************************
 ; Start code segment
-	CSEG
+        CSEG
 
 ;*******************************
 ; Start Subroutine
-CC19A	LDA	L0092		;C19A-3A 92 00
-	ORA	A		;C19D-B7
-	JZ	CIMOD		;C19E-CA AA C1
-	LHLD	L0089		;C1A1-2A 89 00
-	MOV	A,M		;C1A4-7E
-	INX	H		;C1A5-23
-	SHLD	L0089		;C1A6-22 89 00
-	RET			;C1A9-C9
+CC19A   LDA     L0092           ;C19A-3A 92 00
+        ORA     A               ;C19D-B7
+        JZ      CIMOD           ;C19E-CA AA C1
+        LHLD    L0089           ;C1A1-2A 89 00
+        MOV     A,M             ;C1A4-7E
+        INX     H               ;C1A5-23
+        SHLD    L0089           ;C1A6-22 89 00
+        RET                     ;C1A9-C9
 
 ;*******************************
 ;Read from console, lower 7-bit ASCII char only
-CIMOD:	CALL	CI		;C1AA-CD 03 F8
-	ANI	07FH		;C1AD-E6 7F
-	RET			;C1AF-C9
+CIMOD:  CALL    CI              ;C1AA-CD 03 F8
+        ANI     07FH            ;C1AD-E6 7F
+        RET                     ;C1AF-C9
 
 ;*******************************
 ; Print the string
@@ -285,1659 +285,1659 @@ CIMOD:	CALL	CI		;C1AA-CD 03 F8
 ; B points to string
 ; D contains length
 ; E - ????
-PRINT:	LXI	H,L007F		;C1B0-21 7F 00
-	MOV	M,C		;C1B3-71
-	INX	H		;C1B4-23
-	MOV	M,B		;C1B5-70
-	INX	H		;C1B6-23
-	MOV	M,E		;C1B7-73
-	INX	H		;C1B8-23
-	MOV	M,D		;C1B9-72
-	INX	H		;C1BA-23
-	MVI	M,000H		;C1BB-36 00
-	INX	H		;C1BD-23
-	MVI	M,000H		;C1BE-36 00
-PRLOOP	LXI	H,L0081		;C1C0-21 81 00
-	MOV	A,M		;C1C3-7E
-	INX	H		;C1C4-23
-	MOV	B,M		;C1C5-46
-	INX	H		;C1C6-23
-	SUB	M		;C1C7-96
-	INX	H		;C1C8-23
-	MOV	A,B		;C1C9-78
-	SBB	M		;C1CA-9E
-	JC	PRIN0		;C1CB-DA E7 C1
-	DCX	H		;C1CE-2B
-	MOV	C,M		;C1CF-4E
-	INX	H		;C1D0-23
-	MOV	B,M		;C1D1-46
-	LHLD	L007F		;C1D2-2A 7F 00
-	DAD	B		;C1D5-09
-	MOV	C,M		;C1D6-4E
-	CALL	CC0A0		;C1D7-CD A0 C0
-	CALL	CC09B		;C1DA-CD 9B C0
-	LHLD	L0083		;C1DD-2A 83 00
-	INX	H		;C1E0-23
-	SHLD	L0083		;C1E1-22 83 00
-	JMP	PRLOOP		;C1E4-C3 C0 C1
-PRIN0	RET			;C1E7-C9
+PRINT:  LXI     H,L007F         ;C1B0-21 7F 00
+        MOV     M,C             ;C1B3-71
+        INX     H               ;C1B4-23
+        MOV     M,B             ;C1B5-70
+        INX     H               ;C1B6-23
+        MOV     M,E             ;C1B7-73
+        INX     H               ;C1B8-23
+        MOV     M,D             ;C1B9-72
+        INX     H               ;C1BA-23
+        MVI     M,000H          ;C1BB-36 00
+        INX     H               ;C1BD-23
+        MVI     M,000H          ;C1BE-36 00
+PRLOOP  LXI     H,L0081         ;C1C0-21 81 00
+        MOV     A,M             ;C1C3-7E
+        INX     H               ;C1C4-23
+        MOV     B,M             ;C1C5-46
+        INX     H               ;C1C6-23
+        SUB     M               ;C1C7-96
+        INX     H               ;C1C8-23
+        MOV     A,B             ;C1C9-78
+        SBB     M               ;C1CA-9E
+        JC      PRIN0           ;C1CB-DA E7 C1
+        DCX     H               ;C1CE-2B
+        MOV     C,M             ;C1CF-4E
+        INX     H               ;C1D0-23
+        MOV     B,M             ;C1D1-46
+        LHLD    L007F           ;C1D2-2A 7F 00
+        DAD     B               ;C1D5-09
+        MOV     C,M             ;C1D6-4E
+        CALL    CC0A0           ;C1D7-CD A0 C0
+        CALL    CC09B           ;C1DA-CD 9B C0
+        LHLD    L0083           ;C1DD-2A 83 00
+        INX     H               ;C1E0-23
+        SHLD    L0083           ;C1E1-22 83 00
+        JMP     PRLOOP          ;C1E4-C3 C0 C1
+PRIN0   RET                     ;C1E7-C9
 
 ;*******************************
 ; Start Subroutine
-RIMOD	CALL	RI		;C1E8-CD 06 F8
-	LXI	H,L008C		;C1EB-21 8C 00
-	MOV	M,A		;C1EE-77
-	ANI	07FH		;C1EF-E6 7F
-	RET			;C1F1-C9
+RIMOD   CALL    RI              ;C1E8-CD 06 F8
+        LXI     H,L008C         ;C1EB-21 8C 00
+        MOV     M,A             ;C1EE-77
+        ANI     07FH            ;C1EF-E6 7F
+        RET                     ;C1F1-C9
 
 ;*******************************
 ; Start Subroutine
-CC1F2	LXI	H,L0085		;C1F2-21 85 00
-	MOV	M,C		;C1F5-71
-	CALL	CC09B		;C1F6-CD 9B C0
-	LXI	H,L0085		;C1F9-21 85 00
-	MOV	C,M		;C1FC-4E
-	CALL	PO		;C1FD-CD 0C F8
-	RET			;C200-C9
+CC1F2   LXI     H,L0085         ;C1F2-21 85 00
+        MOV     M,C             ;C1F5-71
+        CALL    CC09B           ;C1F6-CD 9B C0
+        LXI     H,L0085         ;C1F9-21 85 00
+        MOV     C,M             ;C1FC-4E
+        CALL    PO              ;C1FD-CD 0C F8
+        RET                     ;C200-C9
 
 ;*******************************
 ; Start Subroutine
-CC201	LXI	H,L0083		;C201-21 83 00
-	MVI	M,001H		;C204-36 01
-JC206	MVI	A,03CH		;C206-3E 3C
-	LXI	H,L0083		;C208-21 83 00
-	SUB	M		;C20B-96
-	JC	JC21B		;C20C-DA 1B C2
-	MVI	C,000H		;C20F-0E 00
-	CALL	CC1F2		;C211-CD F2 C1
-	LXI	H,L0083		;C214-21 83 00
-	INR	M		;C217-34
-	JNZ	JC206		;C218-C2 06 C2
-JC21B	RET			;C21B-C9
+CC201   LXI     H,L0083         ;C201-21 83 00
+        MVI     M,001H          ;C204-36 01
+JC206   MVI     A,03CH          ;C206-3E 3C
+        LXI     H,L0083         ;C208-21 83 00
+        SUB     M               ;C20B-96
+        JC      JC21B           ;C20C-DA 1B C2
+        MVI     C,000H          ;C20F-0E 00
+        CALL    CC1F2           ;C211-CD F2 C1
+        LXI     H,L0083         ;C214-21 83 00
+        INR     M               ;C217-34
+        JNZ     JC206           ;C218-C2 06 C2
+JC21B   RET                     ;C21B-C9
 
 ;*******************************
-JC21C	XRA	A		;C21C-AF
-	STA	L008E		;C21D-32 8E 00
-	STA	L0093		;C220-32 93 00
-	STA	L00C7		;C223-32 C7 00
-	MVI	A,00AH		;C226-3E 0A
-	STA	L0091		;C228-32 91 00
-	LHLD	L0077		;C22B-2A 77 00
-	SHLD	L0075		;C22E-22 75 00
-	DCX	H		;C231-2B
-	SHLD	L0073		;C232-22 73 00
-	MVI	C,02AH		;C235-0E 2A
-	CALL	CC0A0		;C237-CD A0 C0
-	CALL	CC19A		;C23A-CD 9A C1
-	LXI	H,L008D		;C23D-21 8D 00
-	MOV	M,A		;C240-77
-JC241	LXI	H,L008D		;C241-21 8D 00
-	MOV	A,M		;C244-7E
-	SUI	07FH		;C245-D6 7F
-	JZ	JC349		;C247-CA 49 C3
-JC24A	LXI	H,L008D		;C24A-21 8D 00
-	MOV	A,M		;C24D-7E
-	SUI	008H		;C24E-D6 08
-	JNZ	JC284		;C250-C2 84 C2
-	LXI	H,L0075		;C253-21 75 00
-	MOV	A,M		;C256-7E
-	INX	H		;C257-23
-	MOV	B,M		;C258-46
-	INX	H		;C259-23
-	SUB	M		;C25A-96
-	INX	H		;C25B-23
-	MOV	C,A		;C25C-4F
-	MOV	A,B		;C25D-78
-	SBB	M		;C25E-9E
-	ORA	C		;C25F-B1
-	JZ	JC27C		;C260-CA 7C C2
-	MVI	C,008H		;C263-0E 08
-	CALL	CC0A0		;C265-CD A0 C0
-	LHLD	L0075		;C268-2A 75 00
-	INX	H		;C26B-23
-	SHLD	L0075		;C26C-22 75 00
-	CALL	CC19A		;C26F-CD 9A C1
-	LXI	H,L008D		;C272-21 8D 00
-	MOV	M,A		;C275-77
-	INX	H		;C276-23
-	MVI	M,000H		;C277-36 00
-	JMP	JC24A		;C279-C3 4A C2
-JC27C	LXI	H,L008D		;C27C-21 8D 00
-	MVI	M,07FH		;C27F-36 7F
-	JMP	JC24A		;C281-C3 4A C2
-JC284	LXI	H,L0075		;C284-21 75 00
-	MOV	A,M		;C287-7E
-	INX	H		;C288-23
-	MOV	B,M		;C289-46
-	LXI	H,L0091		;C28A-21 91 00
-	SUB	M		;C28D-96
-	MOV	C,A		;C28E-4F
-	MOV	A,B		;C28F-78
-	SBI	000H		;C290-DE 00
-	LXI	H,_EOF		;C292-21 6B 00
-	MOV	B,A		;C295-47
-	MOV	A,M		;C296-7E
-	INX	H		;C297-23
-	MOV	D,M		;C298-56
-	SUB	C		;C299-91
-	MOV	E,A		;C29A-5F
-	MOV	A,D		;C29B-7A
-	SBB	B		;C29C-98
-	JC	JC2CF		;C29D-DA CF C2
-	LXI	H,L0091		;C2A0-21 91 00
-	MOV	A,M		;C2A3-7E
-	ORA	A		;C2A4-B7
-	JZ	JC2C0		;C2A5-CA C0 C2
-	LXI	B,OVFST1	;C2A8-01 48 C0
-	LXI	D,L000F		;C2AB-11 0F 00
-	CALL	PRINT		;C2AE-CD B0 C1
-	LXI	H,L0091		;C2B1-21 91 00
-	XRA	A		;C2B4-AF
-	MOV	M,A		;C2B5-77
-	CALL	CC19A		;C2B6-CD 9A C1
-	LXI	H,L008D		;C2B9-21 8D 00
-	MOV	M,A		;C2BC-77
-	JMP	JC241		;C2BD-C3 41 C2
-JC2C0	LXI	B,AC082		;C2C0-01 82 C0
-	LXI	D,L0002		;C2C3-11 02 00
-	CALL	PRINT		;C2C6-CD B0 C1
-	LXI	SP,L0068	;C2C9-31 68 00
-	JMP	JCCDA		;C2CC-C3 DA CC
-JC2CF	LXI	H,L008D		;C2CF-21 8D 00
-	MOV	A,M		;C2D2-7E
-	SUI	00DH		;C2D3-D6 0D
-	JNZ	JC2F2		;C2D5-C2 F2 C2
-	LHLD	L0075		;C2D8-2A 75 00
-	DCX	H		;C2DB-2B
-	SHLD	L0075		;C2DC-22 75 00
-	LXI	D,L00D7		;C2DF-11 D7 00
-	DAD	D		;C2E2-19
-	XCHG			;C2E3-EB
-	LDA	L008D		;C2E4-3A 8D 00
-	STAX	D		;C2E7-12
-	MVI	C,00DH		;C2E8-0E 0D
-	CALL	CC0A0		;C2EA-CD A0 C0
-	LXI	H,L008D		;C2ED-21 8D 00
-	MVI	M,00AH		;C2F0-36 0A
-JC2F2	LXI	H,L008D		;C2F2-21 8D 00
-	MOV	A,M		;C2F5-7E
-	SUI	07FH		;C2F6-D6 7F
-	JZ	JC346		;C2F8-CA 46 C3
-	MOV	A,M		;C2FB-7E
-	SUI	05CH		;C2FC-D6 5C
-	JNZ	JC309		;C2FE-C2 09 C3
-	MVI	C,02FH		;C301-0E 2F
-	CALL	CC0A0		;C303-CD A0 C0
-	JMP	JC30D		;C306-C3 0D C3
-JC309	MOV	C,M		;C309-4E
-	CALL	CC0A0		;C30A-CD A0 C0
-JC30D	LHLD	L0075		;C30D-2A 75 00
-	DCX	H		;C310-2B
-	SHLD	L0075		;C311-22 75 00
-	LXI	H,L0075		;C314-21 75 00
-	MOV	C,M		;C317-4E
-	INX	H		;C318-23
-	MOV	B,M		;C319-46
-	LXI	H,L00D7		;C31A-21 D7 00
-	DAD	B		;C31D-09
-	XCHG			;C31E-EB
-	LXI	H,L008D		;C31F-21 8D 00
-	MOV	A,M		;C322-7E
-	STAX	D		;C323-12
-	MOV	A,M		;C324-7E
-	SUI	05CH		;C325-D6 5C
-	SUI	001H		;C327-D6 01
-	SBB	A		;C329-9F
-	INX	H		;C32A-23
-	MOV	C,A		;C32B-4F
-	MOV	A,M		;C32C-7E
-	SUI	05CH		;C32D-D6 5C
-	SUI	001H		;C32F-D6 01
-	SBB	A		;C331-9F
-	ANA	C		;C332-A1
-	RRC			;C333-0F
-	JNC	JC33B		;C334-D2 3B C3
-	CALL	CC08B		;C337-CD 8B C0
-	RET			;C33A-C9
-JC33B	DCX	H		;C33B-2B
-	MOV	C,M		;C33C-4E
-	INX	H		;C33D-23
-	MOV	M,C		;C33E-71
-	CALL	CC19A		;C33F-CD 9A C1
-	LXI	H,L008D		;C342-21 8D 00
-	MOV	M,A		;C345-77
-JC346	JMP	JC241		;C346-C3 41 C2
-JC349	LXI	B,AC082		;C349-01 82 C0
-	LXI	D,L0002		;C34C-11 02 00
-	CALL	PRINT		;C34F-CD B0 C1
-	JMP	JC21C		;C352-C3 1C C2
+JC21C   XRA     A               ;C21C-AF
+        STA     L008E           ;C21D-32 8E 00
+        STA     L0093           ;C220-32 93 00
+        STA     L00C7           ;C223-32 C7 00
+        MVI     A,00AH          ;C226-3E 0A
+        STA     L0091           ;C228-32 91 00
+        LHLD    L0077           ;C22B-2A 77 00
+        SHLD    L0075           ;C22E-22 75 00
+        DCX     H               ;C231-2B
+        SHLD    L0073           ;C232-22 73 00
+        MVI     C,02AH          ;C235-0E 2A
+        CALL    CC0A0           ;C237-CD A0 C0
+        CALL    CC19A           ;C23A-CD 9A C1
+        LXI     H,L008D         ;C23D-21 8D 00
+        MOV     M,A             ;C240-77
+JC241   LXI     H,L008D         ;C241-21 8D 00
+        MOV     A,M             ;C244-7E
+        SUI     07FH            ;C245-D6 7F
+        JZ      JC349           ;C247-CA 49 C3
+JC24A   LXI     H,L008D         ;C24A-21 8D 00
+        MOV     A,M             ;C24D-7E
+        SUI     008H            ;C24E-D6 08
+        JNZ     JC284           ;C250-C2 84 C2
+        LXI     H,L0075         ;C253-21 75 00
+        MOV     A,M             ;C256-7E
+        INX     H               ;C257-23
+        MOV     B,M             ;C258-46
+        INX     H               ;C259-23
+        SUB     M               ;C25A-96
+        INX     H               ;C25B-23
+        MOV     C,A             ;C25C-4F
+        MOV     A,B             ;C25D-78
+        SBB     M               ;C25E-9E
+        ORA     C               ;C25F-B1
+        JZ      JC27C           ;C260-CA 7C C2
+        MVI     C,008H          ;C263-0E 08
+        CALL    CC0A0           ;C265-CD A0 C0
+        LHLD    L0075           ;C268-2A 75 00
+        INX     H               ;C26B-23
+        SHLD    L0075           ;C26C-22 75 00
+        CALL    CC19A           ;C26F-CD 9A C1
+        LXI     H,L008D         ;C272-21 8D 00
+        MOV     M,A             ;C275-77
+        INX     H               ;C276-23
+        MVI     M,000H          ;C277-36 00
+        JMP     JC24A           ;C279-C3 4A C2
+JC27C   LXI     H,L008D         ;C27C-21 8D 00
+        MVI     M,07FH          ;C27F-36 7F
+        JMP     JC24A           ;C281-C3 4A C2
+JC284   LXI     H,L0075         ;C284-21 75 00
+        MOV     A,M             ;C287-7E
+        INX     H               ;C288-23
+        MOV     B,M             ;C289-46
+        LXI     H,L0091         ;C28A-21 91 00
+        SUB     M               ;C28D-96
+        MOV     C,A             ;C28E-4F
+        MOV     A,B             ;C28F-78
+        SBI     000H            ;C290-DE 00
+        LXI     H,_EOF          ;C292-21 6B 00
+        MOV     B,A             ;C295-47
+        MOV     A,M             ;C296-7E
+        INX     H               ;C297-23
+        MOV     D,M             ;C298-56
+        SUB     C               ;C299-91
+        MOV     E,A             ;C29A-5F
+        MOV     A,D             ;C29B-7A
+        SBB     B               ;C29C-98
+        JC      JC2CF           ;C29D-DA CF C2
+        LXI     H,L0091         ;C2A0-21 91 00
+        MOV     A,M             ;C2A3-7E
+        ORA     A               ;C2A4-B7
+        JZ      JC2C0           ;C2A5-CA C0 C2
+        LXI     B,OVFST1        ;C2A8-01 48 C0
+        LXI     D,L000F         ;C2AB-11 0F 00
+        CALL    PRINT           ;C2AE-CD B0 C1
+        LXI     H,L0091         ;C2B1-21 91 00
+        XRA     A               ;C2B4-AF
+        MOV     M,A             ;C2B5-77
+        CALL    CC19A           ;C2B6-CD 9A C1
+        LXI     H,L008D         ;C2B9-21 8D 00
+        MOV     M,A             ;C2BC-77
+        JMP     JC241           ;C2BD-C3 41 C2
+JC2C0   LXI     B,AC082         ;C2C0-01 82 C0
+        LXI     D,L0002         ;C2C3-11 02 00
+        CALL    PRINT           ;C2C6-CD B0 C1
+        LXI     SP,L0068        ;C2C9-31 68 00
+        JMP     JCCDA           ;C2CC-C3 DA CC
+JC2CF   LXI     H,L008D         ;C2CF-21 8D 00
+        MOV     A,M             ;C2D2-7E
+        SUI     00DH            ;C2D3-D6 0D
+        JNZ     JC2F2           ;C2D5-C2 F2 C2
+        LHLD    L0075           ;C2D8-2A 75 00
+        DCX     H               ;C2DB-2B
+        SHLD    L0075           ;C2DC-22 75 00
+        LXI     D,L00D7         ;C2DF-11 D7 00
+        DAD     D               ;C2E2-19
+        XCHG                    ;C2E3-EB
+        LDA     L008D           ;C2E4-3A 8D 00
+        STAX    D               ;C2E7-12
+        MVI     C,00DH          ;C2E8-0E 0D
+        CALL    CC0A0           ;C2EA-CD A0 C0
+        LXI     H,L008D         ;C2ED-21 8D 00
+        MVI     M,00AH          ;C2F0-36 0A
+JC2F2   LXI     H,L008D         ;C2F2-21 8D 00
+        MOV     A,M             ;C2F5-7E
+        SUI     07FH            ;C2F6-D6 7F
+        JZ      JC346           ;C2F8-CA 46 C3
+        MOV     A,M             ;C2FB-7E
+        SUI     05CH            ;C2FC-D6 5C
+        JNZ     JC309           ;C2FE-C2 09 C3
+        MVI     C,02FH          ;C301-0E 2F
+        CALL    CC0A0           ;C303-CD A0 C0
+        JMP     JC30D           ;C306-C3 0D C3
+JC309   MOV     C,M             ;C309-4E
+        CALL    CC0A0           ;C30A-CD A0 C0
+JC30D   LHLD    L0075           ;C30D-2A 75 00
+        DCX     H               ;C310-2B
+        SHLD    L0075           ;C311-22 75 00
+        LXI     H,L0075         ;C314-21 75 00
+        MOV     C,M             ;C317-4E
+        INX     H               ;C318-23
+        MOV     B,M             ;C319-46
+        LXI     H,L00D7         ;C31A-21 D7 00
+        DAD     B               ;C31D-09
+        XCHG                    ;C31E-EB
+        LXI     H,L008D         ;C31F-21 8D 00
+        MOV     A,M             ;C322-7E
+        STAX    D               ;C323-12
+        MOV     A,M             ;C324-7E
+        SUI     05CH            ;C325-D6 5C
+        SUI     001H            ;C327-D6 01
+        SBB     A               ;C329-9F
+        INX     H               ;C32A-23
+        MOV     C,A             ;C32B-4F
+        MOV     A,M             ;C32C-7E
+        SUI     05CH            ;C32D-D6 5C
+        SUI     001H            ;C32F-D6 01
+        SBB     A               ;C331-9F
+        ANA     C               ;C332-A1
+        RRC                     ;C333-0F
+        JNC     JC33B           ;C334-D2 3B C3
+        CALL    CC08B           ;C337-CD 8B C0
+        RET                     ;C33A-C9
+JC33B   DCX     H               ;C33B-2B
+        MOV     C,M             ;C33C-4E
+        INX     H               ;C33D-23
+        MOV     M,C             ;C33E-71
+        CALL    CC19A           ;C33F-CD 9A C1
+        LXI     H,L008D         ;C342-21 8D 00
+        MOV     M,A             ;C345-77
+JC346   JMP     JC241           ;C346-C3 41 C2
+JC349   LXI     B,AC082         ;C349-01 82 C0
+        LXI     D,L0002         ;C34C-11 02 00
+        CALL    PRINT           ;C34F-CD B0 C1
+        JMP     JC21C           ;C352-C3 1C C2
 
 ;*******************************
 ; Start Subroutine
 ;get command line?
 ;and place it @0085h?
 ;(not sure)
-CC355	CALL	CC09B		;C355-CD 9B C0
-	LHLD	L0073		;C358-2A 73 00
-	XCHG			;C35B-EB
-	LHLD	L0075		;C35C-2A 75 00
-	MOV	A,E		;C35F-7B
-	SUB	L		;C360-95
-	MOV	A,D		;C361-7A
-	SBB	H		;C362-9C
-	CC	JC21C		;C363-DC 1C C2
-	LHLD	L0073		;C366-2A 73 00
-	LXI	D,L00D7		;C369-11 D7 00
-	DAD	D		;C36C-19
-	MOV	A,M		;C36D-7E
-	STA	L0083		;C36E-32 83 00
-	LHLD	L0073		;C371-2A 73 00
-	DCX	H		;C374-2B
-	SHLD	L0073		;C375-22 73 00
-	XRA	A		;C378-AF
-	STA	L00C7		;C379-32 C7 00
-	LXI	H,L0083		;C37C-21 83 00
-	MOV	C,M		;C37F-4E
-	CALL	XLAT		;C380-CD 0D C1
-	STA	L007E		;C383-32 7E 00
-	LDA	L0083		;C386-3A 83 00
-	RET			;C389-C9
+CC355   CALL    CC09B           ;C355-CD 9B C0
+        LHLD    L0073           ;C358-2A 73 00
+        XCHG                    ;C35B-EB
+        LHLD    L0075           ;C35C-2A 75 00
+        MOV     A,E             ;C35F-7B
+        SUB     L               ;C360-95
+        MOV     A,D             ;C361-7A
+        SBB     H               ;C362-9C
+        CC      JC21C           ;C363-DC 1C C2
+        LHLD    L0073           ;C366-2A 73 00
+        LXI     D,L00D7         ;C369-11 D7 00
+        DAD     D               ;C36C-19
+        MOV     A,M             ;C36D-7E
+        STA     L0083           ;C36E-32 83 00
+        LHLD    L0073           ;C371-2A 73 00
+        DCX     H               ;C374-2B
+        SHLD    L0073           ;C375-22 73 00
+        XRA     A               ;C378-AF
+        STA     L00C7           ;C379-32 C7 00
+        LXI     H,L0083         ;C37C-21 83 00
+        MOV     C,M             ;C37F-4E
+        CALL    XLAT            ;C380-CD 0D C1
+        STA     L007E           ;C383-32 7E 00
+        LDA     L0083           ;C386-3A 83 00
+        RET                     ;C389-C9
 
 ;*******************************
 ; Start Subroutine
-CC38A	LHLD	L00CB		;C38A-2A CB 00
-	SHLD	L0083		;C38D-22 83 00
-JC390	LHLD	L00CD		;C390-2A CD 00
-	XCHG			;C393-EB
-	LHLD	L00CF		;C394-2A CF 00
-	MOV	A,E		;C397-7B
-	SUB	L		;C398-95
-	MOV	A,D		;C399-7A
-	SBB	H		;C39A-9C
-	JC	JC3BE		;C39B-DA BE C3
-	LHLD	L0083		;C39E-2A 83 00
-	LXI	D,L00D7		;C3A1-11 D7 00
-	DAD	D		;C3A4-19
-	PUSH	H		;C3A5-E5
-	LHLD	L00CD		;C3A6-2A CD 00
-	DAD	D		;C3A9-19
-	MOV	A,M		;C3AA-7E
-	POP	H		;C3AB-E1
-	MOV	M,A		;C3AC-77
-	LHLD	L0083		;C3AD-2A 83 00
-	DCX	H		;C3B0-2B
-	SHLD	L0083		;C3B1-22 83 00
-	LHLD	L00CD		;C3B4-2A CD 00
-	DCX	H		;C3B7-2B
-	SHLD	L00CD		;C3B8-22 CD 00
-	JMP	JC390		;C3BB-C3 90 C3
-JC3BE	LHLD	L0083		;C3BE-2A 83 00
-	INX	H		;C3C1-23
-	SHLD	L00CF		;C3C2-22 CF 00
-	RET			;C3C5-C9
+CC38A   LHLD    L00CB           ;C38A-2A CB 00
+        SHLD    L0083           ;C38D-22 83 00
+JC390   LHLD    L00CD           ;C390-2A CD 00
+        XCHG                    ;C393-EB
+        LHLD    L00CF           ;C394-2A CF 00
+        MOV     A,E             ;C397-7B
+        SUB     L               ;C398-95
+        MOV     A,D             ;C399-7A
+        SBB     H               ;C39A-9C
+        JC      JC3BE           ;C39B-DA BE C3
+        LHLD    L0083           ;C39E-2A 83 00
+        LXI     D,L00D7         ;C3A1-11 D7 00
+        DAD     D               ;C3A4-19
+        PUSH    H               ;C3A5-E5
+        LHLD    L00CD           ;C3A6-2A CD 00
+        DAD     D               ;C3A9-19
+        MOV     A,M             ;C3AA-7E
+        POP     H               ;C3AB-E1
+        MOV     M,A             ;C3AC-77
+        LHLD    L0083           ;C3AD-2A 83 00
+        DCX     H               ;C3B0-2B
+        SHLD    L0083           ;C3B1-22 83 00
+        LHLD    L00CD           ;C3B4-2A CD 00
+        DCX     H               ;C3B7-2B
+        SHLD    L00CD           ;C3B8-22 CD 00
+        JMP     JC390           ;C3BB-C3 90 C3
+JC3BE   LHLD    L0083           ;C3BE-2A 83 00
+        INX     H               ;C3C1-23
+        SHLD    L00CF           ;C3C2-22 CF 00
+        RET                     ;C3C5-C9
 
 ;*******************************
 ; Start Subroutine
-CC3C6	LDA	L0093		;C3C6-3A 93 00
-	ORA	A		;C3C9-B7
-	RNZ			;C3CA-C0
-	LHLD	L0077		;C3CB-2A 77 00
-	DCX	H		;C3CE-2B
-	SHLD	L00CB		;C3CF-22 CB 00
-	LHLD	L0073		;C3D2-2A 73 00
-	SHLD	L00CD		;C3D5-22 CD 00
-	LHLD	L0075		;C3D8-2A 75 00
-	SHLD	L00CF		;C3DB-22 CF 00
-	CALL	CC38A		;C3DE-CD 8A C3
-	LHLD	L00CF		;C3E1-2A CF 00
-	SHLD	L0075		;C3E4-22 75 00
-	LHLD	L0077		;C3E7-2A 77 00
-	DCX	H		;C3EA-2B
-	SHLD	L0073		;C3EB-22 73 00
-	RET			;C3EE-C9
+CC3C6   LDA     L0093           ;C3C6-3A 93 00
+        ORA     A               ;C3C9-B7
+        RNZ                     ;C3CA-C0
+        LHLD    L0077           ;C3CB-2A 77 00
+        DCX     H               ;C3CE-2B
+        SHLD    L00CB           ;C3CF-22 CB 00
+        LHLD    L0073           ;C3D2-2A 73 00
+        SHLD    L00CD           ;C3D5-22 CD 00
+        LHLD    L0075           ;C3D8-2A 75 00
+        SHLD    L00CF           ;C3DB-22 CF 00
+        CALL    CC38A           ;C3DE-CD 8A C3
+        LHLD    L00CF           ;C3E1-2A CF 00
+        SHLD    L0075           ;C3E4-22 75 00
+        LHLD    L0077           ;C3E7-2A 77 00
+        DCX     H               ;C3EA-2B
+        SHLD    L0073           ;C3EB-22 73 00
+        RET                     ;C3EE-C9
 
 ;*******************************
 ; Start Subroutine
-CC3EF	LXI	D,_PNTR		;C3EF-11 69 00
-	LXI	H,L00D7		;C3F2-21 D7 00
-JC3F5	MVI	A,000H		;C3F5-3E 00
-	STAX	D		;C3F7-12
-	INX	D		;C3F8-13
-	MOV	A,L		;C3F9-7D
-	SUB	E		;C3FA-93
-	MOV	A,H		;C3FB-7C
-	SBB	D		;C3FC-9A
-	JNC	JC3F5		;C3FD-D2 F5 C3
-	RET			;C400-C9
+CC3EF   LXI     D,_PNTR         ;C3EF-11 69 00
+        LXI     H,L00D7         ;C3F2-21 D7 00
+JC3F5   MVI     A,000H          ;C3F5-3E 00
+        STAX    D               ;C3F7-12
+        INX     D               ;C3F8-13
+        MOV     A,L             ;C3F9-7D
+        SUB     E               ;C3FA-93
+        MOV     A,H             ;C3FB-7C
+        SBB     D               ;C3FC-9A
+        JNC     JC3F5           ;C3FD-D2 F5 C3
+        RET                     ;C400-C9
 
 ;*******************************
 ; Start Subroutine
-CC401	MVI	C,030H		;C401-0E 30
-JC403	MOV	A,L		;C403-7D
-	SUB	E		;C404-93
-	MOV	L,A		;C405-6F
-	MOV	A,H		;C406-7C
-	SBB	D		;C407-9A
-	MOV	H,A		;C408-67
-	JC	JC410		;C409-DA 10 C4
-	INR	C		;C40C-0C
-	JMP	JC403		;C40D-C3 03 C4
-JC410	DAD	D		;C410-19
-	MOV	A,C		;C411-79
-	CPI	030H		;C412-FE 30
-	JNZ	JC41C		;C414-C2 1C C4
-	MOV	C,B		;C417-48
-JC418	CALL	CO		;C418-CD 09 F8
-	RET			;C41B-C9
-JC41C	MVI	B,030H		;C41C-06 30
-	JMP	JC418		;C41E-C3 18 C4
+CC401   MVI     C,030H          ;C401-0E 30
+JC403   MOV     A,L             ;C403-7D
+        SUB     E               ;C404-93
+        MOV     L,A             ;C405-6F
+        MOV     A,H             ;C406-7C
+        SBB     D               ;C407-9A
+        MOV     H,A             ;C408-67
+        JC      JC410           ;C409-DA 10 C4
+        INR     C               ;C40C-0C
+        JMP     JC403           ;C40D-C3 03 C4
+JC410   DAD     D               ;C410-19
+        MOV     A,C             ;C411-79
+        CPI     030H            ;C412-FE 30
+        JNZ     JC41C           ;C414-C2 1C C4
+        MOV     C,B             ;C417-48
+JC418   CALL    CO              ;C418-CD 09 F8
+        RET                     ;C41B-C9
+JC41C   MVI     B,030H          ;C41C-06 30
+        JMP     JC418           ;C41E-C3 18 C4
 
 ;*******************************
 ; Start Subroutine
-CC421	MVI	B,020H		;C421-06 20
-	LXI	D,L2710		;C423-11 10 27
-	CALL	CC401		;C426-CD 01 C4
-	LXI	D,L03E8		;C429-11 E8 03
-	CALL	CC401		;C42C-CD 01 C4
-	LXI	D,L0064		;C42F-11 64 00
-	CALL	CC401		;C432-CD 01 C4
-	LXI	D,L000A		;C435-11 0A 00
-	CALL	CC401		;C438-CD 01 C4
-	LXI	D,L0001		;C43B-11 01 00
-	MVI	B,030H		;C43E-06 30
-	CALL	CC401		;C440-CD 01 C4
-	MVI	C,020H		;C443-0E 20
-	CALL	CO		;C445-CD 09 F8
-	RET			;C448-C9
+CC421   MVI     B,020H          ;C421-06 20
+        LXI     D,L2710         ;C423-11 10 27
+        CALL    CC401           ;C426-CD 01 C4
+        LXI     D,L03E8         ;C429-11 E8 03
+        CALL    CC401           ;C42C-CD 01 C4
+        LXI     D,L0064         ;C42F-11 64 00
+        CALL    CC401           ;C432-CD 01 C4
+        LXI     D,L000A         ;C435-11 0A 00
+        CALL    CC401           ;C438-CD 01 C4
+        LXI     D,L0001         ;C43B-11 01 00
+        MVI     B,030H          ;C43E-06 30
+        CALL    CC401           ;C440-CD 01 C4
+        MVI     C,020H          ;C443-0E 20
+        CALL    CO              ;C445-CD 09 F8
+        RET                     ;C448-C9
 
 ;*******************************
 ; Process expressions? (not sure)
-EXPR:	LXI	H,L0085		;C449-21 85 00
-	MOV	A,M		;C44C-7E
-	SUI	'-'		;C44D-D6 2D
-	JNZ	JC45A		;C44F-C2 5A C4
-	LXI	H,L0079		;C452-21 79 00
-	MVI	M,0FFH		;C455-36 FF
-	JMP	JC460		;C457-C3 60 C4
-JC45A	MOV	A,M		;C45A-7E
-	SUI	'+'		;C45B-D6 2B
-	JNZ	JC467		;C45D-C2 67 C4
-JC460	CALL	CC355		;C460-CD 55 C3
-	LXI	H,L0085		;C463-21 85 00
-	MOV	M,A		;C466-77
-JC467	LXI	H,L007C		;C467-21 7C 00
-	MVI	M,000H		;C46A-36 00
-	INX	H		;C46C-23
-	MVI	M,000H		;C46D-36 00
-JC46F	LDA	L0085		;C46F-3A 85 00
-	SUI	'0'		;C472-D6 30
-	JNC	JC47D		;C474-D2 7D C4
-	LXI	SP,L0068	;C477-31 68 00
-	JMP	UNKNWN		;C47A-C3 9F CC
-JC47D	LXI	H,L007E		;C47D-21 7E 00
-	MOV	C,M		;C480-4E
-	DCR	C		;C481-0D
-	JNZ	JC4C1		;C482-C2 C1 C4
-	LXI	H,L007C		;C485-21 7C 00
-	MOV	A,M		;C488-7E
-	INX	H		;C489-23
-	MOV	B,M		;C48A-46
-	ADD	A		;C48B-87
-	MOV	C,A		;C48C-4F
-	MOV	A,B		;C48D-78
-	RAL			;C48E-17
-	MOV	B,A		;C48F-47
-	MOV	A,C		;C490-79
-	ADD	A		;C491-87
-	MOV	C,A		;C492-4F
-	MOV	A,B		;C493-78
-	RAL			;C494-17
-	MOV	B,A		;C495-47
-	LHLD	L007C		;C496-2A 7C 00
-	DAD	B		;C499-09
-	XCHG			;C49A-EB
-	MOV	A,E		;C49B-7B
-	ADD	A		;C49C-87
-	MOV	E,A		;C49D-5F
-	MOV	A,D		;C49E-7A
-	RAL			;C49F-17
-	MOV	D,A		;C4A0-57
-	LXI	H,L0085		;C4A1-21 85 00
-	MOV	C,M		;C4A4-4E
-	MVI	B,000H		;C4A5-06 00
-	XCHG			;C4A7-EB
-	DAD	B		;C4A8-09
-	XCHG			;C4A9-EB
-	MOV	A,E		;C4AA-7B
-	SUI	030H		;C4AB-D6 30
-	MOV	E,A		;C4AD-5F
-	MOV	A,D		;C4AE-7A
-	SBI	000H		;C4AF-DE 00
-	LXI	H,L007C		;C4B1-21 7C 00
-	MOV	M,E		;C4B4-73
-	INX	H		;C4B5-23
-	MOV	M,A		;C4B6-77
-	CALL	CC355		;C4B7-CD 55 C3
-	LXI	H,L0085		;C4BA-21 85 00
-	MOV	M,A		;C4BD-77
-	JMP	JC46F		;C4BE-C3 6F C4
-JC4C1	LXI	H,L007C		;C4C1-21 7C 00
-	MOV	A,M		;C4C4-7E
-	INX	H		;C4C5-23
-	MOV	B,M		;C4C6-46
-	SUI	000H		;C4C7-D6 00
-	MOV	C,A		;C4C9-4F
-	MOV	A,B		;C4CA-78
-	SBI	000H		;C4CB-DE 00
-	ORA	C		;C4CD-B1
-	SUI	001H		;C4CE-D6 01
-	SBB	A		;C4D0-9F
-	LXI	H,L0079		;C4D1-21 79 00
-	ANA	M		;C4D4-A6
-	RRC			;C4D5-0F
-	JNC	JC4DE		;C4D6-D2 DE C4
-	MVI	A,001H		;C4D9-3E 01
-	MVI	B,000H		;C4DB-06 00
-	RET			;C4DD-C9
-JC4DE	LXI	H,L007C		;C4DE-21 7C 00
-	MOV	A,M		;C4E1-7E
-	INX	H		;C4E2-23
-	MOV	B,M		;C4E3-46
-	RET			;C4E4-C9
+EXPR:   LXI     H,L0085         ;C449-21 85 00
+        MOV     A,M             ;C44C-7E
+        SUI     '-'             ;C44D-D6 2D
+        JNZ     JC45A           ;C44F-C2 5A C4
+        LXI     H,L0079         ;C452-21 79 00
+        MVI     M,0FFH          ;C455-36 FF
+        JMP     JC460           ;C457-C3 60 C4
+JC45A   MOV     A,M             ;C45A-7E
+        SUI     '+'             ;C45B-D6 2B
+        JNZ     JC467           ;C45D-C2 67 C4
+JC460   CALL    CC355           ;C460-CD 55 C3
+        LXI     H,L0085         ;C463-21 85 00
+        MOV     M,A             ;C466-77
+JC467   LXI     H,L007C         ;C467-21 7C 00
+        MVI     M,000H          ;C46A-36 00
+        INX     H               ;C46C-23
+        MVI     M,000H          ;C46D-36 00
+JC46F   LDA     L0085           ;C46F-3A 85 00
+        SUI     '0'             ;C472-D6 30
+        JNC     JC47D           ;C474-D2 7D C4
+        LXI     SP,L0068        ;C477-31 68 00
+        JMP     UNKNWN          ;C47A-C3 9F CC
+JC47D   LXI     H,L007E         ;C47D-21 7E 00
+        MOV     C,M             ;C480-4E
+        DCR     C               ;C481-0D
+        JNZ     JC4C1           ;C482-C2 C1 C4
+        LXI     H,L007C         ;C485-21 7C 00
+        MOV     A,M             ;C488-7E
+        INX     H               ;C489-23
+        MOV     B,M             ;C48A-46
+        ADD     A               ;C48B-87
+        MOV     C,A             ;C48C-4F
+        MOV     A,B             ;C48D-78
+        RAL                     ;C48E-17
+        MOV     B,A             ;C48F-47
+        MOV     A,C             ;C490-79
+        ADD     A               ;C491-87
+        MOV     C,A             ;C492-4F
+        MOV     A,B             ;C493-78
+        RAL                     ;C494-17
+        MOV     B,A             ;C495-47
+        LHLD    L007C           ;C496-2A 7C 00
+        DAD     B               ;C499-09
+        XCHG                    ;C49A-EB
+        MOV     A,E             ;C49B-7B
+        ADD     A               ;C49C-87
+        MOV     E,A             ;C49D-5F
+        MOV     A,D             ;C49E-7A
+        RAL                     ;C49F-17
+        MOV     D,A             ;C4A0-57
+        LXI     H,L0085         ;C4A1-21 85 00
+        MOV     C,M             ;C4A4-4E
+        MVI     B,000H          ;C4A5-06 00
+        XCHG                    ;C4A7-EB
+        DAD     B               ;C4A8-09
+        XCHG                    ;C4A9-EB
+        MOV     A,E             ;C4AA-7B
+        SUI     030H            ;C4AB-D6 30
+        MOV     E,A             ;C4AD-5F
+        MOV     A,D             ;C4AE-7A
+        SBI     000H            ;C4AF-DE 00
+        LXI     H,L007C         ;C4B1-21 7C 00
+        MOV     M,E             ;C4B4-73
+        INX     H               ;C4B5-23
+        MOV     M,A             ;C4B6-77
+        CALL    CC355           ;C4B7-CD 55 C3
+        LXI     H,L0085         ;C4BA-21 85 00
+        MOV     M,A             ;C4BD-77
+        JMP     JC46F           ;C4BE-C3 6F C4
+JC4C1   LXI     H,L007C         ;C4C1-21 7C 00
+        MOV     A,M             ;C4C4-7E
+        INX     H               ;C4C5-23
+        MOV     B,M             ;C4C6-46
+        SUI     000H            ;C4C7-D6 00
+        MOV     C,A             ;C4C9-4F
+        MOV     A,B             ;C4CA-78
+        SBI     000H            ;C4CB-DE 00
+        ORA     C               ;C4CD-B1
+        SUI     001H            ;C4CE-D6 01
+        SBB     A               ;C4D0-9F
+        LXI     H,L0079         ;C4D1-21 79 00
+        ANA     M               ;C4D4-A6
+        RRC                     ;C4D5-0F
+        JNC     JC4DE           ;C4D6-D2 DE C4
+        MVI     A,001H          ;C4D9-3E 01
+        MVI     B,000H          ;C4DB-06 00
+        RET                     ;C4DD-C9
+JC4DE   LXI     H,L007C         ;C4DE-21 7C 00
+        MOV     A,M             ;C4E1-7E
+        INX     H               ;C4E2-23
+        MOV     B,M             ;C4E3-46
+        RET                     ;C4E4-C9
 
 ;*******************************
 ; Start Subroutine
-CC4E5	LXI	H,L0071		;C4E5-21 71 00
-	MVI	M,000H		;C4E8-36 00
-	INX	H		;C4EA-23
-	MVI	M,000H		;C4EB-36 00
-JC4ED	LXI	H,_PNTR		;C4ED-21 69 00
-	MOV	C,M		;C4F0-4E
-	INX	H		;C4F1-23
-	MOV	B,M		;C4F2-46
-	LHLD	L0071		;C4F3-2A 71 00
-	DAD	B		;C4F6-09
-	XCHG			;C4F7-EB
-	LXI	H,L00D7		;C4F8-21 D7 00
-	DAD	D		;C4FB-19
-	MOV	A,M		;C4FC-7E
-	SUI	0FFH		;C4FD-D6 FF
-	JZ	JC55C		;C4FF-CA 5C C5
-	LXI	H,L0083		;C502-21 83 00
-	MVI	M,000H		;C505-36 00
-JC507	LXI	H,_PNTR		;C507-21 69 00
-	MOV	C,M		;C50A-4E
-	INX	H		;C50B-23
-	MOV	B,M		;C50C-46
-	LHLD	L0071		;C50D-2A 71 00
-	DAD	B		;C510-09
-	XCHG			;C511-EB
-	LXI	H,L0083		;C512-21 83 00
-	MOV	C,M		;C515-4E
-	MVI	B,000H		;C516-06 00
-	XCHG			;C518-EB
-	DAD	B		;C519-09
-	XCHG			;C51A-EB
-	LXI	H,L00D7		;C51B-21 D7 00
-	DAD	D		;C51E-19
-	MOV	A,M		;C51F-7E
-	LXI	H,L0085		;C520-21 85 00
-	MOV	M,A		;C523-77
-	LXI	H,L0083		;C524-21 83 00
-	MOV	E,M		;C527-5E
-	MVI	D,000H		;C528-16 00
-	LXI	H,L00B7		;C52A-21 B7 00
-	DAD	D		;C52D-19
-	MOV	C,A		;C52E-4F
-	MOV	A,M		;C52F-7E
-	SUB	C		;C530-91
-	JNZ	JC553		;C531-C2 53 C5
-	LXI	H,L0083		;C534-21 83 00
-	MOV	C,M		;C537-4E
-	INR	C		;C538-0C
-	MVI	B,000H		;C539-06 00
-	LXI	H,L00B7		;C53B-21 B7 00
-	DAD	B		;C53E-09
-	MOV	A,M		;C53F-7E
-	SUI	05CH		;C540-D6 5C
-	JNZ	JC54C		;C542-C2 4C C5
-	LXI	H,L0071		;C545-21 71 00
-	MOV	A,M		;C548-7E
-	INX	H		;C549-23
-	MOV	B,M		;C54A-46
-	RET			;C54B-C9
-JC54C	LXI	H,L0083		;C54C-21 83 00
-	INR	M		;C54F-34
-	JMP	JC507		;C550-C3 07 C5
-JC553	LXI	H,L0085		;C553-21 85 00
-	MOV	A,M		;C556-7E
-	SUI	0FFH		;C557-D6 FF
-	JNZ	JC561		;C559-C2 61 C5
-JC55C	MVI	A,0FFH		;C55C-3E FF
-	MVI	B,0FFH		;C55E-06 FF
-	RET			;C560-C9
-JC561	LHLD	L0071		;C561-2A 71 00
-	INX	H		;C564-23
-	SHLD	L0071		;C565-22 71 00
-	JMP	JC4ED		;C568-C3 ED C4
+CC4E5   LXI     H,L0071         ;C4E5-21 71 00
+        MVI     M,000H          ;C4E8-36 00
+        INX     H               ;C4EA-23
+        MVI     M,000H          ;C4EB-36 00
+JC4ED   LXI     H,_PNTR         ;C4ED-21 69 00
+        MOV     C,M             ;C4F0-4E
+        INX     H               ;C4F1-23
+        MOV     B,M             ;C4F2-46
+        LHLD    L0071           ;C4F3-2A 71 00
+        DAD     B               ;C4F6-09
+        XCHG                    ;C4F7-EB
+        LXI     H,L00D7         ;C4F8-21 D7 00
+        DAD     D               ;C4FB-19
+        MOV     A,M             ;C4FC-7E
+        SUI     0FFH            ;C4FD-D6 FF
+        JZ      JC55C           ;C4FF-CA 5C C5
+        LXI     H,L0083         ;C502-21 83 00
+        MVI     M,000H          ;C505-36 00
+JC507   LXI     H,_PNTR         ;C507-21 69 00
+        MOV     C,M             ;C50A-4E
+        INX     H               ;C50B-23
+        MOV     B,M             ;C50C-46
+        LHLD    L0071           ;C50D-2A 71 00
+        DAD     B               ;C510-09
+        XCHG                    ;C511-EB
+        LXI     H,L0083         ;C512-21 83 00
+        MOV     C,M             ;C515-4E
+        MVI     B,000H          ;C516-06 00
+        XCHG                    ;C518-EB
+        DAD     B               ;C519-09
+        XCHG                    ;C51A-EB
+        LXI     H,L00D7         ;C51B-21 D7 00
+        DAD     D               ;C51E-19
+        MOV     A,M             ;C51F-7E
+        LXI     H,L0085         ;C520-21 85 00
+        MOV     M,A             ;C523-77
+        LXI     H,L0083         ;C524-21 83 00
+        MOV     E,M             ;C527-5E
+        MVI     D,000H          ;C528-16 00
+        LXI     H,L00B7         ;C52A-21 B7 00
+        DAD     D               ;C52D-19
+        MOV     C,A             ;C52E-4F
+        MOV     A,M             ;C52F-7E
+        SUB     C               ;C530-91
+        JNZ     JC553           ;C531-C2 53 C5
+        LXI     H,L0083         ;C534-21 83 00
+        MOV     C,M             ;C537-4E
+        INR     C               ;C538-0C
+        MVI     B,000H          ;C539-06 00
+        LXI     H,L00B7         ;C53B-21 B7 00
+        DAD     B               ;C53E-09
+        MOV     A,M             ;C53F-7E
+        SUI     05CH            ;C540-D6 5C
+        JNZ     JC54C           ;C542-C2 4C C5
+        LXI     H,L0071         ;C545-21 71 00
+        MOV     A,M             ;C548-7E
+        INX     H               ;C549-23
+        MOV     B,M             ;C54A-46
+        RET                     ;C54B-C9
+JC54C   LXI     H,L0083         ;C54C-21 83 00
+        INR     M               ;C54F-34
+        JMP     JC507           ;C550-C3 07 C5
+JC553   LXI     H,L0085         ;C553-21 85 00
+        MOV     A,M             ;C556-7E
+        SUI     0FFH            ;C557-D6 FF
+        JNZ     JC561           ;C559-C2 61 C5
+JC55C   MVI     A,0FFH          ;C55C-3E FF
+        MVI     B,0FFH          ;C55E-06 FF
+        RET                     ;C560-C9
+JC561   LHLD    L0071           ;C561-2A 71 00
+        INX     H               ;C564-23
+        SHLD    L0071           ;C565-22 71 00
+        JMP     JC4ED           ;C568-C3 ED C4
 
 ;*******************************
 ; Start Subroutine
 ;some line-related code, used in K,L commands
-CC56B	LHLD	_PNTR		;C56B-2A 69 00
-	SHLD	L0071		;C56E-22 71 00
-	LXI	H,L007A		;C571-21 7A 00
-	MOV	A,M		;C574-7E
-	INX	H		;C575-23
-	MOV	B,M		;C576-46
-	SUI	000H		;C577-D6 00
-	MOV	C,A		;C579-4F
-	MOV	A,B		;C57A-78
-	SBI	000H		;C57B-DE 00
-	ORA	C		;C57D-B1
-	SUI	001H		;C57E-D6 01
-	SBB	A		;C580-9F
-	LXI	H,L0079		;C581-21 79 00
-	ORA	M		;C584-B6
-	RRC			;C585-0F
-	JNC	JC621		;C586-D2 21 C6
-	LXI	H,_PNTR		;C589-21 69 00
-	MOV	A,M		;C58C-7E
-	INX	H		;C58D-23
-	MOV	B,M		;C58E-46
-	INX	H		;C58F-23
-	SUB	M		;C590-96
-	INX	H		;C591-23
-	MOV	C,A		;C592-4F
-	MOV	A,B		;C593-78
-	SBB	M		;C594-9E
-	ORA	C		;C595-B1
-	SUI	001H		;C596-D6 01
-	SBB	A		;C598-9F
-	LXI	H,_PNTR		;C599-21 69 00
-	MOV	C,A		;C59C-4F
-	MOV	A,M		;C59D-7E
-	INX	H		;C59E-23
-	MOV	D,M		;C59F-56
-	SUI	001H		;C5A0-D6 01
-	MOV	E,A		;C5A2-5F
-	MOV	A,D		;C5A3-7A
-	SBI	000H		;C5A4-DE 00
-	ORA	E		;C5A6-B3
-	ADI	0FFH		;C5A7-C6 FF
-	SBB	A		;C5A9-9F
-	ANA	C		;C5AA-A1
-	RRC			;C5AB-0F
-	JNC	JC5B6		;C5AC-D2 B6 C5
-	LHLD	L0071		;C5AF-2A 71 00
-	DCX	H		;C5B2-2B
-	SHLD	L0071		;C5B3-22 71 00
-JC5B6	LHLD	L007A		;C5B6-2A 7A 00
-	INX	H		;C5B9-23
-	SHLD	L007A		;C5BA-22 7A 00
-JC5BD	LXI	H,L007A		;C5BD-21 7A 00
-	MOV	A,M		;C5C0-7E
-	INX	H		;C5C1-23
-	MOV	B,M		;C5C2-46
-	SUI	000H		;C5C3-D6 00
-	MOV	C,A		;C5C5-4F
-	MOV	A,B		;C5C6-78
-	SBI	000H		;C5C7-DE 00
-	ORA	C		;C5C9-B1
-	ADI	0FFH		;C5CA-C6 FF
-	SBB	A		;C5CC-9F
-	LXI	H,_PNTR		;C5CD-21 69 00
-	MOV	C,A		;C5D0-4F
-	MOV	E,M		;C5D1-5E
-	INX	H		;C5D2-23
-	MOV	D,M		;C5D3-56
-	SUI	001H		;C5D4-D6 01
-	MOV	E,A		;C5D6-5F
-	MOV	A,D		;C5D7-7A
-	SBI	000H		;C5D8-DE 00
-	ORA	E		;C5DA-B3
-	ADI	0FFH		;C5DB-C6 FF
-	SBB	A		;C5DD-9F
-	ANA	C		;C5DE-A1
-	RRC			;C5DF-0F
-	JNC	JC616		;C5E0-D2 16 C6
-	LXI	H,L0071		;C5E3-21 71 00
-	MOV	C,M		;C5E6-4E
-	INX	H		;C5E7-23
-	MOV	B,M		;C5E8-46
-	LXI	H,L00D7		;C5E9-21 D7 00
-	DAD	B		;C5EC-09
-	MOV	A,M		;C5ED-7E
-	LXI	H,L0085		;C5EE-21 85 00
-	MOV	M,A		;C5F1-77
-	SUI	0FFH		;C5F2-D6 FF
-	JNZ	JC5FF		;C5F4-C2 FF C5
-	LHLD	L0071		;C5F7-2A 71 00
-	INX	H		;C5FA-23
-	XCHG			;C5FB-EB
-	MOV	A,E		;C5FC-7B
-	MOV	B,D		;C5FD-42
-	RET			;C5FE-C9
-JC5FF	MOV	A,M		;C5FF-7E
-	SUI	00AH		;C600-D6 0A
-	JNZ	JC60C		;C602-C2 0C C6
-	LHLD	L007A		;C605-2A 7A 00
-	DCX	H		;C608-2B
-	SHLD	L007A		;C609-22 7A 00
-JC60C	LHLD	L0071		;C60C-2A 71 00
-	DCX	H		;C60F-2B
-	SHLD	L0071		;C610-22 71 00
-	JMP	JC5BD		;C613-C3 BD C5
-JC616	LXI	B,L0002		;C616-01 02 00
-	LHLD	L0071		;C619-2A 71 00
-	DAD	B		;C61C-09
-	XCHG			;C61D-EB
-	MOV	A,E		;C61E-7B
-	MOV	B,D		;C61F-42
-	RET			;C620-C9
-JC621	LXI	H,L007A		;C621-21 7A 00
-	MOV	A,M		;C624-7E
-	INX	H		;C625-23
-	MOV	B,M		;C626-46
-	SUI	000H		;C627-D6 00
-	MOV	C,A		;C629-4F
-	MOV	A,B		;C62A-78
-	SBI	000H		;C62B-DE 00
-	ORA	C		;C62D-B1
-	JZ	JC645		;C62E-CA 45 C6
-	LXI	H,L0071		;C631-21 71 00
-	MOV	C,M		;C634-4E
-	INX	H		;C635-23
-	MOV	B,M		;C636-46
-	LXI	H,L00D7		;C637-21 D7 00
-	DAD	B		;C63A-09
-	MOV	A,M		;C63B-7E
-	LXI	H,L0085		;C63C-21 85 00
-	MOV	M,A		;C63F-77
-	SUI	0FFH		;C640-D6 FF
-	JNZ	JC64C		;C642-C2 4C C6
-JC645	LXI	H,L0071		;C645-21 71 00
-	MOV	A,M		;C648-7E
-	INX	H		;C649-23
-	MOV	B,M		;C64A-46
-	RET			;C64B-C9
-JC64C	MOV	A,M		;C64C-7E
-	SUI	00AH		;C64D-D6 0A
-	JNZ	JC659		;C64F-C2 59 C6
-	LHLD	L007A		;C652-2A 7A 00
-	DCX	H		;C655-2B
-	SHLD	L007A		;C656-22 7A 00
-JC659	LHLD	L0071		;C659-2A 71 00
-	INX	H		;C65C-23
-	SHLD	L0071		;C65D-22 71 00
-	JMP	JC621		;C660-C3 21 C6
+CC56B   LHLD    _PNTR           ;C56B-2A 69 00
+        SHLD    L0071           ;C56E-22 71 00
+        LXI     H,L007A         ;C571-21 7A 00
+        MOV     A,M             ;C574-7E
+        INX     H               ;C575-23
+        MOV     B,M             ;C576-46
+        SUI     000H            ;C577-D6 00
+        MOV     C,A             ;C579-4F
+        MOV     A,B             ;C57A-78
+        SBI     000H            ;C57B-DE 00
+        ORA     C               ;C57D-B1
+        SUI     001H            ;C57E-D6 01
+        SBB     A               ;C580-9F
+        LXI     H,L0079         ;C581-21 79 00
+        ORA     M               ;C584-B6
+        RRC                     ;C585-0F
+        JNC     JC621           ;C586-D2 21 C6
+        LXI     H,_PNTR         ;C589-21 69 00
+        MOV     A,M             ;C58C-7E
+        INX     H               ;C58D-23
+        MOV     B,M             ;C58E-46
+        INX     H               ;C58F-23
+        SUB     M               ;C590-96
+        INX     H               ;C591-23
+        MOV     C,A             ;C592-4F
+        MOV     A,B             ;C593-78
+        SBB     M               ;C594-9E
+        ORA     C               ;C595-B1
+        SUI     001H            ;C596-D6 01
+        SBB     A               ;C598-9F
+        LXI     H,_PNTR         ;C599-21 69 00
+        MOV     C,A             ;C59C-4F
+        MOV     A,M             ;C59D-7E
+        INX     H               ;C59E-23
+        MOV     D,M             ;C59F-56
+        SUI     001H            ;C5A0-D6 01
+        MOV     E,A             ;C5A2-5F
+        MOV     A,D             ;C5A3-7A
+        SBI     000H            ;C5A4-DE 00
+        ORA     E               ;C5A6-B3
+        ADI     0FFH            ;C5A7-C6 FF
+        SBB     A               ;C5A9-9F
+        ANA     C               ;C5AA-A1
+        RRC                     ;C5AB-0F
+        JNC     JC5B6           ;C5AC-D2 B6 C5
+        LHLD    L0071           ;C5AF-2A 71 00
+        DCX     H               ;C5B2-2B
+        SHLD    L0071           ;C5B3-22 71 00
+JC5B6   LHLD    L007A           ;C5B6-2A 7A 00
+        INX     H               ;C5B9-23
+        SHLD    L007A           ;C5BA-22 7A 00
+JC5BD   LXI     H,L007A         ;C5BD-21 7A 00
+        MOV     A,M             ;C5C0-7E
+        INX     H               ;C5C1-23
+        MOV     B,M             ;C5C2-46
+        SUI     000H            ;C5C3-D6 00
+        MOV     C,A             ;C5C5-4F
+        MOV     A,B             ;C5C6-78
+        SBI     000H            ;C5C7-DE 00
+        ORA     C               ;C5C9-B1
+        ADI     0FFH            ;C5CA-C6 FF
+        SBB     A               ;C5CC-9F
+        LXI     H,_PNTR         ;C5CD-21 69 00
+        MOV     C,A             ;C5D0-4F
+        MOV     E,M             ;C5D1-5E
+        INX     H               ;C5D2-23
+        MOV     D,M             ;C5D3-56
+        SUI     001H            ;C5D4-D6 01
+        MOV     E,A             ;C5D6-5F
+        MOV     A,D             ;C5D7-7A
+        SBI     000H            ;C5D8-DE 00
+        ORA     E               ;C5DA-B3
+        ADI     0FFH            ;C5DB-C6 FF
+        SBB     A               ;C5DD-9F
+        ANA     C               ;C5DE-A1
+        RRC                     ;C5DF-0F
+        JNC     JC616           ;C5E0-D2 16 C6
+        LXI     H,L0071         ;C5E3-21 71 00
+        MOV     C,M             ;C5E6-4E
+        INX     H               ;C5E7-23
+        MOV     B,M             ;C5E8-46
+        LXI     H,L00D7         ;C5E9-21 D7 00
+        DAD     B               ;C5EC-09
+        MOV     A,M             ;C5ED-7E
+        LXI     H,L0085         ;C5EE-21 85 00
+        MOV     M,A             ;C5F1-77
+        SUI     0FFH            ;C5F2-D6 FF
+        JNZ     JC5FF           ;C5F4-C2 FF C5
+        LHLD    L0071           ;C5F7-2A 71 00
+        INX     H               ;C5FA-23
+        XCHG                    ;C5FB-EB
+        MOV     A,E             ;C5FC-7B
+        MOV     B,D             ;C5FD-42
+        RET                     ;C5FE-C9
+JC5FF   MOV     A,M             ;C5FF-7E
+        SUI     00AH            ;C600-D6 0A
+        JNZ     JC60C           ;C602-C2 0C C6
+        LHLD    L007A           ;C605-2A 7A 00
+        DCX     H               ;C608-2B
+        SHLD    L007A           ;C609-22 7A 00
+JC60C   LHLD    L0071           ;C60C-2A 71 00
+        DCX     H               ;C60F-2B
+        SHLD    L0071           ;C610-22 71 00
+        JMP     JC5BD           ;C613-C3 BD C5
+JC616   LXI     B,L0002         ;C616-01 02 00
+        LHLD    L0071           ;C619-2A 71 00
+        DAD     B               ;C61C-09
+        XCHG                    ;C61D-EB
+        MOV     A,E             ;C61E-7B
+        MOV     B,D             ;C61F-42
+        RET                     ;C620-C9
+JC621   LXI     H,L007A         ;C621-21 7A 00
+        MOV     A,M             ;C624-7E
+        INX     H               ;C625-23
+        MOV     B,M             ;C626-46
+        SUI     000H            ;C627-D6 00
+        MOV     C,A             ;C629-4F
+        MOV     A,B             ;C62A-78
+        SBI     000H            ;C62B-DE 00
+        ORA     C               ;C62D-B1
+        JZ      JC645           ;C62E-CA 45 C6
+        LXI     H,L0071         ;C631-21 71 00
+        MOV     C,M             ;C634-4E
+        INX     H               ;C635-23
+        MOV     B,M             ;C636-46
+        LXI     H,L00D7         ;C637-21 D7 00
+        DAD     B               ;C63A-09
+        MOV     A,M             ;C63B-7E
+        LXI     H,L0085         ;C63C-21 85 00
+        MOV     M,A             ;C63F-77
+        SUI     0FFH            ;C640-D6 FF
+        JNZ     JC64C           ;C642-C2 4C C6
+JC645   LXI     H,L0071         ;C645-21 71 00
+        MOV     A,M             ;C648-7E
+        INX     H               ;C649-23
+        MOV     B,M             ;C64A-46
+        RET                     ;C64B-C9
+JC64C   MOV     A,M             ;C64C-7E
+        SUI     00AH            ;C64D-D6 0A
+        JNZ     JC659           ;C64F-C2 59 C6
+        LHLD    L007A           ;C652-2A 7A 00
+        DCX     H               ;C655-2B
+        SHLD    L007A           ;C656-22 7A 00
+JC659   LHLD    L0071           ;C659-2A 71 00
+        INX     H               ;C65C-23
+        SHLD    L0071           ;C65D-22 71 00
+        JMP     JC621           ;C660-C3 21 C6
 
 ;*******************************
 ;Search/replace routine
-SEARCH:	LXI	H,L00B6		;C663-21 B6 00
-	MVI	M,000H		;C666-36 00
-JC668	LXI	H,L00B6		;C668-21 B6 00
-	MOV	C,M		;C66B-4E
-	MVI	B,000H		;C66C-06 00
-	INX	H		;C66E-23
-	DAD	B		;C66F-09
-	PUSH	H		;C670-E5
-	CALL	CC355		;C671-CD 55 C3
-	POP	H		;C674-E1
-	MOV	M,A		;C675-77
-	SUI	05CH		;C676-D6 5C
-	JZ	JC688		;C678-CA 88 C6
-	LXI	H,L00B6		;C67B-21 B6 00
-	MOV	A,M		;C67E-7E
-	SUI	010H		;C67F-D6 10
-	JNC	JC668		;C681-D2 68 C6
-	INR	M		;C684-34
-	JMP	JC668		;C685-C3 68 C6
-JC688	CALL	CC4E5		;C688-CD E5 C4
-	LXI	H,L0071		;C68B-21 71 00
-	MOV	M,A		;C68E-77
-	INX	H		;C68F-23
-	MOV	M,B		;C690-70
-	SUI	0FFH		;C691-D6 FF
-	MOV	C,A		;C693-4F
-	MOV	A,B		;C694-78
-	SBI	0FFH		;C695-DE FF
-	ORA	C		;C697-B1
-	JNZ	JC6CA		;C698-C2 CA C6
-	LXI	B,NOTFND	;C69B-01 70 C0  ;'line not found' string
-	MVI	E,011H		;C69E-1E 11
-	MVI	D,000H		;C6A0-16 00
-	CALL	PRINT		;C6A2-CD B0 C1
-	LXI	H,L00B6		;C6A5-21 B6 00
-	MOV	A,M		;C6A8-7E
-	SUI	000H		;C6A9-D6 00
-	JZ	JC6B8		;C6AB-CA B8 C6
-	LXI	B,L00B7		;C6AE-01 B7 00
-	MOV	E,M		;C6B1-5E
-	DCR	E		;C6B2-1D
-	MVI	D,000H		;C6B3-16 00
-	CALL	PRINT		;C6B5-CD B0 C1
-JC6B8	LXI	B,CRLF		;C6B8-01 83 C0
-	LXI	D,L0001		;C6BB-11 01 00
-	CALL	PRINT		;C6BE-CD B0 C1
-	CALL	JC21C		;C6C1-CD 1C C2
-	LXI	SP,L0068	;C6C4-31 68 00
-	JMP	AFTCMD		;C6C7-C3 5C C7
-JC6CA	DCX	H		;C6CA-2B
-	MOV	C,M		;C6CB-4E
-	INX	H		;C6CC-23
-	MOV	B,M		;C6CD-46
-	LHLD	_PNTR		;C6CE-2A 69 00
-	DAD	B		;C6D1-09
-	XCHG			;C6D2-EB
-	MOV	A,E		;C6D3-7B
-	MOV	B,D		;C6D4-42
-	RET			;C6D5-C9
+SEARCH: LXI     H,L00B6         ;C663-21 B6 00
+        MVI     M,000H          ;C666-36 00
+JC668   LXI     H,L00B6         ;C668-21 B6 00
+        MOV     C,M             ;C66B-4E
+        MVI     B,000H          ;C66C-06 00
+        INX     H               ;C66E-23
+        DAD     B               ;C66F-09
+        PUSH    H               ;C670-E5
+        CALL    CC355           ;C671-CD 55 C3
+        POP     H               ;C674-E1
+        MOV     M,A             ;C675-77
+        SUI     05CH            ;C676-D6 5C
+        JZ      JC688           ;C678-CA 88 C6
+        LXI     H,L00B6         ;C67B-21 B6 00
+        MOV     A,M             ;C67E-7E
+        SUI     010H            ;C67F-D6 10
+        JNC     JC668           ;C681-D2 68 C6
+        INR     M               ;C684-34
+        JMP     JC668           ;C685-C3 68 C6
+JC688   CALL    CC4E5           ;C688-CD E5 C4
+        LXI     H,L0071         ;C68B-21 71 00
+        MOV     M,A             ;C68E-77
+        INX     H               ;C68F-23
+        MOV     M,B             ;C690-70
+        SUI     0FFH            ;C691-D6 FF
+        MOV     C,A             ;C693-4F
+        MOV     A,B             ;C694-78
+        SBI     0FFH            ;C695-DE FF
+        ORA     C               ;C697-B1
+        JNZ     JC6CA           ;C698-C2 CA C6
+        LXI     B,NOTFND        ;C69B-01 70 C0  ;'line not found' string
+        MVI     E,011H          ;C69E-1E 11
+        MVI     D,000H          ;C6A0-16 00
+        CALL    PRINT           ;C6A2-CD B0 C1
+        LXI     H,L00B6         ;C6A5-21 B6 00
+        MOV     A,M             ;C6A8-7E
+        SUI     000H            ;C6A9-D6 00
+        JZ      JC6B8           ;C6AB-CA B8 C6
+        LXI     B,L00B7         ;C6AE-01 B7 00
+        MOV     E,M             ;C6B1-5E
+        DCR     E               ;C6B2-1D
+        MVI     D,000H          ;C6B3-16 00
+        CALL    PRINT           ;C6B5-CD B0 C1
+JC6B8   LXI     B,CRLF          ;C6B8-01 83 C0
+        LXI     D,L0001         ;C6BB-11 01 00
+        CALL    PRINT           ;C6BE-CD B0 C1
+        CALL    JC21C           ;C6C1-CD 1C C2
+        LXI     SP,L0068        ;C6C4-31 68 00
+        JMP     AFTCMD          ;C6C7-C3 5C C7
+JC6CA   DCX     H               ;C6CA-2B
+        MOV     C,M             ;C6CB-4E
+        INX     H               ;C6CC-23
+        MOV     B,M             ;C6CD-46
+        LHLD    _PNTR           ;C6CE-2A 69 00
+        DAD     B               ;C6D1-09
+        XCHG                    ;C6D2-EB
+        MOV     A,E             ;C6D3-7B
+        MOV     B,D             ;C6D4-42
+        RET                     ;C6D5-C9
 
 ;*******************************
 ; Start Subroutine
-CC6D6	LHLD	_PNTR		;C6D6-2A 69 00
-	SHLD	_EOF		;C6D9-22 6B 00
-JC6DC	LXI	H,L006F		;C6DC-21 6F 00
-	MOV	A,M		;C6DF-7E
-	INX	H		;C6E0-23
-	MOV	B,M		;C6E1-46
-	LXI	H,L006D		;C6E2-21 6D 00
-	SUB	M		;C6E5-96
-	INX	H		;C6E6-23
-	MOV	A,B		;C6E7-78
-	SBB	M		;C6E8-9E
-	JC	JC715		;C6E9-DA 15 C7
-	LXI	H,_EOF		;C6EC-21 6B 00
-	MOV	C,M		;C6EF-4E
-	INX	H		;C6F0-23
-	MOV	B,M		;C6F1-46
-	LXI	H,L00D7		;C6F2-21 D7 00
-	DAD	B		;C6F5-09
-	PUSH	H		;C6F6-E5
-	LXI	H,L006D		;C6F7-21 6D 00
-	MOV	C,M		;C6FA-4E
-	INX	H		;C6FB-23
-	MOV	B,M		;C6FC-46
-	LXI	H,L00D7		;C6FD-21 D7 00
-	DAD	B		;C700-09
-	MOV	A,M		;C701-7E
-	POP	H		;C702-E1
-	MOV	M,A		;C703-77
-	LHLD	L006D		;C704-2A 6D 00
-	INX	H		;C707-23
-	SHLD	L006D		;C708-22 6D 00
-	LHLD	_EOF		;C70B-2A 6B 00
-	INX	H		;C70E-23
-	SHLD	_EOF		;C70F-22 6B 00
-	JMP	JC6DC		;C712-C3 DC C6
-JC715	LHLD	_EOF		;C715-2A 6B 00
-	DCX	H		;C718-2B
-	SHLD	_EOF		;C719-22 6B 00
-	XCHG			;C71C-EB
-	LXI	H,L00D7		;C71D-21 D7 00
-	DAD	D		;C720-19
-	MVI	M,0FFH		;C721-36 FF
-	CALL	CC3C6		;C723-CD C6 C3
-	RET			;C726-C9
+CC6D6   LHLD    _PNTR           ;C6D6-2A 69 00
+        SHLD    _EOF            ;C6D9-22 6B 00
+JC6DC   LXI     H,L006F         ;C6DC-21 6F 00
+        MOV     A,M             ;C6DF-7E
+        INX     H               ;C6E0-23
+        MOV     B,M             ;C6E1-46
+        LXI     H,L006D         ;C6E2-21 6D 00
+        SUB     M               ;C6E5-96
+        INX     H               ;C6E6-23
+        MOV     A,B             ;C6E7-78
+        SBB     M               ;C6E8-9E
+        JC      JC715           ;C6E9-DA 15 C7
+        LXI     H,_EOF          ;C6EC-21 6B 00
+        MOV     C,M             ;C6EF-4E
+        INX     H               ;C6F0-23
+        MOV     B,M             ;C6F1-46
+        LXI     H,L00D7         ;C6F2-21 D7 00
+        DAD     B               ;C6F5-09
+        PUSH    H               ;C6F6-E5
+        LXI     H,L006D         ;C6F7-21 6D 00
+        MOV     C,M             ;C6FA-4E
+        INX     H               ;C6FB-23
+        MOV     B,M             ;C6FC-46
+        LXI     H,L00D7         ;C6FD-21 D7 00
+        DAD     B               ;C700-09
+        MOV     A,M             ;C701-7E
+        POP     H               ;C702-E1
+        MOV     M,A             ;C703-77
+        LHLD    L006D           ;C704-2A 6D 00
+        INX     H               ;C707-23
+        SHLD    L006D           ;C708-22 6D 00
+        LHLD    _EOF            ;C70B-2A 6B 00
+        INX     H               ;C70E-23
+        SHLD    _EOF            ;C70F-22 6B 00
+        JMP     JC6DC           ;C712-C3 DC C6
+JC715   LHLD    _EOF            ;C715-2A 6B 00
+        DCX     H               ;C718-2B
+        SHLD    _EOF            ;C719-22 6B 00
+        XCHG                    ;C71C-EB
+        LXI     H,L00D7         ;C71D-21 D7 00
+        DAD     D               ;C720-19
+        MVI     M,0FFH          ;C721-36 FF
+        CALL    CC3C6           ;C723-CD C6 C3
+        RET                     ;C726-C9
 
 ;*******************************
 ;Editor initialisation
-EDINIT:	CALL	CC3EF		;C727-CD EF C3
-	CALL	CC095		;C72A-CD 95 C0
-	LXI	D,L00D7		;C72D-11 D7 00
-	SUB	E		;C730-93
-	MOV	C,A		;C731-4F
-	MOV	A,B		;C732-78
-	SBB	D		;C733-9A
-	LXI	H,L0077		;C734-21 77 00
-	MOV	M,C		;C737-71
-	INX	H		;C738-23
-	MOV	M,A		;C739-77
-	LXI	H,L00D7		;C73A-21 D7 00
-	MVI	M,0FFH		;C73D-36 FF
-	INX	H		;C73F-23
-	MVI	M,0FFH		;C740-36 FF
-	LXI	H,_PNTR		;C742-21 69 00
-	MVI	M,001H		;C745-36 01
-	INX	H		;C747-23
-	MVI	M,000H		;C748-36 00    ;set pointer to the begin of file
-	INX	H		;C74A-23
-	MVI	M,001H		;C74B-36 01
-	INX	H		;C74D-23
-	MVI	M,000H		;C74E-36 00
-	LXI	B,VERSTR	;C750-01 15 C0
-	LXI	D,L001C		;C753-11 1C 00
-	CALL	PRINT		;C756-CD B0 C1
-	CALL	JC21C		;C759-CD 1C C2
+EDINIT: CALL    CC3EF           ;C727-CD EF C3
+        CALL    CC095           ;C72A-CD 95 C0
+        LXI     D,L00D7         ;C72D-11 D7 00
+        SUB     E               ;C730-93
+        MOV     C,A             ;C731-4F
+        MOV     A,B             ;C732-78
+        SBB     D               ;C733-9A
+        LXI     H,L0077         ;C734-21 77 00
+        MOV     M,C             ;C737-71
+        INX     H               ;C738-23
+        MOV     M,A             ;C739-77
+        LXI     H,L00D7         ;C73A-21 D7 00
+        MVI     M,0FFH          ;C73D-36 FF
+        INX     H               ;C73F-23
+        MVI     M,0FFH          ;C740-36 FF
+        LXI     H,_PNTR         ;C742-21 69 00
+        MVI     M,001H          ;C745-36 01
+        INX     H               ;C747-23
+        MVI     M,000H          ;C748-36 00    ;set pointer to the begin of file
+        INX     H               ;C74A-23
+        MVI     M,001H          ;C74B-36 01
+        INX     H               ;C74D-23
+        MVI     M,000H          ;C74E-36 00
+        LXI     B,VERSTR        ;C750-01 15 C0
+        LXI     D,L001C         ;C753-11 1C 00
+        CALL    PRINT           ;C756-CD B0 C1
+        CALL    JC21C           ;C759-CD 1C C2
 ;*******************************
 ;Very significant code
 ;Here we are after init, and after some editor operation is ended too,
 ;and we need to issue the prompt and wait for a command
-AFTCMD:	XRA	A		;C75C-AF
-	STA	L00D6		;C75D-32 D6 00
-	STA	L0079		;C760-32 79 00
-	LHLD	_PNTR		;C763-2A 69 00
-	SHLD	L006D		;C766-22 6D 00
-	LHLD	_EOF		;C769-2A 6B 00
-	SHLD	L006F		;C76C-22 6F 00
-	LXI	H,L007A		;C76F-21 7A 00
-	MVI	M,001H		;C772-36 01
-	INX	H		;C774-23
-	MVI	M,000H		;C775-36 00
-JC777	CALL	CC355		;C777-CD 55 C3
-	LXI	H,L0085		;C77A-21 85 00
-	MOV	M,A		;C77D-77
-	SUI	' '		;C77E-D6 20
-	JZ	JC777		;C780-CA 77 C7
-	LXI	H,L007E		;C783-21 7E 00
-	MOV	C,M		;C786-4E
-	DCR	C		;C787-0D
-	JNZ	JC794		;C788-C2 94 C7
-	CALL	EXPR		;C78B-CD 49 C4
-	LXI	H,L007A		;C78E-21 7A 00
-	MOV	M,A		;C791-77
-	INX	H		;C792-23
-	MOV	M,B		;C793-70
-JC794	LXI	H,L0085		;C794-21 85 00
-	MOV	A,M		;C797-7E
-	SUI	'<'		;C798-D6 3C    ;is it repetition-mode command?
-	JNZ	JC7EE		;C79A-C2 EE C7 ;jump if no
-	LXI	H,L0093		;C79D-21 93 00
-	INR	M		;C7A0-34
-	MVI	A,008H		;C7A1-3E 08
-	SUB	M		;C7A3-96
-	JNC	JC7B6		;C7A4-D2 B6 C7
-	LXI	B,BRASTR	;C7A7-01 32 C0 ;'too many brackets' message
-	LXI	D,L000D		;C7AA-11 0D 00
-	CALL	PRINT		;C7AD-CD B0 C1
-	CALL	JC21C		;C7B0-CD 1C C2
-	JMP	AFTCMD		;C7B3-C3 5C C7
-JC7B6	MOV	C,M		;C7B6-4E
-	MVI	B,000H		;C7B7-06 00
-	LXI	H,L0094		;C7B9-21 94 00
-	DAD	B		;C7BC-09
-	DAD	B		;C7BD-09
-	XCHG			;C7BE-EB
-	LXI	H,L0073		;C7BF-21 73 00
-	LDA	L00C7		;C7C2-3A C7 00
-	ORA	A		;C7C5-B7
-	JZ	JC7CC		;C7C6-CA CC C7
-	LXI	H,L00D3		;C7C9-21 D3 00
-JC7CC	MOV	C,M		;C7CC-4E
-	INX	H		;C7CD-23
-	MOV	B,M		;C7CE-46
-	MOV	A,C		;C7CF-79
-	STAX	D		;C7D0-12
-	INX	D		;C7D1-13
-	MOV	A,B		;C7D2-78
-	STAX	D		;C7D3-12
-	LXI	H,L0093		;C7D4-21 93 00
-	MOV	C,M		;C7D7-4E
-	MVI	B,000H		;C7D8-06 00
-	LXI	H,L00A5		;C7DA-21 A5 00
-	DAD	B		;C7DD-09
-	DAD	B		;C7DE-09
-	XCHG			;C7DF-EB
-	LXI	H,L007A		;C7E0-21 7A 00
-	MOV	C,M		;C7E3-4E
-	INX	H		;C7E4-23
-	MOV	B,M		;C7E5-46
-	MOV	A,C		;C7E6-79
-	STAX	D		;C7E7-12
-	INX	D		;C7E8-13
-	MOV	A,B		;C7E9-78
-	STAX	D		;C7EA-12
-	JMP	AFTCMD		;C7EB-C3 5C C7
+AFTCMD: XRA     A               ;C75C-AF
+        STA     L00D6           ;C75D-32 D6 00
+        STA     L0079           ;C760-32 79 00
+        LHLD    _PNTR           ;C763-2A 69 00
+        SHLD    L006D           ;C766-22 6D 00
+        LHLD    _EOF            ;C769-2A 6B 00
+        SHLD    L006F           ;C76C-22 6F 00
+        LXI     H,L007A         ;C76F-21 7A 00
+        MVI     M,001H          ;C772-36 01
+        INX     H               ;C774-23
+        MVI     M,000H          ;C775-36 00
+JC777   CALL    CC355           ;C777-CD 55 C3
+        LXI     H,L0085         ;C77A-21 85 00
+        MOV     M,A             ;C77D-77
+        SUI     ' '             ;C77E-D6 20
+        JZ      JC777           ;C780-CA 77 C7
+        LXI     H,L007E         ;C783-21 7E 00
+        MOV     C,M             ;C786-4E
+        DCR     C               ;C787-0D
+        JNZ     JC794           ;C788-C2 94 C7
+        CALL    EXPR            ;C78B-CD 49 C4
+        LXI     H,L007A         ;C78E-21 7A 00
+        MOV     M,A             ;C791-77
+        INX     H               ;C792-23
+        MOV     M,B             ;C793-70
+JC794   LXI     H,L0085         ;C794-21 85 00
+        MOV     A,M             ;C797-7E
+        SUI     '<'             ;C798-D6 3C    ;is it repetition-mode command?
+        JNZ     JC7EE           ;C79A-C2 EE C7 ;jump if no
+        LXI     H,L0093         ;C79D-21 93 00
+        INR     M               ;C7A0-34
+        MVI     A,008H          ;C7A1-3E 08
+        SUB     M               ;C7A3-96
+        JNC     JC7B6           ;C7A4-D2 B6 C7
+        LXI     B,BRASTR        ;C7A7-01 32 C0 ;'too many brackets' message
+        LXI     D,L000D         ;C7AA-11 0D 00
+        CALL    PRINT           ;C7AD-CD B0 C1
+        CALL    JC21C           ;C7B0-CD 1C C2
+        JMP     AFTCMD          ;C7B3-C3 5C C7
+JC7B6   MOV     C,M             ;C7B6-4E
+        MVI     B,000H          ;C7B7-06 00
+        LXI     H,L0094         ;C7B9-21 94 00
+        DAD     B               ;C7BC-09
+        DAD     B               ;C7BD-09
+        XCHG                    ;C7BE-EB
+        LXI     H,L0073         ;C7BF-21 73 00
+        LDA     L00C7           ;C7C2-3A C7 00
+        ORA     A               ;C7C5-B7
+        JZ      JC7CC           ;C7C6-CA CC C7
+        LXI     H,L00D3         ;C7C9-21 D3 00
+JC7CC   MOV     C,M             ;C7CC-4E
+        INX     H               ;C7CD-23
+        MOV     B,M             ;C7CE-46
+        MOV     A,C             ;C7CF-79
+        STAX    D               ;C7D0-12
+        INX     D               ;C7D1-13
+        MOV     A,B             ;C7D2-78
+        STAX    D               ;C7D3-12
+        LXI     H,L0093         ;C7D4-21 93 00
+        MOV     C,M             ;C7D7-4E
+        MVI     B,000H          ;C7D8-06 00
+        LXI     H,L00A5         ;C7DA-21 A5 00
+        DAD     B               ;C7DD-09
+        DAD     B               ;C7DE-09
+        XCHG                    ;C7DF-EB
+        LXI     H,L007A         ;C7E0-21 7A 00
+        MOV     C,M             ;C7E3-4E
+        INX     H               ;C7E4-23
+        MOV     B,M             ;C7E5-46
+        MOV     A,C             ;C7E6-79
+        STAX    D               ;C7E7-12
+        INX     D               ;C7E8-13
+        MOV     A,B             ;C7E9-78
+        STAX    D               ;C7EA-12
+        JMP     AFTCMD          ;C7EB-C3 5C C7
 
-JC7EE	MOV	A,M		;C7EE-7E
-	SUI	'>'		;C7EF-D6 3E
-	SUI	001H		;C7F1-D6 01    ;character follwing '>' is '?'
-	SBB	A		;C7F3-9F       ;clear Acc
-	LXI	H,L0093		;C7F4-21 93 00
-	MOV	C,A		;C7F7-4F
-	MOV	A,M		;C7F8-7E
-	SUI	000H		;C7F9-D6 00
-	ADI	0FFH		;C7FB-C6 FF
-	SBB	A		;C7FD-9F
-	ANA	C		;C7FE-A1
-	RRC			;C7FF-0F
-	JNC	JC84C		;C800-D2 4C C8
-	MOV	C,M		;C803-4E
-	MVI	B,000H		;C804-06 00
-	LXI	H,L00A5		;C806-21 A5 00
-	DAD	B		;C809-09
-	DAD	B		;C80A-09
-	PUSH	H		;C80B-E5
-	MOV	A,M		;C80C-7E
-	INX	H		;C80D-23
-	MOV	B,M		;C80E-46
-	MOV	C,A		;C80F-4F
-	MOV	L,C		;C810-69
-	MOV	H,B		;C811-60
-	DCX	H		;C812-2B
-	XCHG			;C813-EB
-	POP	H		;C814-E1
-	MOV	M,E		;C815-73
-	INX	H		;C816-23
-	MOV	M,D		;C817-72
-	MOV	A,E		;C818-7B
-	SUI	000H		;C819-D6 00
-	MOV	E,A		;C81B-5F
-	MOV	A,D		;C81C-7A
-	SBI	000H		;C81D-DE 00
-	ORA	E		;C81F-B3
-	JZ	JC845		;C820-CA 45 C8
-	LXI	H,L0093		;C823-21 93 00
-	MOV	C,M		;C826-4E
-	MVI	B,000H		;C827-06 00
-	LXI	H,L0094		;C829-21 94 00
-	DAD	B		;C82C-09
-	DAD	B		;C82D-09
-	MOV	A,M		;C82E-7E
-	INX	H		;C82F-23
-	MOV	B,M		;C830-46
-	LXI	H,L0073		;C831-21 73 00
-	MOV	C,A		;C834-4F
-	LDA	L00C7		;C835-3A C7 00
-	ORA	A		;C838-B7
-	JZ	JC83F		;C839-CA 3F C8
-	LXI	H,L00D3		;C83C-21 D3 00
-JC83F	MOV	M,C		;C83F-71
-	INX	H		;C840-23
-	MOV	M,B		;C841-70
-	JMP	JC849		;C842-C3 49 C8
-JC845	LXI	H,L0093		;C845-21 93 00
-	DCR	M		;C848-35
-JC849	JMP	AFTCMD		;C849-C3 5C C7
+JC7EE   MOV     A,M             ;C7EE-7E
+        SUI     '>'             ;C7EF-D6 3E
+        SUI     001H            ;C7F1-D6 01    ;character follwing '>' is '?'
+        SBB     A               ;C7F3-9F       ;clear Acc
+        LXI     H,L0093         ;C7F4-21 93 00
+        MOV     C,A             ;C7F7-4F
+        MOV     A,M             ;C7F8-7E
+        SUI     000H            ;C7F9-D6 00
+        ADI     0FFH            ;C7FB-C6 FF
+        SBB     A               ;C7FD-9F
+        ANA     C               ;C7FE-A1
+        RRC                     ;C7FF-0F
+        JNC     JC84C           ;C800-D2 4C C8
+        MOV     C,M             ;C803-4E
+        MVI     B,000H          ;C804-06 00
+        LXI     H,L00A5         ;C806-21 A5 00
+        DAD     B               ;C809-09
+        DAD     B               ;C80A-09
+        PUSH    H               ;C80B-E5
+        MOV     A,M             ;C80C-7E
+        INX     H               ;C80D-23
+        MOV     B,M             ;C80E-46
+        MOV     C,A             ;C80F-4F
+        MOV     L,C             ;C810-69
+        MOV     H,B             ;C811-60
+        DCX     H               ;C812-2B
+        XCHG                    ;C813-EB
+        POP     H               ;C814-E1
+        MOV     M,E             ;C815-73
+        INX     H               ;C816-23
+        MOV     M,D             ;C817-72
+        MOV     A,E             ;C818-7B
+        SUI     000H            ;C819-D6 00
+        MOV     E,A             ;C81B-5F
+        MOV     A,D             ;C81C-7A
+        SBI     000H            ;C81D-DE 00
+        ORA     E               ;C81F-B3
+        JZ      JC845           ;C820-CA 45 C8
+        LXI     H,L0093         ;C823-21 93 00
+        MOV     C,M             ;C826-4E
+        MVI     B,000H          ;C827-06 00
+        LXI     H,L0094         ;C829-21 94 00
+        DAD     B               ;C82C-09
+        DAD     B               ;C82D-09
+        MOV     A,M             ;C82E-7E
+        INX     H               ;C82F-23
+        MOV     B,M             ;C830-46
+        LXI     H,L0073         ;C831-21 73 00
+        MOV     C,A             ;C834-4F
+        LDA     L00C7           ;C835-3A C7 00
+        ORA     A               ;C838-B7
+        JZ      JC83F           ;C839-CA 3F C8
+        LXI     H,L00D3         ;C83C-21 D3 00
+JC83F   MOV     M,C             ;C83F-71
+        INX     H               ;C840-23
+        MOV     M,B             ;C841-70
+        JMP     JC849           ;C842-C3 49 C8
+JC845   LXI     H,L0093         ;C845-21 93 00
+        DCR     M               ;C848-35
+JC849   JMP     AFTCMD          ;C849-C3 5C C7
 
-JC84C	LXI	H,L007E		;C84C-21 7E 00
-	MOV	A,M		;C84F-7E
-	SUI	000H		;C850-D6 00
-	JNZ	UNKNWN		;C852-C2 9F CC
-	JMP	RUNCMD		;C855-C3 5C CC
+JC84C   LXI     H,L007E         ;C84C-21 7E 00
+        MOV     A,M             ;C84F-7E
+        SUI     000H            ;C850-D6 00
+        JNZ     UNKNWN          ;C852-C2 9F CC
+        JMP     RUNCMD          ;C855-C3 5C CC
 
 ;*******************************
 ;Reads a maximum of 50 lines of text from (?disk?) into memory.
 ; The text is appended to the bottom of the data already in memory.
-CMD_A:	LDA	L00D5		;C858-3A D5 00
-	RRC			;C85B-0F
-	JC	AFTCMD		;C85C-DA 5C C7
-	LXI	H,L008F		;C85F-21 8F 00
-	MVI	M,0FFH		;C862-36 FF
-	CALL	JC105		;C864-CD 05 C1
-	STA	L0085		;C867-32 85 00
-	LXI	H,L007A		;C86A-21 7A 00
-	MVI	M,000H		;C86D-36 00
-	INX	H		;C86F-23
-	MVI	M,000H		;C870-36 00
-JC872	LXI	H,L008F		;C872-21 8F 00
-	MOV	A,M		;C875-7E
-	RRC			;C876-0F
-	JNC	JC919		;C877-D2 19 C9
-	LXI	H,L0075		;C87A-21 75 00
-	MOV	A,M		;C87D-7E
-	INX	H		;C87E-23
-	MOV	B,M		;C87F-46
-	SUI	014H		;C880-D6 14
-	MOV	C,A		;C882-4F
-	MOV	A,B		;C883-78
-	SBI	000H		;C884-DE 00
-	LXI	H,_EOF		;C886-21 6B 00
-	MOV	B,A		;C889-47
-	MOV	A,M		;C88A-7E
-	INX	H		;C88B-23
-	MOV	D,M		;C88C-56
-	SUB	C		;C88D-91
-	MOV	E,A		;C88E-5F
-	MOV	A,D		;C88F-7A
-	SBB	B		;C890-98
-	SBB	A		;C891-9F
-	CMA			;C892-2F
-	RRC			;C893-0F
-	JNC	JC8B0		;C894-D2 B0 C8
-	LXI	H,L008F		;C897-21 8F 00
-	MVI	M,000H		;C89A-36 00
-	LXI	B,OVFST2	;C89C-01 4A C0
-	LXI	D,L000B		;C89F-11 0B 00
-	CALL	PRINT		;C8A2-CD B0 C1
-	CALL	CC08B		;C8A5-CD 8B C0
-	LXI	H,L0085		;C8A8-21 85 00
-	MVI	M,01AH		;C8AB-36 1A
-	JMP	JC872		;C8AD-C3 72 C8
-JC8B0	LXI	H,L0085		;C8B0-21 85 00
-	MOV	A,M		;C8B3-7E
-	SUI	01AH		;C8B4-D6 1A
-	JZ	JC903		;C8B6-CA 03 C9
-	MOV	A,M		;C8B9-7E
-	SUI	000H		;C8BA-D6 00
-	JNZ	JC8C7		;C8BC-C2 C7 C8
-	LXI	H,L008F		;C8BF-21 8F 00
-	MVI	M,000H		;C8C2-36 00
-	JMP	JC872		;C8C4-C3 72 C8
-JC8C7	LXI	H,_EOF		;C8C7-21 6B 00
-	MOV	C,M		;C8CA-4E
-	INX	H		;C8CB-23
-	MOV	B,M		;C8CC-46
-	LXI	H,L00D7		;C8CD-21 D7 00
-	DAD	B		;C8D0-09
-	XCHG			;C8D1-EB
-	LXI	H,L0085		;C8D2-21 85 00
-	MOV	C,M		;C8D5-4E
-	MOV	A,C		;C8D6-79
-	STAX	D		;C8D7-12
-	LHLD	_EOF		;C8D8-2A 6B 00
-	INX	H		;C8DB-23
-	SHLD	_EOF		;C8DC-22 6B 00
-	LXI	H,L0085		;C8DF-21 85 00
-	MOV	A,M		;C8E2-7E
-	SUI	00AH		;C8E3-D6 0A
-	JNZ	JC910		;C8E5-C2 10 C9
-	LHLD	L007A		;C8E8-2A 7A 00
-	INX	H		;C8EB-23
-	SHLD	L007A		;C8EC-22 7A 00
-	XCHG			;C8EF-EB
-	MOV	A,E		;C8F0-7B
-	SUI	032H		;C8F1-D6 32
-	MOV	E,A		;C8F3-5F
-	MOV	A,D		;C8F4-7A
-	SBI	000H		;C8F5-DE 00
-	ORA	E		;C8F7-B3
-	JNZ	JC910		;C8F8-C2 10 C9
-	LXI	H,L008F		;C8FB-21 8F 00
-	MVI	M,000H		;C8FE-36 00
-	JMP	JC872		;C900-C3 72 C8
-JC903	LXI	H,L008F		;C903-21 8F 00
-	MVI	M,000H		;C906-36 00
-	MVI	A,0FFH		;C908-3E FF
-	STA	L00D5		;C90A-32 D5 00
-	JMP	JC872		;C90D-C3 72 C8
-JC910	CALL	RIMOD		;C910-CD E8 C1
-	STA	L0085		;C913-32 85 00
-	JMP	JC872		;C916-C3 72 C8
-JC919	LXI	H,_EOF		;C919-21 6B 00
-	MOV	C,M		;C91C-4E
-	INX	H		;C91D-23
-	MOV	B,M		;C91E-46
-	LXI	H,L00D7		;C91F-21 D7 00
-	DAD	B		;C922-09
-	MVI	M,0FFH		;C923-36 FF
-	LDA	L0085		;C925-3A 85 00
-	JMP	AFTCMD		;C928-C3 5C C7
+CMD_A:  LDA     L00D5           ;C858-3A D5 00
+        RRC                     ;C85B-0F
+        JC      AFTCMD          ;C85C-DA 5C C7
+        LXI     H,L008F         ;C85F-21 8F 00
+        MVI     M,0FFH          ;C862-36 FF
+        CALL    JC105           ;C864-CD 05 C1
+        STA     L0085           ;C867-32 85 00
+        LXI     H,L007A         ;C86A-21 7A 00
+        MVI     M,000H          ;C86D-36 00
+        INX     H               ;C86F-23
+        MVI     M,000H          ;C870-36 00
+JC872   LXI     H,L008F         ;C872-21 8F 00
+        MOV     A,M             ;C875-7E
+        RRC                     ;C876-0F
+        JNC     JC919           ;C877-D2 19 C9
+        LXI     H,L0075         ;C87A-21 75 00
+        MOV     A,M             ;C87D-7E
+        INX     H               ;C87E-23
+        MOV     B,M             ;C87F-46
+        SUI     014H            ;C880-D6 14
+        MOV     C,A             ;C882-4F
+        MOV     A,B             ;C883-78
+        SBI     000H            ;C884-DE 00
+        LXI     H,_EOF          ;C886-21 6B 00
+        MOV     B,A             ;C889-47
+        MOV     A,M             ;C88A-7E
+        INX     H               ;C88B-23
+        MOV     D,M             ;C88C-56
+        SUB     C               ;C88D-91
+        MOV     E,A             ;C88E-5F
+        MOV     A,D             ;C88F-7A
+        SBB     B               ;C890-98
+        SBB     A               ;C891-9F
+        CMA                     ;C892-2F
+        RRC                     ;C893-0F
+        JNC     JC8B0           ;C894-D2 B0 C8
+        LXI     H,L008F         ;C897-21 8F 00
+        MVI     M,000H          ;C89A-36 00
+        LXI     B,OVFST2        ;C89C-01 4A C0
+        LXI     D,L000B         ;C89F-11 0B 00
+        CALL    PRINT           ;C8A2-CD B0 C1
+        CALL    CC08B           ;C8A5-CD 8B C0
+        LXI     H,L0085         ;C8A8-21 85 00
+        MVI     M,01AH          ;C8AB-36 1A
+        JMP     JC872           ;C8AD-C3 72 C8
+JC8B0   LXI     H,L0085         ;C8B0-21 85 00
+        MOV     A,M             ;C8B3-7E
+        SUI     01AH            ;C8B4-D6 1A
+        JZ      JC903           ;C8B6-CA 03 C9
+        MOV     A,M             ;C8B9-7E
+        SUI     000H            ;C8BA-D6 00
+        JNZ     JC8C7           ;C8BC-C2 C7 C8
+        LXI     H,L008F         ;C8BF-21 8F 00
+        MVI     M,000H          ;C8C2-36 00
+        JMP     JC872           ;C8C4-C3 72 C8
+JC8C7   LXI     H,_EOF          ;C8C7-21 6B 00
+        MOV     C,M             ;C8CA-4E
+        INX     H               ;C8CB-23
+        MOV     B,M             ;C8CC-46
+        LXI     H,L00D7         ;C8CD-21 D7 00
+        DAD     B               ;C8D0-09
+        XCHG                    ;C8D1-EB
+        LXI     H,L0085         ;C8D2-21 85 00
+        MOV     C,M             ;C8D5-4E
+        MOV     A,C             ;C8D6-79
+        STAX    D               ;C8D7-12
+        LHLD    _EOF            ;C8D8-2A 6B 00
+        INX     H               ;C8DB-23
+        SHLD    _EOF            ;C8DC-22 6B 00
+        LXI     H,L0085         ;C8DF-21 85 00
+        MOV     A,M             ;C8E2-7E
+        SUI     00AH            ;C8E3-D6 0A
+        JNZ     JC910           ;C8E5-C2 10 C9
+        LHLD    L007A           ;C8E8-2A 7A 00
+        INX     H               ;C8EB-23
+        SHLD    L007A           ;C8EC-22 7A 00
+        XCHG                    ;C8EF-EB
+        MOV     A,E             ;C8F0-7B
+        SUI     032H            ;C8F1-D6 32
+        MOV     E,A             ;C8F3-5F
+        MOV     A,D             ;C8F4-7A
+        SBI     000H            ;C8F5-DE 00
+        ORA     E               ;C8F7-B3
+        JNZ     JC910           ;C8F8-C2 10 C9
+        LXI     H,L008F         ;C8FB-21 8F 00
+        MVI     M,000H          ;C8FE-36 00
+        JMP     JC872           ;C900-C3 72 C8
+JC903   LXI     H,L008F         ;C903-21 8F 00
+        MVI     M,000H          ;C906-36 00
+        MVI     A,0FFH          ;C908-3E FF
+        STA     L00D5           ;C90A-32 D5 00
+        JMP     JC872           ;C90D-C3 72 C8
+JC910   CALL    RIMOD           ;C910-CD E8 C1
+        STA     L0085           ;C913-32 85 00
+        JMP     JC872           ;C916-C3 72 C8
+JC919   LXI     H,_EOF          ;C919-21 6B 00
+        MOV     C,M             ;C91C-4E
+        INX     H               ;C91D-23
+        MOV     B,M             ;C91E-46
+        LXI     H,L00D7         ;C91F-21 D7 00
+        DAD     B               ;C922-09
+        MVI     M,0FFH          ;C923-36 FF
+        LDA     L0085           ;C925-3A 85 00
+        JMP     AFTCMD          ;C928-C3 5C C7
 
 ;*******************************
 ; Set pointer to the beginning of file
-CMD_B:	LXI	H,_PNTR		;C92B-21 69 00
-	MVI	M,001H		;C92E-36 01
-	INX	H		;C930-23
-	MVI	M,000H		;C931-36 00
-	JMP	AFTCMD		;C933-C3 5C C7
+CMD_B:  LXI     H,_PNTR         ;C92B-21 69 00
+        MVI     M,001H          ;C92E-36 01
+        INX     H               ;C930-23
+        MVI     M,000H          ;C931-36 00
+        JMP     AFTCMD          ;C933-C3 5C C7
 
 ;*******************************
 ;Moves the pointer a specified number of characters forward or backward in the file
-CMD_C:	LXI	H,L0079		;C936-21 79 00
-	MOV	A,M		;C939-7E
-	RRC			;C93A-0F
-	JNC	JC970		;C93B-D2 70 C9
-	LHLD	_PNTR		;C93E-2A 69 00
-	DCX	H		;C941-2B
-	XCHG			;C942-EB
-	MOV	A,E		;C943-7B
-	LXI	H,L007A		;C944-21 7A 00
-	SUB	M		;C947-96
-	INX	H		;C948-23
-	MOV	A,D		;C949-7A
-	SBB	M		;C94A-9E
-	JNC	JC959		;C94B-D2 59 C9
-	LXI	H,_PNTR		;C94E-21 69 00
-	MVI	M,001H		;C951-36 01
-	INX	H		;C953-23
-	MVI	M,000H		;C954-36 00
-	JMP	AFTCMD		;C956-C3 5C C7
-JC959	LXI	H,_PNTR		;C959-21 69 00
-	MOV	A,M		;C95C-7E
-	INX	H		;C95D-23
-	MOV	B,M		;C95E-46
-	LXI	H,L007A		;C95F-21 7A 00
-	SUB	M		;C962-96
-	INX	H		;C963-23
-	MOV	C,A		;C964-4F
-	MOV	A,B		;C965-78
-	SBB	M		;C966-9E
-	LXI	H,_PNTR		;C967-21 69 00
-	MOV	M,C		;C96A-71
-	INX	H		;C96B-23
-	MOV	M,A		;C96C-77
-	JMP	AFTCMD		;C96D-C3 5C C7
-JC970	LXI	H,_PNTR		;C970-21 69 00
-	MOV	C,M		;C973-4E
-	INX	H		;C974-23
-	MOV	B,M		;C975-46
-	LHLD	L007A		;C976-2A 7A 00
-	DAD	B		;C979-09
-	SHLD	L0083		;C97A-22 83 00
-	XCHG			;C97D-EB
-	LXI	H,_EOF		;C97E-21 6B 00
-	MOV	A,M		;C981-7E
-	INX	H		;C982-23
-	MOV	B,M		;C983-46
-	SUB	E		;C984-93
-	MOV	C,A		;C985-4F
-	MOV	A,B		;C986-78
-	SBB	D		;C987-9A
-	JNC	JC994		;C988-D2 94 C9
-	LHLD	_EOF		;C98B-2A 6B 00
-	SHLD	_PNTR		;C98E-22 69 00
-	JMP	JC99A		;C991-C3 9A C9
-JC994	LHLD	L0083		;C994-2A 83 00
-	SHLD	_PNTR		;C997-22 69 00
-JC99A	JMP	AFTCMD		;C99A-C3 5C C7
+CMD_C:  LXI     H,L0079         ;C936-21 79 00
+        MOV     A,M             ;C939-7E
+        RRC                     ;C93A-0F
+        JNC     JC970           ;C93B-D2 70 C9
+        LHLD    _PNTR           ;C93E-2A 69 00
+        DCX     H               ;C941-2B
+        XCHG                    ;C942-EB
+        MOV     A,E             ;C943-7B
+        LXI     H,L007A         ;C944-21 7A 00
+        SUB     M               ;C947-96
+        INX     H               ;C948-23
+        MOV     A,D             ;C949-7A
+        SBB     M               ;C94A-9E
+        JNC     JC959           ;C94B-D2 59 C9
+        LXI     H,_PNTR         ;C94E-21 69 00
+        MVI     M,001H          ;C951-36 01
+        INX     H               ;C953-23
+        MVI     M,000H          ;C954-36 00
+        JMP     AFTCMD          ;C956-C3 5C C7
+JC959   LXI     H,_PNTR         ;C959-21 69 00
+        MOV     A,M             ;C95C-7E
+        INX     H               ;C95D-23
+        MOV     B,M             ;C95E-46
+        LXI     H,L007A         ;C95F-21 7A 00
+        SUB     M               ;C962-96
+        INX     H               ;C963-23
+        MOV     C,A             ;C964-4F
+        MOV     A,B             ;C965-78
+        SBB     M               ;C966-9E
+        LXI     H,_PNTR         ;C967-21 69 00
+        MOV     M,C             ;C96A-71
+        INX     H               ;C96B-23
+        MOV     M,A             ;C96C-77
+        JMP     AFTCMD          ;C96D-C3 5C C7
+JC970   LXI     H,_PNTR         ;C970-21 69 00
+        MOV     C,M             ;C973-4E
+        INX     H               ;C974-23
+        MOV     B,M             ;C975-46
+        LHLD    L007A           ;C976-2A 7A 00
+        DAD     B               ;C979-09
+        SHLD    L0083           ;C97A-22 83 00
+        XCHG                    ;C97D-EB
+        LXI     H,_EOF          ;C97E-21 6B 00
+        MOV     A,M             ;C981-7E
+        INX     H               ;C982-23
+        MOV     B,M             ;C983-46
+        SUB     E               ;C984-93
+        MOV     C,A             ;C985-4F
+        MOV     A,B             ;C986-78
+        SBB     D               ;C987-9A
+        JNC     JC994           ;C988-D2 94 C9
+        LHLD    _EOF            ;C98B-2A 6B 00
+        SHLD    _PNTR           ;C98E-22 69 00
+        JMP     JC99A           ;C991-C3 9A C9
+JC994   LHLD    L0083           ;C994-2A 83 00
+        SHLD    _PNTR           ;C997-22 69 00
+JC99A   JMP     AFTCMD          ;C99A-C3 5C C7
 
 ;*******************************
 ;Deletes the number of characters, starting at the pointer, specified in the command
 ;If the number is not specified, 1 is assumed.
-CMD_D:	LXI	H,L0079		;C99D-21 79 00
-	MOV	A,M		;C9A0-7E
-	RRC			;C9A1-0F
-	JNC	JC9D7		;C9A2-D2 D7 C9
-	LXI	H,_PNTR		;C9A5-21 69 00
-	MOV	A,M		;C9A8-7E
-	INX	H		;C9A9-23
-	MOV	B,M		;C9AA-46
-	LXI	H,L007A		;C9AB-21 7A 00
-	SUB	M		;C9AE-96
-	INX	H		;C9AF-23
-	MOV	A,B		;C9B0-78
-	SBB	M		;C9B1-9E
-	JNC	JC9C0		;C9B2-D2 C0 C9
-	LXI	H,_PNTR		;C9B5-21 69 00
-	MVI	M,001H		;C9B8-36 01
-	INX	H		;C9BA-23
-	MVI	M,000H		;C9BB-36 00
-	JMP	JCA01		;C9BD-C3 01 CA
-JC9C0	LXI	H,_PNTR		;C9C0-21 69 00
-	MOV	A,M		;C9C3-7E
-	INX	H		;C9C4-23
-	MOV	B,M		;C9C5-46
-	LXI	H,L007A		;C9C6-21 7A 00
-	SUB	M		;C9C9-96
-	INX	H		;C9CA-23
-	MOV	C,A		;C9CB-4F
-	MOV	A,B		;C9CC-78
-	SBB	M		;C9CD-9E
-	LXI	H,_PNTR		;C9CE-21 69 00
-	MOV	M,C		;C9D1-71
-	INX	H		;C9D2-23
-	MOV	M,A		;C9D3-77
-	JMP	JCA01		;C9D4-C3 01 CA
-JC9D7	LXI	H,_PNTR		;C9D7-21 69 00
-	MOV	C,M		;C9DA-4E
-	INX	H		;C9DB-23
-	MOV	B,M		;C9DC-46
-	LHLD	L007A		;C9DD-2A 7A 00
-	DAD	B		;C9E0-09
-	SHLD	L0083		;C9E1-22 83 00
-	XCHG			;C9E4-EB
-	LXI	H,_EOF		;C9E5-21 6B 00
-	MOV	A,M		;C9E8-7E
-	INX	H		;C9E9-23
-	MOV	B,M		;C9EA-46
-	SUB	E		;C9EB-93
-	MOV	C,A		;C9EC-4F
-	MOV	A,B		;C9ED-78
-	SBB	D		;C9EE-9A
-	JNC	JC9FB		;C9EF-D2 FB C9
-	LHLD	_EOF		;C9F2-2A 6B 00
-	SHLD	L006D		;C9F5-22 6D 00
-	JMP	JCA01		;C9F8-C3 01 CA
-JC9FB	LHLD	L0083		;C9FB-2A 83 00
-	SHLD	L006D		;C9FE-22 6D 00
-JCA01	CALL	CC6D6		;CA01-CD D6 C6
-	JMP	AFTCMD		;CA04-C3 5C C7
+CMD_D:  LXI     H,L0079         ;C99D-21 79 00
+        MOV     A,M             ;C9A0-7E
+        RRC                     ;C9A1-0F
+        JNC     JC9D7           ;C9A2-D2 D7 C9
+        LXI     H,_PNTR         ;C9A5-21 69 00
+        MOV     A,M             ;C9A8-7E
+        INX     H               ;C9A9-23
+        MOV     B,M             ;C9AA-46
+        LXI     H,L007A         ;C9AB-21 7A 00
+        SUB     M               ;C9AE-96
+        INX     H               ;C9AF-23
+        MOV     A,B             ;C9B0-78
+        SBB     M               ;C9B1-9E
+        JNC     JC9C0           ;C9B2-D2 C0 C9
+        LXI     H,_PNTR         ;C9B5-21 69 00
+        MVI     M,001H          ;C9B8-36 01
+        INX     H               ;C9BA-23
+        MVI     M,000H          ;C9BB-36 00
+        JMP     JCA01           ;C9BD-C3 01 CA
+JC9C0   LXI     H,_PNTR         ;C9C0-21 69 00
+        MOV     A,M             ;C9C3-7E
+        INX     H               ;C9C4-23
+        MOV     B,M             ;C9C5-46
+        LXI     H,L007A         ;C9C6-21 7A 00
+        SUB     M               ;C9C9-96
+        INX     H               ;C9CA-23
+        MOV     C,A             ;C9CB-4F
+        MOV     A,B             ;C9CC-78
+        SBB     M               ;C9CD-9E
+        LXI     H,_PNTR         ;C9CE-21 69 00
+        MOV     M,C             ;C9D1-71
+        INX     H               ;C9D2-23
+        MOV     M,A             ;C9D3-77
+        JMP     JCA01           ;C9D4-C3 01 CA
+JC9D7   LXI     H,_PNTR         ;C9D7-21 69 00
+        MOV     C,M             ;C9DA-4E
+        INX     H               ;C9DB-23
+        MOV     B,M             ;C9DC-46
+        LHLD    L007A           ;C9DD-2A 7A 00
+        DAD     B               ;C9E0-09
+        SHLD    L0083           ;C9E1-22 83 00
+        XCHG                    ;C9E4-EB
+        LXI     H,_EOF          ;C9E5-21 6B 00
+        MOV     A,M             ;C9E8-7E
+        INX     H               ;C9E9-23
+        MOV     B,M             ;C9EA-46
+        SUB     E               ;C9EB-93
+        MOV     C,A             ;C9EC-4F
+        MOV     A,B             ;C9ED-78
+        SBB     D               ;C9EE-9A
+        JNC     JC9FB           ;C9EF-D2 FB C9
+        LHLD    _EOF            ;C9F2-2A 6B 00
+        SHLD    L006D           ;C9F5-22 6D 00
+        JMP     JCA01           ;C9F8-C3 01 CA
+JC9FB   LHLD    L0083           ;C9FB-2A 83 00
+        SHLD    L006D           ;C9FE-22 6D 00
+JCA01   CALL    CC6D6           ;CA01-CD D6 C6
+        JMP     AFTCMD          ;CA04-C3 5C C7
 
 ;*******************************
-ACA07	DB	'9', '9', '9', '9', 'W', '9', '9', '9'
-	DB	'<', 'A', '5', '0', 'W', '>', 'U', '\'
-	DB	'\'
+ACA07   DB      '9', '9', '9', '9', 'W', '9', '9', '9'
+        DB      '<', 'A', '5', '0', 'W', '>', 'U', '\'
+        DB      '\'
 
 ;*******************************
 ;Saves the entire contents of the file (????) - it looks like in this version that command acts differently???
-CMD_E:	LXI	H,ACA07		;CA18-21 07 CA
-	SHLD	L0089		;CA1B-22 89 00
-	LXI	H,L0092		;CA1E-21 92 00
-	MVI	M,0FFH		;CA21-36 FF
-	CALL	JC21C		;CA23-CD 1C C2
-	JMP	AFTCMD		;CA26-C3 5C C7
+CMD_E:  LXI     H,ACA07         ;CA18-21 07 CA
+        SHLD    L0089           ;CA1B-22 89 00
+        LXI     H,L0092         ;CA1E-21 92 00
+        MVI     M,0FFH          ;CA21-36 FF
+        CALL    JC21C           ;CA23-CD 1C C2
+        JMP     AFTCMD          ;CA26-C3 5C C7
 
 ;*******************************
-CMD_U:	MVI	C,01AH		;CA29-0E 1A
-	CALL	CC1F2		;CA2B-CD F2 C1
-	CALL	CC085		;CA2E-CD 85 C0
-	JMP	EDINIT		;CA31-C3 27 C7
+CMD_U:  MVI     C,01AH          ;CA29-0E 1A
+        CALL    CC1F2           ;CA2B-CD F2 C1
+        CALL    CC085           ;CA2E-CD 85 C0
+        JMP     EDINIT          ;CA31-C3 27 C7
 
 ;*******************************
 ;Searches the file for a character string specified in the command
-CMD_F:	CALL	SEARCH		;CA34-CD 63 C6
-	MOV	C,A		;CA37-4F
-	LXI	H,L00B6		;CA38-21 B6 00
-	MOV	E,M		;CA3B-5E
-	MVI	D,000H		;CA3C-16 00
-	MOV	L,C		;CA3E-69
-	MOV	H,B		;CA3F-60
-	DAD	D		;CA40-19
-	SHLD	_PNTR		;CA41-22 69 00
-	JMP	AFTCMD		;CA44-C3 5C C7
+CMD_F:  CALL    SEARCH          ;CA34-CD 63 C6
+        MOV     C,A             ;CA37-4F
+        LXI     H,L00B6         ;CA38-21 B6 00
+        MOV     E,M             ;CA3B-5E
+        MVI     D,000H          ;CA3C-16 00
+        MOV     L,C             ;CA3E-69
+        MOV     H,B             ;CA3F-60
+        DAD     D               ;CA40-19
+        SHLD    _PNTR           ;CA41-22 69 00
+        JMP     AFTCMD          ;CA44-C3 5C C7
 
 ;*******************************
 ;Inserts text into the file immediately before the pointer
-CMD_I:	CALL	CC355		;CA47-CD 55 C3
-	LXI	H,L0085		;CA4A-21 85 00
-	MOV	M,A		;CA4D-77
-	SUI	05CH		;CA4E-D6 5C
-	JZ	JCAF9		;CA50-CA F9 CA
-	LXI	H,_PNTR		;CA53-21 69 00
-	MOV	A,M		;CA56-7E
-	INX	H		;CA57-23
-	MOV	B,M		;CA58-46
-	LXI	H,L006D		;CA59-21 6D 00
-	SUB	M		;CA5C-96
-	INX	H		;CA5D-23
-	MOV	C,A		;CA5E-4F
-	MOV	A,B		;CA5F-78
-	SBB	M		;CA60-9E
-	ORA	C		;CA61-B1
-	JNZ	JCADE		;CA62-C2 DE CA
-	CALL	CC3C6		;CA65-CD C6 C3
-	LXI	H,L0075		;CA68-21 75 00
-	MOV	A,M		;CA6B-7E
-	INX	H		;CA6C-23
-	MOV	B,M		;CA6D-46
-	SUI	00BH		;CA6E-D6 0B
-	MOV	C,A		;CA70-4F
-	MOV	A,B		;CA71-78
-	SBI	000H		;CA72-DE 00
-	MOV	B,A		;CA74-47
-	MOV	A,C		;CA75-79
-	LXI	H,L006F		;CA76-21 6F 00
-	SUB	M		;CA79-96
-	INX	H		;CA7A-23
-	MOV	A,B		;CA7B-78
-	SBB	M		;CA7C-9E
-	JC	JCCDA		;CA7D-DA DA CC
-	LHLD	L006F		;CA80-2A 6F 00
-	SHLD	L0083		;CA83-22 83 00
-	LXI	H,L0075		;CA86-21 75 00
-	MOV	A,M		;CA89-7E
-	INX	H		;CA8A-23
-	MOV	B,M		;CA8B-46
-	SUI	00AH		;CA8C-D6 0A
-	MOV	C,A		;CA8E-4F
-	MOV	A,B		;CA8F-78
-	SBI	000H		;CA90-DE 00
-	LXI	H,L006F		;CA92-21 6F 00
-	MOV	M,C		;CA95-71
-	INX	H		;CA96-23
-	MOV	M,A		;CA97-77
-	LXI	H,L006D		;CA98-21 6D 00
-	MOV	M,C		;CA9B-71
-	INX	H		;CA9C-23
-	MOV	M,A		;CA9D-77
-JCA9E	LXI	H,L0083		;CA9E-21 83 00
-	MOV	A,M		;CAA1-7E
-	INX	H		;CAA2-23
-	MOV	B,M		;CAA3-46
-	LXI	H,_PNTR		;CAA4-21 69 00
-	SUB	M		;CAA7-96
-	INX	H		;CAA8-23
-	MOV	A,B		;CAA9-78
-	SBB	M		;CAAA-9E
-	JC	JCAD7		;CAAB-DA D7 CA
-	LXI	H,L006D		;CAAE-21 6D 00
-	MOV	C,M		;CAB1-4E
-	INX	H		;CAB2-23
-	MOV	B,M		;CAB3-46
-	LXI	H,L00D7		;CAB4-21 D7 00
-	DAD	B		;CAB7-09
-	PUSH	H		;CAB8-E5
-	LXI	H,L0083		;CAB9-21 83 00
-	MOV	C,M		;CABC-4E
-	INX	H		;CABD-23
-	MOV	B,M		;CABE-46
-	LXI	H,L00D7		;CABF-21 D7 00
-	DAD	B		;CAC2-09
-	MOV	A,M		;CAC3-7E
-	POP	H		;CAC4-E1
-	MOV	M,A		;CAC5-77
-	LHLD	L0083		;CAC6-2A 83 00
-	DCX	H		;CAC9-2B
-	SHLD	L0083		;CACA-22 83 00
-	LHLD	L006D		;CACD-2A 6D 00
-	DCX	H		;CAD0-2B
-	SHLD	L006D		;CAD1-22 6D 00
-	JMP	JCA9E		;CAD4-C3 9E CA
-JCAD7	LHLD	L006D		;CAD7-2A 6D 00
-	INX	H		;CADA-23
-	SHLD	L006D		;CADB-22 6D 00
-JCADE	LXI	H,_PNTR		;CADE-21 69 00
-	MOV	C,M		;CAE1-4E
-	INX	H		;CAE2-23
-	MOV	B,M		;CAE3-46
-	LXI	H,L00D7		;CAE4-21 D7 00
-	DAD	B		;CAE7-09
-	XCHG			;CAE8-EB
-	LXI	H,L0085		;CAE9-21 85 00
-	MOV	C,M		;CAEC-4E
-	MOV	A,C		;CAED-79
-	STAX	D		;CAEE-12
-	LHLD	_PNTR		;CAEF-2A 69 00
-	INX	H		;CAF2-23
-	SHLD	_PNTR		;CAF3-22 69 00
-	JMP	CMD_I		;CAF6-C3 47 CA
-JCAF9	CALL	CC6D6		;CAF9-CD D6 C6
-	JMP	AFTCMD		;CAFC-C3 5C C7
+CMD_I:  CALL    CC355           ;CA47-CD 55 C3
+        LXI     H,L0085         ;CA4A-21 85 00
+        MOV     M,A             ;CA4D-77
+        SUI     05CH            ;CA4E-D6 5C
+        JZ      JCAF9           ;CA50-CA F9 CA
+        LXI     H,_PNTR         ;CA53-21 69 00
+        MOV     A,M             ;CA56-7E
+        INX     H               ;CA57-23
+        MOV     B,M             ;CA58-46
+        LXI     H,L006D         ;CA59-21 6D 00
+        SUB     M               ;CA5C-96
+        INX     H               ;CA5D-23
+        MOV     C,A             ;CA5E-4F
+        MOV     A,B             ;CA5F-78
+        SBB     M               ;CA60-9E
+        ORA     C               ;CA61-B1
+        JNZ     JCADE           ;CA62-C2 DE CA
+        CALL    CC3C6           ;CA65-CD C6 C3
+        LXI     H,L0075         ;CA68-21 75 00
+        MOV     A,M             ;CA6B-7E
+        INX     H               ;CA6C-23
+        MOV     B,M             ;CA6D-46
+        SUI     00BH            ;CA6E-D6 0B
+        MOV     C,A             ;CA70-4F
+        MOV     A,B             ;CA71-78
+        SBI     000H            ;CA72-DE 00
+        MOV     B,A             ;CA74-47
+        MOV     A,C             ;CA75-79
+        LXI     H,L006F         ;CA76-21 6F 00
+        SUB     M               ;CA79-96
+        INX     H               ;CA7A-23
+        MOV     A,B             ;CA7B-78
+        SBB     M               ;CA7C-9E
+        JC      JCCDA           ;CA7D-DA DA CC
+        LHLD    L006F           ;CA80-2A 6F 00
+        SHLD    L0083           ;CA83-22 83 00
+        LXI     H,L0075         ;CA86-21 75 00
+        MOV     A,M             ;CA89-7E
+        INX     H               ;CA8A-23
+        MOV     B,M             ;CA8B-46
+        SUI     00AH            ;CA8C-D6 0A
+        MOV     C,A             ;CA8E-4F
+        MOV     A,B             ;CA8F-78
+        SBI     000H            ;CA90-DE 00
+        LXI     H,L006F         ;CA92-21 6F 00
+        MOV     M,C             ;CA95-71
+        INX     H               ;CA96-23
+        MOV     M,A             ;CA97-77
+        LXI     H,L006D         ;CA98-21 6D 00
+        MOV     M,C             ;CA9B-71
+        INX     H               ;CA9C-23
+        MOV     M,A             ;CA9D-77
+JCA9E   LXI     H,L0083         ;CA9E-21 83 00
+        MOV     A,M             ;CAA1-7E
+        INX     H               ;CAA2-23
+        MOV     B,M             ;CAA3-46
+        LXI     H,_PNTR         ;CAA4-21 69 00
+        SUB     M               ;CAA7-96
+        INX     H               ;CAA8-23
+        MOV     A,B             ;CAA9-78
+        SBB     M               ;CAAA-9E
+        JC      JCAD7           ;CAAB-DA D7 CA
+        LXI     H,L006D         ;CAAE-21 6D 00
+        MOV     C,M             ;CAB1-4E
+        INX     H               ;CAB2-23
+        MOV     B,M             ;CAB3-46
+        LXI     H,L00D7         ;CAB4-21 D7 00
+        DAD     B               ;CAB7-09
+        PUSH    H               ;CAB8-E5
+        LXI     H,L0083         ;CAB9-21 83 00
+        MOV     C,M             ;CABC-4E
+        INX     H               ;CABD-23
+        MOV     B,M             ;CABE-46
+        LXI     H,L00D7         ;CABF-21 D7 00
+        DAD     B               ;CAC2-09
+        MOV     A,M             ;CAC3-7E
+        POP     H               ;CAC4-E1
+        MOV     M,A             ;CAC5-77
+        LHLD    L0083           ;CAC6-2A 83 00
+        DCX     H               ;CAC9-2B
+        SHLD    L0083           ;CACA-22 83 00
+        LHLD    L006D           ;CACD-2A 6D 00
+        DCX     H               ;CAD0-2B
+        SHLD    L006D           ;CAD1-22 6D 00
+        JMP     JCA9E           ;CAD4-C3 9E CA
+JCAD7   LHLD    L006D           ;CAD7-2A 6D 00
+        INX     H               ;CADA-23
+        SHLD    L006D           ;CADB-22 6D 00
+JCADE   LXI     H,_PNTR         ;CADE-21 69 00
+        MOV     C,M             ;CAE1-4E
+        INX     H               ;CAE2-23
+        MOV     B,M             ;CAE3-46
+        LXI     H,L00D7         ;CAE4-21 D7 00
+        DAD     B               ;CAE7-09
+        XCHG                    ;CAE8-EB
+        LXI     H,L0085         ;CAE9-21 85 00
+        MOV     C,M             ;CAEC-4E
+        MOV     A,C             ;CAED-79
+        STAX    D               ;CAEE-12
+        LHLD    _PNTR           ;CAEF-2A 69 00
+        INX     H               ;CAF2-23
+        SHLD    _PNTR           ;CAF3-22 69 00
+        JMP     CMD_I           ;CAF6-C3 47 CA
+JCAF9   CALL    CC6D6           ;CAF9-CD D6 C6
+        JMP     AFTCMD          ;CAFC-C3 5C C7
 
 ;*******************************
 ;Deletes all the characters in a line beginning at the current location of the pointer.
 ;The characters in the line that precede the pointer are not deleted.
 ;Also deletes CR and LF at the end of the file.
-CMD_K:	CALL	CC56B		;CAFF-CD 6B C5
-	LXI	H,L006D		;CB02-21 6D 00
-	MOV	M,A		;CB05-77
-	INX	H		;CB06-23
-	MOV	M,B		;CB07-70
-	LXI	H,_PNTR		;CB08-21 69 00
-	SUB	M		;CB0B-96
-	INX	H		;CB0C-23
-	MOV	A,B		;CB0D-78
-	SBB	M		;CB0E-9E
-	JNC	JCB24		;CB0F-D2 24 CB
-	LHLD	_PNTR		;CB12-2A 69 00
-	SHLD	L0083		;CB15-22 83 00
-	LHLD	L006D		;CB18-2A 6D 00
-	SHLD	_PNTR		;CB1B-22 69 00
-	LHLD	L0083		;CB1E-2A 83 00
-	SHLD	L006D		;CB21-22 6D 00
-JCB24	CALL	CC6D6		;CB24-CD D6 C6
-	JMP	AFTCMD		;CB27-C3 5C C7
+CMD_K:  CALL    CC56B           ;CAFF-CD 6B C5
+        LXI     H,L006D         ;CB02-21 6D 00
+        MOV     M,A             ;CB05-77
+        INX     H               ;CB06-23
+        MOV     M,B             ;CB07-70
+        LXI     H,_PNTR         ;CB08-21 69 00
+        SUB     M               ;CB0B-96
+        INX     H               ;CB0C-23
+        MOV     A,B             ;CB0D-78
+        SBB     M               ;CB0E-9E
+        JNC     JCB24           ;CB0F-D2 24 CB
+        LHLD    _PNTR           ;CB12-2A 69 00
+        SHLD    L0083           ;CB15-22 83 00
+        LHLD    L006D           ;CB18-2A 6D 00
+        SHLD    _PNTR           ;CB1B-22 69 00
+        LHLD    L0083           ;CB1E-2A 83 00
+        SHLD    L006D           ;CB21-22 6D 00
+JCB24   CALL    CC6D6           ;CB24-CD D6 C6
+        JMP     AFTCMD          ;CB27-C3 5C C7
 
 ;*******************************
 ;Moves the pointer before the first character of the next line in the file
-CMD_L:	CALL	CC56B		;CB2A-CD 6B C5
-	LXI	H,_PNTR		;CB2D-21 69 00
-	MOV	M,A		;CB30-77
-	INX	H		;CB31-23
-	MOV	M,B		;CB32-70
-	JMP	AFTCMD		;CB33-C3 5C C7
+CMD_L:  CALL    CC56B           ;CB2A-CD 6B C5
+        LXI     H,_PNTR         ;CB2D-21 69 00
+        MOV     M,A             ;CB30-77
+        INX     H               ;CB31-23
+        MOV     M,B             ;CB32-70
+        JMP     AFTCMD          ;CB33-C3 5C C7
 
 ;*******************************
-CMD_N:	CALL	CC201		;CB36-CD 01 C2
-	CALL	CC085		;CB39-CD 85 C0
-	JMP	AFTCMD		;CB3C-C3 5C C7
+CMD_N:  CALL    CC201           ;CB36-CD 01 C2
+        CALL    CC085           ;CB39-CD 85 C0
+        JMP     AFTCMD          ;CB3C-C3 5C C7
 
 ;*******************************
 ;Finds a character string and substitutes another character string for it
-CMD_S:	CALL	SEARCH		;CB3F-CD 63 C6
-	LXI	H,_PNTR		;CB42-21 69 00
-	MOV	M,A		;CB45-77
-	INX	H		;CB46-23
-	MOV	M,B		;CB47-70
-	MOV	C,A		;CB48-4F
-	LXI	H,L00B6		;CB49-21 B6 00
-	MOV	E,M		;CB4C-5E
-	MVI	D,000H		;CB4D-16 00
-	MOV	L,C		;CB4F-69
-	MOV	H,B		;CB50-60
-	DAD	D		;CB51-19
-	SHLD	L006D		;CB52-22 6D 00
-	JMP	CMD_I		;CB55-C3 47 CA
+CMD_S:  CALL    SEARCH          ;CB3F-CD 63 C6
+        LXI     H,_PNTR         ;CB42-21 69 00
+        MOV     M,A             ;CB45-77
+        INX     H               ;CB46-23
+        MOV     M,B             ;CB47-70
+        MOV     C,A             ;CB48-4F
+        LXI     H,L00B6         ;CB49-21 B6 00
+        MOV     E,M             ;CB4C-5E
+        MVI     D,000H          ;CB4D-16 00
+        MOV     L,C             ;CB4F-69
+        MOV     H,B             ;CB50-60
+        DAD     D               ;CB51-19
+        SHLD    L006D           ;CB52-22 6D 00
+        JMP     CMD_I           ;CB55-C3 47 CA
 
 ;*******************************
 ;Displays a line on the Console Output device
-CMD_T:	MVI	A,0FFH		;CB58-3E FF
-	STA	L00D6		;CB5A-32 D6 00
-	CALL	CC56B		;CB5D-CD 6B C5
-	LXI	H,L0083		;CB60-21 83 00
-	MOV	M,A		;CB63-77
-	INX	H		;CB64-23
-	MOV	M,B		;CB65-70
-	LXI	H,_PNTR		;CB66-21 69 00
-	SUB	M		;CB69-96
-	INX	H		;CB6A-23
-	MOV	C,A		;CB6B-4F
-	MOV	A,B		;CB6C-78
-	SBB	M		;CB6D-9E
-	ORA	C		;CB6E-B1
-	JZ	JCBC6		;CB6F-CA C6 CB
-	LXI	H,_PNTR		;CB72-21 69 00
-	MOV	A,M		;CB75-7E
-	INX	H		;CB76-23
-	MOV	B,M		;CB77-46
-	LXI	H,L0083		;CB78-21 83 00
-	SUB	M		;CB7B-96
-	INX	H		;CB7C-23
-	MOV	C,A		;CB7D-4F
-	MOV	A,B		;CB7E-78
-	SBB	M		;CB7F-9E
-	JNC	JCBA6		;CB80-D2 A6 CB
-	LXI	B,L00D7		;CB83-01 D7 00
-	LHLD	_PNTR		;CB86-2A 69 00
-	DAD	B		;CB89-09
-	XCHG			;CB8A-EB
-	LXI	H,L0083		;CB8B-21 83 00
-	MOV	A,M		;CB8E-7E
-	INX	H		;CB8F-23
-	MOV	B,M		;CB90-46
-	LXI	H,_PNTR		;CB91-21 69 00
-	SUB	M		;CB94-96
-	INX	H		;CB95-23
-	MOV	C,A		;CB96-4F
-	MOV	A,B		;CB97-78
-	SBB	M		;CB98-9E
-	MOV	B,A		;CB99-47
-	PUSH	D		;CB9A-D5
-	MOV	L,C		;CB9B-69
-	MOV	H,B		;CB9C-60
-	DCX	H		;CB9D-2B
-	XCHG			;CB9E-EB
-	POP	B		;CB9F-C1
-	CALL	PRINT		;CBA0-CD B0 C1
-	JMP	JCBC6		;CBA3-C3 C6 CB
-JCBA6	LXI	B,L00D7		;CBA6-01 D7 00
-	LHLD	L0083		;CBA9-2A 83 00
-	DAD	B		;CBAC-09
-	XCHG			;CBAD-EB
-	LXI	H,_PNTR		;CBAE-21 69 00
-	MOV	A,M		;CBB1-7E
-	INX	H		;CBB2-23
-	MOV	B,M		;CBB3-46
-	LXI	H,L0083		;CBB4-21 83 00
-	SUB	M		;CBB7-96
-	INX	H		;CBB8-23
-	MOV	C,A		;CBB9-4F
-	MOV	A,B		;CBBA-78
-	SBB	M		;CBBB-9E
-	MOV	B,A		;CBBC-47
-	PUSH	D		;CBBD-D5
-	MOV	L,C		;CBBE-69
-	MOV	H,B		;CBBF-60
-	DCX	H		;CBC0-2B
-	XCHG			;CBC1-EB
-	POP	B		;CBC2-C1
-	CALL	PRINT		;CBC3-CD B0 C1
-JCBC6	XRA	A		;CBC6-AF
-	STA	L00C8		;CBC7-32 C8 00
-	JMP	AFTCMD		;CBCA-C3 5C C7
+CMD_T:  MVI     A,0FFH          ;CB58-3E FF
+        STA     L00D6           ;CB5A-32 D6 00
+        CALL    CC56B           ;CB5D-CD 6B C5
+        LXI     H,L0083         ;CB60-21 83 00
+        MOV     M,A             ;CB63-77
+        INX     H               ;CB64-23
+        MOV     M,B             ;CB65-70
+        LXI     H,_PNTR         ;CB66-21 69 00
+        SUB     M               ;CB69-96
+        INX     H               ;CB6A-23
+        MOV     C,A             ;CB6B-4F
+        MOV     A,B             ;CB6C-78
+        SBB     M               ;CB6D-9E
+        ORA     C               ;CB6E-B1
+        JZ      JCBC6           ;CB6F-CA C6 CB
+        LXI     H,_PNTR         ;CB72-21 69 00
+        MOV     A,M             ;CB75-7E
+        INX     H               ;CB76-23
+        MOV     B,M             ;CB77-46
+        LXI     H,L0083         ;CB78-21 83 00
+        SUB     M               ;CB7B-96
+        INX     H               ;CB7C-23
+        MOV     C,A             ;CB7D-4F
+        MOV     A,B             ;CB7E-78
+        SBB     M               ;CB7F-9E
+        JNC     JCBA6           ;CB80-D2 A6 CB
+        LXI     B,L00D7         ;CB83-01 D7 00
+        LHLD    _PNTR           ;CB86-2A 69 00
+        DAD     B               ;CB89-09
+        XCHG                    ;CB8A-EB
+        LXI     H,L0083         ;CB8B-21 83 00
+        MOV     A,M             ;CB8E-7E
+        INX     H               ;CB8F-23
+        MOV     B,M             ;CB90-46
+        LXI     H,_PNTR         ;CB91-21 69 00
+        SUB     M               ;CB94-96
+        INX     H               ;CB95-23
+        MOV     C,A             ;CB96-4F
+        MOV     A,B             ;CB97-78
+        SBB     M               ;CB98-9E
+        MOV     B,A             ;CB99-47
+        PUSH    D               ;CB9A-D5
+        MOV     L,C             ;CB9B-69
+        MOV     H,B             ;CB9C-60
+        DCX     H               ;CB9D-2B
+        XCHG                    ;CB9E-EB
+        POP     B               ;CB9F-C1
+        CALL    PRINT           ;CBA0-CD B0 C1
+        JMP     JCBC6           ;CBA3-C3 C6 CB
+JCBA6   LXI     B,L00D7         ;CBA6-01 D7 00
+        LHLD    L0083           ;CBA9-2A 83 00
+        DAD     B               ;CBAC-09
+        XCHG                    ;CBAD-EB
+        LXI     H,_PNTR         ;CBAE-21 69 00
+        MOV     A,M             ;CBB1-7E
+        INX     H               ;CBB2-23
+        MOV     B,M             ;CBB3-46
+        LXI     H,L0083         ;CBB4-21 83 00
+        SUB     M               ;CBB7-96
+        INX     H               ;CBB8-23
+        MOV     C,A             ;CBB9-4F
+        MOV     A,B             ;CBBA-78
+        SBB     M               ;CBBB-9E
+        MOV     B,A             ;CBBC-47
+        PUSH    D               ;CBBD-D5
+        MOV     L,C             ;CBBE-69
+        MOV     H,B             ;CBBF-60
+        DCX     H               ;CBC0-2B
+        XCHG                    ;CBC1-EB
+        POP     B               ;CBC2-C1
+        CALL    PRINT           ;CBC3-CD B0 C1
+JCBC6   XRA     A               ;CBC6-AF
+        STA     L00C8           ;CBC7-32 C8 00
+        JMP     AFTCMD          ;CBCA-C3 5C C7
 
 ;*******************************
 ;Takes N lines from the beginning of the memory buffer
 ;and writes them onto a (?disk?). The lines that are output
 ;are deleted from memory (this prevents the duplication of
 ;these lines when an E command is issued.
-CMD_W:	LXI	H,L0079		;CBCD-21 79 00
-	MVI	M,000H		;CBD0-36 00
-	LXI	H,_PNTR		;CBD2-21 69 00
-	MVI	M,001H		;CBD5-36 01
-	INX	H		;CBD7-23
-	MVI	M,000H		;CBD8-36 00
-	CALL	CC56B		;CBDA-CD 6B C5
-	LXI	H,L006D		;CBDD-21 6D 00
-	MOV	M,A		;CBE0-77
-	INX	H		;CBE1-23
-	MOV	M,B		;CBE2-70
-	LXI	H,L0083		;CBE3-21 83 00
-	MVI	M,001H		;CBE6-36 01
-	INX	H		;CBE8-23
-	MVI	M,000H		;CBE9-36 00
-JCBEB	LHLD	L006D		;CBEB-2A 6D 00
-	DCX	H		;CBEE-2B
-	XCHG			;CBEF-EB
-	MOV	A,E		;CBF0-7B
-	LXI	H,L0083		;CBF1-21 83 00
-	SUB	M		;CBF4-96
-	INX	H		;CBF5-23
-	MOV	A,D		;CBF6-7A
-	SBB	M		;CBF7-9E
-	JC	JCC11		;CBF8-DA 11 CC
-	DCX	H		;CBFB-2B
-	MOV	C,M		;CBFC-4E
-	INX	H		;CBFD-23
-	MOV	B,M		;CBFE-46
-	LXI	H,L00D7		;CBFF-21 D7 00
-	DAD	B		;CC02-09
-	MOV	C,M		;CC03-4E
-	CALL	CC1F2		;CC04-CD F2 C1
-	LHLD	L0083		;CC07-2A 83 00
-	INX	H		;CC0A-23
-	SHLD	L0083		;CC0B-22 83 00
-	JMP	JCBEB		;CC0E-C3 EB CB
-JCC11	CALL	CC6D6		;CC11-CD D6 C6
-	JMP	AFTCMD		;CC14-C3 5C C7
+CMD_W:  LXI     H,L0079         ;CBCD-21 79 00
+        MVI     M,000H          ;CBD0-36 00
+        LXI     H,_PNTR         ;CBD2-21 69 00
+        MVI     M,001H          ;CBD5-36 01
+        INX     H               ;CBD7-23
+        MVI     M,000H          ;CBD8-36 00
+        CALL    CC56B           ;CBDA-CD 6B C5
+        LXI     H,L006D         ;CBDD-21 6D 00
+        MOV     M,A             ;CBE0-77
+        INX     H               ;CBE1-23
+        MOV     M,B             ;CBE2-70
+        LXI     H,L0083         ;CBE3-21 83 00
+        MVI     M,001H          ;CBE6-36 01
+        INX     H               ;CBE8-23
+        MVI     M,000H          ;CBE9-36 00
+JCBEB   LHLD    L006D           ;CBEB-2A 6D 00
+        DCX     H               ;CBEE-2B
+        XCHG                    ;CBEF-EB
+        MOV     A,E             ;CBF0-7B
+        LXI     H,L0083         ;CBF1-21 83 00
+        SUB     M               ;CBF4-96
+        INX     H               ;CBF5-23
+        MOV     A,D             ;CBF6-7A
+        SBB     M               ;CBF7-9E
+        JC      JCC11           ;CBF8-DA 11 CC
+        DCX     H               ;CBFB-2B
+        MOV     C,M             ;CBFC-4E
+        INX     H               ;CBFD-23
+        MOV     B,M             ;CBFE-46
+        LXI     H,L00D7         ;CBFF-21 D7 00
+        DAD     B               ;CC02-09
+        MOV     C,M             ;CC03-4E
+        CALL    CC1F2           ;CC04-CD F2 C1
+        LHLD    L0083           ;CC07-2A 83 00
+        INX     H               ;CC0A-23
+        SHLD    L0083           ;CC0B-22 83 00
+        JMP     JCBEB           ;CC0E-C3 EB CB
+JCC11   CALL    CC6D6           ;CC11-CD D6 C6
+        JMP     AFTCMD          ;CC14-C3 5C C7
 
 ;*******************************
 ; Exit from editor, return to monitor
-QUIT:	LXI	H,L0000		;CC17-21 00 00
-	SHLD	L0009		;CC1A-22 09 00
-	JMP	MONI		;CC1D-C3 4B F8
+QUIT:   LXI     H,L0000         ;CC17-21 00 00
+        SHLD    L0009           ;CC1A-22 09 00
+        JMP     MONI            ;CC1D-C3 4B F8
 
 ;*******************************
 ;Computes and displays on the console output device,
 ;the number of bytes of memory still available
-CMD_M:	LXI	B,FRESTR	;CC20-01 61 C0
-	LXI	D,L0008		;CC23-11 08 00
-	CALL	PRINT		;CC26-CD B0 C1
-	LHLD	L0075		;CC29-2A 75 00
-	XCHG			;CC2C-EB
-	LHLD	_EOF		;CC2D-2A 6B 00
-	MOV	A,E		;CC30-7B
-	SUB	L		;CC31-95
-	MOV	L,A		;CC32-6F
-	MOV	A,D		;CC33-7A
-	SBB	H		;CC34-9C
-	MOV	H,A		;CC35-67
-	CALL	CC421		;CC36-CD 21 C4
-	LXI	B,BYTSTR	;CC39-01 6A C0
-	LXI	D,L0005		;CC3C-11 05 00
-	CALL	PRINT		;CC3F-CD B0 C1
-	JMP	AFTCMD		;CC42-C3 5C C7
+CMD_M:  LXI     B,FRESTR        ;CC20-01 61 C0
+        LXI     D,L0008         ;CC23-11 08 00
+        CALL    PRINT           ;CC26-CD B0 C1
+        LHLD    L0075           ;CC29-2A 75 00
+        XCHG                    ;CC2C-EB
+        LHLD    _EOF            ;CC2D-2A 6B 00
+        MOV     A,E             ;CC30-7B
+        SUB     L               ;CC31-95
+        MOV     L,A             ;CC32-6F
+        MOV     A,D             ;CC33-7A
+        SBB     H               ;CC34-9C
+        MOV     H,A             ;CC35-67
+        CALL    CC421           ;CC36-CD 21 C4
+        LXI     B,BYTSTR        ;CC39-01 6A C0
+        LXI     D,L0005         ;CC3C-11 05 00
+        CALL    PRINT           ;CC3F-CD B0 C1
+        JMP     AFTCMD          ;CC42-C3 5C C7
 
 ;*******************************
-CMD_O:	LXI	H,L00C8		;CC45-21 C8 00
-	MVI	M,0FFH		;CC48-36 FF
-	LXI	H,L0000		;CC4A-21 00 00
-	SHLD	L00C9		;CC4D-22 C9 00
-	JMP	CMD_T		;CC50-C3 58 CB
+CMD_O:  LXI     H,L00C8         ;CC45-21 C8 00
+        MVI     M,0FFH          ;CC48-36 FF
+        LXI     H,L0000         ;CC4A-21 00 00
+        SHLD    L00C9           ;CC4D-22 C9 00
+        JMP     CMD_T           ;CC50-C3 58 CB
 
 ;*******************************
 ;Moves the pointer immediately following the last character in the file
-CMD_Z:	LHLD	_EOF		;CC53-2A 6B 00
-	SHLD	_PNTR		;CC56-22 69 00
-	JMP	AFTCMD		;CC59-C3 5C C7
+CMD_Z:  LHLD    _EOF            ;CC53-2A 6B 00
+        SHLD    _PNTR           ;CC56-22 69 00
+        JMP     AFTCMD          ;CC59-C3 5C C7
 
 ;******************************
 ;Run a given command
-RUNCMD:	LXI	H,L0085		;CC5C-21 85 00
-	MOV	C,M		;CC5F-4E
-	CALL	XLAT		;CC60-CD 0D C1 ;convert input value to CTBL offset
-	MOV	A,C		;CC63-79
-	ANI	01FH		;CC64-E6 1F    ;0001.1111, only bits 5 thru 0 of CNVTBL taken into account
-	MOV	C,A		;CC66-4F
-	MVI	B,000H		;CC67-06 00
-	LXI	H,CTBL		;CC69-21 73 CC
-	DAD	B		;CC6C-09       
-	DAD	B		;CC6D-09       ;twice because CTBL have 2-byte values
-	MOV	E,M		;CC6E-5E       
-	INX	H		;CC6F-23
-	MOV	D,M		;CC70-56       ;DE:= command addr from CTBL
-	XCHG			;CC71-EB       ;HL:= command addr from CTBL
-	PCHL			;CC72-E9       ;go to command processing routine
+RUNCMD: LXI     H,L0085         ;CC5C-21 85 00
+        MOV     C,M             ;CC5F-4E
+        CALL    XLAT            ;CC60-CD 0D C1 ;convert input value to CTBL offset
+        MOV     A,C             ;CC63-79
+        ANI     01FH            ;CC64-E6 1F    ;0001.1111, only bits 5 thru 0 of CNVTBL taken into account
+        MOV     C,A             ;CC66-4F
+        MVI     B,000H          ;CC67-06 00
+        LXI     H,CTBL          ;CC69-21 73 CC
+        DAD     B               ;CC6C-09       
+        DAD     B               ;CC6D-09       ;twice because CTBL have 2-byte values
+        MOV     E,M             ;CC6E-5E       
+        INX     H               ;CC6F-23
+        MOV     D,M             ;CC70-56       ;DE:= command addr from CTBL
+        XCHG                    ;CC71-EB       ;HL:= command addr from CTBL
+        PCHL                    ;CC72-E9       ;go to command processing routine
 
 ;******************************
 ; Editor commands branch table
 ;******************************
-CTBL:	DW	UNKNWN		;CC73-9F CC *  ;00 - letters not included in list (unknown command)
-	DW	CMD_I		;CC75-47 CA *  ;01 - I,И insert text
-	DW	CMD_K		;CC77-FF CA *  ;02 - K,К kill
-	DW	CMD_B		;CC79-2B C9 *  ;03 - B,В beginning of text
-	DW	CMD_Z		;CC7B-53 CC *  ;04 - Z,З end of text
-	DW	QUIT		;CC7D-17 CC *  ;05 - Q   quit
-	DW	CMD_N		;CC7F-36 CB *  ;06 - N
-	DW	CMD_E		;CC81-18 CA *  ;07 - E,Е exit after writing text to output file
-	DW	CMD_L		;CC83-2A CB *  ;08 - L,Л line
-	DW	CMD_M		;CC85-20 CC *  ;09 - M,М memory
-	DW	CMD_A		;CC87-58 C8 *  ;0A - A,А append
-	DW	CMD_W		;CC89-CD CB *  ;0B - W   write
-	DW	CMD_O		;CC8B-45 CC *  ;0C - O,О
-	DW	CMD_F		;CC8D-34 CA *  ;0D - F,Ф find text string
-	DW	CMD_C		;CC8F-36 C9 *  ;0E - C,С character
-	DW	CMD_T		;CC91-58 CB *  ;0F - Т,Т type out text
-	DW	CMD_D		;CC93-9D C9 *  ;10 - D,Д delete
-	DW	CMD_S		;CC95-3F CB *  ;11 - S   substitute text string
-	DW	UNKNWN		;CC97-9F CC *  ;12 - P,Р
-	DW	UNKNWN		;CC99-9F CC *  ;13 - G,Г
-	DW	UNKNWN		;CC9B-9F CC *  ;14 - V,Ж
-	DW	CMD_U		;CC9D-29 CA *  ;15 - U
+CTBL:   DW      UNKNWN          ;CC73-9F CC *  ;00 - letters not included in list (unknown command)
+        DW      CMD_I           ;CC75-47 CA *  ;01 - I,И insert text
+        DW      CMD_K           ;CC77-FF CA *  ;02 - K,К kill
+        DW      CMD_B           ;CC79-2B C9 *  ;03 - B,В beginning of text
+        DW      CMD_Z           ;CC7B-53 CC *  ;04 - Z,З end of text
+        DW      QUIT            ;CC7D-17 CC *  ;05 - Q   quit
+        DW      CMD_N           ;CC7F-36 CB *  ;06 - N
+        DW      CMD_E           ;CC81-18 CA *  ;07 - E,Е exit after writing text to output file
+        DW      CMD_L           ;CC83-2A CB *  ;08 - L,Л line
+        DW      CMD_M           ;CC85-20 CC *  ;09 - M,М memory
+        DW      CMD_A           ;CC87-58 C8 *  ;0A - A,А append
+        DW      CMD_W           ;CC89-CD CB *  ;0B - W   write
+        DW      CMD_O           ;CC8B-45 CC *  ;0C - O,О
+        DW      CMD_F           ;CC8D-34 CA *  ;0D - F,Ф find text string
+        DW      CMD_C           ;CC8F-36 C9 *  ;0E - C,С character
+        DW      CMD_T           ;CC91-58 CB *  ;0F - Т,Т type out text
+        DW      CMD_D           ;CC93-9D C9 *  ;10 - D,Д delete
+        DW      CMD_S           ;CC95-3F CB *  ;11 - S   substitute text string
+        DW      UNKNWN          ;CC97-9F CC *  ;12 - P,Р
+        DW      UNKNWN          ;CC99-9F CC *  ;13 - G,Г
+        DW      UNKNWN          ;CC9B-9F CC *  ;14 - V,Ж
+        DW      CMD_U           ;CC9D-29 CA *  ;15 - U
 
 ;unknown command
-UNKNWN:	LXI	H,L0085		;CC9F-21 85 00
-	MOV	A,M		;CCA2-7E       ;read command letter again
-	SUI	'\'		;CCA3-D6 5C    
-	JZ	AFTCMD		;CCA5-CA 5C C7 ;read new command if slash
-	MOV	A,M		;CCA8-7E
-	SUI	' '		;CCA9-D6 20
-	JC	JCCC7		;CCAB-DA C7 CC ;jump if space
-JCCAE	LXI	B,ERRSTR	;CCAE-01 40 C0 ;otherwise error
-	LXI	D,L0007		;CCB1-11 07 00
-	CALL	PRINT		;CCB4-CD B0 C1 ;print 'ERROR' in cyrillic
-	LXI	H,L0085		;CCB7-21 85 00 ;read command letter again
-	MOV	C,M		;CCBA-4E
-	CALL	CC0A0		;CCBB-CD A0 C0
-	CALL	CC08B		;CCBE-CD 8B C0
-	CALL	JC21C		;CCC1-CD 1C C2
-	JMP	AFTCMD		;CCC4-C3 5C C7 ;read new command
+UNKNWN: LXI     H,L0085         ;CC9F-21 85 00
+        MOV     A,M             ;CCA2-7E       ;read command letter again
+        SUI     '\'             ;CCA3-D6 5C    
+        JZ      AFTCMD          ;CCA5-CA 5C C7 ;read new command if slash
+        MOV     A,M             ;CCA8-7E
+        SUI     ' '             ;CCA9-D6 20
+        JC      JCCC7           ;CCAB-DA C7 CC ;jump if space
+JCCAE   LXI     B,ERRSTR        ;CCAE-01 40 C0 ;otherwise error
+        LXI     D,L0007         ;CCB1-11 07 00
+        CALL    PRINT           ;CCB4-CD B0 C1 ;print 'ERROR' in cyrillic
+        LXI     H,L0085         ;CCB7-21 85 00 ;read command letter again
+        MOV     C,M             ;CCBA-4E
+        CALL    CC0A0           ;CCBB-CD A0 C0
+        CALL    CC08B           ;CCBE-CD 8B C0
+        CALL    JC21C           ;CCC1-CD 1C C2
+        JMP     AFTCMD          ;CCC4-C3 5C C7 ;read new command
 
-JCCC7	LXI	H,L0085		;CCC7-21 85 00
-	MVI	M,'?'		;CCCA-36 3F
-	JMP	JCCAE		;CCCC-C3 AE CC ;it looks like a patch.
+JCCC7   LXI     H,L0085         ;CCC7-21 85 00
+        MVI     M,'?'           ;CCCA-36 3F
+        JMP     JCCAE           ;CCCC-C3 AE CC ;it looks like a patch.
  
-	DI			;CCCF-F3       ;This code, up to JCCDA, never will be run
-	LXI	SP,L0068	;CCD0-31 68 00
-	MVI	A,020H		;CCD3-3E 20
-	OUT	0C0H		;CCD5-D3 C0
-	JMP	JCCE6		;CCD7-C3 E6 CC
+        DI                      ;CCCF-F3       ;This code, up to JCCDA, never will be run
+        LXI     SP,L0068        ;CCD0-31 68 00
+        MVI     A,020H          ;CCD3-3E 20
+        OUT     0C0H            ;CCD5-D3 C0
+        JMP     JCCE6           ;CCD7-C3 E6 CC
 
-JCCDA	LXI	B,OVFST2	;CCDA-01 4A C0
-	LXI	D,L000B		;CCDD-11 0B 00
-	CALL	PRINT		;CCE0-CD B0 C1
-	CALL	CC6D6		;CCE3-CD D6 C6
-JCCE6	XRA	A		;CCE6-AF
-	STA	L00C8		;CCE7-32 C8 00
-	STA	L00D6		;CCEA-32 D6 00
-	STA	L0092		;CCED-32 92 00
-	LXI	B,RSTSTR	;CCF0-01 58 C0
-	LXI	D,L0008		;CCF3-11 08 00
-	CALL	PRINT		;CCF6-CD B0 C1
-	CALL	JC21C		;CCF9-CD 1C C2
-	JMP	AFTCMD		;CCFC-C3 5C C7
-	NOP			;CCFF-00
+JCCDA   LXI     B,OVFST2        ;CCDA-01 4A C0
+        LXI     D,L000B         ;CCDD-11 0B 00
+        CALL    PRINT           ;CCE0-CD B0 C1
+        CALL    CC6D6           ;CCE3-CD D6 C6
+JCCE6   XRA     A               ;CCE6-AF
+        STA     L00C8           ;CCE7-32 C8 00
+        STA     L00D6           ;CCEA-32 D6 00
+        STA     L0092           ;CCED-32 92 00
+        LXI     B,RSTSTR        ;CCF0-01 58 C0
+        LXI     D,L0008         ;CCF3-11 08 00
+        CALL    PRINT           ;CCF6-CD B0 C1
+        CALL    JC21C           ;CCF9-CD 1C C2
+        JMP     AFTCMD          ;CCFC-C3 5C C7
+        NOP                     ;CCFF-00
 
-	END
+        END
